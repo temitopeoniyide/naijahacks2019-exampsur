@@ -1,10 +1,10 @@
 # NaijaHacks Hackathon 2019
 ## Team Dexter
 ### Team Members
-- Oniyide Temitope, temitopeoniyidemichael@@gmail.com  
+- Oniyide Temitope, temitopeoniyidemichael@gmail.com  
 - Oniyide Oluwatobi, oniyideoluwatobiloba747@gmail.com
 - Bakare Temitayo, t4christ@gmail.com
-- Seun             justthinking54gmail.com
+- Seun             justthinking54@gmail.com
 
 ### Problem
 Many exams in Nigeria from o-level, a-level, professional to job exams/test. The feeling of complete preparation is until many have taken a sample test over and over again. But there is a problem with time, cost and accessibility to this exams.  
