@@ -20,3 +20,14 @@ An easy access to preparation for any exam.
 A good place to know how see how well an exam taker is prepared and also to know the areas of weakness.
 Tutor student interation and support.
 Improved eamination pass rate and learning
+
+
+### Clone the repository 
+
+```
+git clone https://github.com/temitopeoniyide/naijahacks2019-examspur.git
+```
+
+### Install all dependencies
+
+Using nuget
