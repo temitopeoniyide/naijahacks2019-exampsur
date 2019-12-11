@@ -1,0 +1,170 @@
+.taalem-demo-switcher {
+	position: fixed;
+	top: 0;
+	right: -311px;
+	width: 310px;
+	height: 100%;
+	z-index: 999999;
+	background-color: #fff;
+	-webkit-transition: right 0.5s;
+	-moz-transition: right 0.5s;
+	-ms-transition: right 0.5s;
+	-o-transition: right 0.5s;
+	transition: right 0.5s;
+}
+
+.taalem-demo-switcher.open-switcher {
+	right: 0;
+	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .24);
+	-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .24);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .24);
+}
+
+.taalem-demo-switcher h3 {
+	font-size: 14px;
+	text-transform: uppercase;
+	margin: 0;
+	color: #000;
+	font-weight: 600;
+	cursor: pointer;
+	float: left;
+	margin-top: 170px;
+	margin-left: -70px;
+	padding: 17px 5px 17px 0;
+	width: 70px;
+	line-height: 1;
+	text-align: center;
+	background-color: #fff;
+	-webkit-box-shadow: -1px 0 1px rgba(0, 0, 0, .24);
+	-moz-box-shadow: -1px 0 1px rgba(0, 0, 0, .24);
+	box-shadow: -1px 0 1px rgba(0, 0, 0, .24);
+}
+
+.taalem-demo-switcher .switcher-header {
+	text-align: center;
+}
+
+.taalem-demo-switcher .switcher-header .swicher-logo {
+	width: 100%;
+	height: 60px;
+	background-image: url("images/de13.jpg");
+	margin-bottom: 25px;
+}
+
+.taalem-demo-switcher .switcher-header p {
+	white-space: pre-line;
+	line-height: 1.2;
+	margin-bottom: 30px;
+}
+
+.taalem-demo-switcher .switcher-header .s-buy {
+	border-radius: 4px;
+	box-shadow: 0 2px 0 #6f9a37;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	text-align: center;
+	display: inline-block;
+	padding: 10px;
+	width: 244px;
+	background: #82b440;
+	margin-bottom: 30px;
+}
+
+.taalem-demo-switcher .switcher-header .s-buy .fa {
+	margin-right: 10px;
+}
+
+.taalem-demo-switcher .switcher-header h4 {
+	font-size: 18px;
+	font-weight: 500;
+	margin: 0 0 30px;
+	line-height: 1;
+}
+
+.taalem-demo-switcher .switcher-content {
+	padding: 0 5px;
+	height: 100vh;
+	overflow-x: auto;
+	padding-bottom: 267px;
+	position: relative;
+	z-index: 1;
+}
+
+.taalem-demo-switcher .switcher-content::-webkit-scrollbar {
+	display: none;
+}
+
+.taalem-demo-switcher .switcher-content .tl-demo-item {
+	width: 100%;
+	display: block;
+	height: 147px;
+	margin-bottom: 10px;
+}
+
+.taalem-demo-switcher .switcher-content .demo-item {
+	padding: 0 5px;
+}
+
+.taalem-demo-switcher .switcher-content .item-large {
+	clear: both;
+}
+
+.taalem-demo-switcher .switcher-content .demo-item:first-child {
+	clear: none;
+}
+
+.taalem-demo-switcher .switcher-content .item-small {
+	width: 50%;
+	float: left;
+}
+
+.taalem-demo-switcher .switcher-content .item-1 {
+	background-image: url("images/de1.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-2 {
+	background-image: url("images/de2.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-3 {
+	background-image: url("images/de3.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-4 {
+	background-image: url("images/de4.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-5 {
+	background-image: url("images/de5.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-6 {
+	background-image: url("images/de6.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-7 {
+	background-image: url("images/de7.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-8 {
+	background-image: url("images/de8.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-9 {
+	background-image: url("images/de9.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-10 {
+	background-image: url("images/de10.jpg");
+}
+
+.taalem-demo-switcher .switcher-content .item-11 {
+	background-image: url("images/de11.jpg");
+}
+
+@media (max-width: 767px) {
+	.taalem-demo-switcher {
+		display: none;
+	}
+}
