@@ -1,0 +1,328 @@
+﻿
+@{
+    ViewBag.Title = "Subscription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    h1, h2, h3, h4, h5, h6, p, li, div, input, th, td,span,small,sup,sub {
+        font-family: 'ABeeZee', sans-serif;
+    }
+    .ui-ribbon-container .ui-ribbon {
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    transform: rotate(45deg);
+    padding: 7px 0;
+    left: -5px;
+    top: 15px;
+    width: 120px;
+    line-height: 20px;
+    background-color: forestgreen;
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+</style>
+<div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel" >
+                    <div class="x_title">
+                        <h2>Subscription Plans</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <!-- price element -->
+                                <!-- price element -->
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="pricing ui-ribbon-container">
+                                        <div class="ui-ribbon-wrapper">
+                                            @*<div class="ui-ribbon">
+                                                20% Off
+                                            </div>*@
+                                        </div>
+                                        <div class="title">
+                                            <h2 id="p2"></h2>
+                                            <h1 id="price2"></h1>
+
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="">
+                                                <div class="pricing_features">
+                                                    <ul class="list-unstyled text-left">
+                                                        <li><i class="fa fa-check text-success"></i> 5  <strong> Exam Access </strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>Performance Tracking</strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>weak Area Analysis</strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>Access to improvement resources</strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>Daily Question Bot </strong></li>
+                                                        @* <li><i class="fa fa-check text-success"></i> <strong> 1st runnerup 200k + 1 Mini Laptop </strong></li>
+        <li><i class="fa fa-check text-success"></i>  <strong> 2nd runnerup 100k + 1 Android Phone </strong></li>*@
+                                                        @*<li><i class="fa fa-check text-success"></i>Monitor  <strong> Performance Trend</strong></li>
+        <li><i class="fa fa-check text-success"></i>Access to  <strong>Monthly Performance Rewards</strong></li>*@
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="pricing_footer">
+                                                <a href="javascript:void(0);" class="btn btn-primary btn-block" role="button" id="btnPlan2">Subscribe</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- price element -->
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="pricing ui-ribbon-container">
+                                        <div class="ui-ribbon-wrapper">
+                                            @*<div class="ui-ribbon">
+                                                20% Off
+                                            </div>*@
+                                        </div>
+                                        <div class="title">
+                                            <h3 id="p2">Subscribe By Pin</h3>
+                                            <h1 id="price2"></h1>
+
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="">
+                                                <div class="pricing_features">
+                                                    <ul class="list-unstyled text-left">
+                                                        <li><i class="fa fa-check text-success"></i> 5  <strong> Exam Access </strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>Performance Tracking</strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>weak Area Analysis</strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>Access to improvement resources</strong></li>
+                                                        <li><i class="fa fa-check text-success"></i> <strong>Daily Question Bot </strong></li>
+
+                                                    </ul>
+                                                    @*<li><i class="fa fa-check text-success"></i>Monitor  <strong> Performance Trend</strong></li>
+        <li><i class="fa fa-check text-success"></i>Access to  <strong>Monthly Performance Rewards</strong></li>*@
+                                                </div>
+                                            </div>
+                                            <div class="pricing_footer">
+                                                <a href="javascript:void(0);" class="btn btn-primary btn-block" role="button" id="btnPlan3">Subscribe</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var obj = {};
+        obj.usertype = 1;
+
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Subscriptions","Account")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                if (response.value == 1) {
+                   // $("#p1").html(response.resp[0].PlanType)
+                   // $("#price1").html("&#8358 " + response.resp[0].PlanAmount)
+                    $("#p2").html(response.resp[0].PlanType)
+                    $("#price2").html("&#8358 " + response.resp[0].PlanAmount);
+                  //  localStorage.setItem("Price1", String(response.resp[0].PlanAmount))
+                    localStorage.setItem("Price2", String(response.resp[0].PlanAmount))
+                   // $("#btnPlan1").attr("planid", response.resp[0].Id)
+                    $("#btnPlan2").attr("planid", response.resp[0].Id)
+                }
+                else {
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: response.msg,
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+
+                };
+
+            },
+            error: function (error) {
+                new PNotify({
+                    title: 'Something Went Wrong',
+                    text: "We are working to fix this as soon as possible. Kindly try again later",
+                    type: 'error',
+                    hide: 'false',
+                    styling: 'bootstrap3',
+                });
+
+            }
+
+        });
+
+
+    });
+
+    $("#btnPlan3").click(function () {
+        window.location = "/Account/SubscribeByPin";
+    })
+
+    $("#btntrial").click(function () {
+        localStorage.setItem("ExamMethod","trial");
+    })
+    $("#btnPlan1,#btnPlan2").click(function () {
+        Payment($(this).attr("id"));
+    })
+    function Payment(id) {
+        var obj = {};
+        if (id == "btnPlan1") {
+            $("#btnPlan1").attr("disabled", "disabled").html("<i class=\"fa fa-spin fa-spinner\"></i>");
+            obj.planid = parseInt($("#btnPlan1").attr("planid"));
+        }
+        else {
+            $("#btnPlan2").attr("disabled", "disabled").html("<i class=\"fa fa-spin fa-spinner\"></i>")
+            obj.planid = parseInt($("#btnPlan2").attr("planid"));
+        }
+                var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("NewPayment","Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                success: function(response){
+                    if (response.value == 1) {
+                        payWithPaystack(id,response.subId,response.amount);
+                    }
+                   else if (response.value == 2) new PNotify({
+                        title: 'Ooops!!!',
+                        text: response.msg,
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    }) 
+
+                    else {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: response.msg,
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        }) 
+
+                    };
+                    
+                },
+                error: function (error) {
+                   
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: "Error Occured. Please try again",
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+
+            });
+        }
+
+        function payWithPaystack(btnid,subId,amount) {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_26e54fa675cfd3456b34ed00f4d06bfbdc7bf7d9',
+
+               // key: 'pk_live_104cd64d66b833281410d703bc2555b421f796a0',
+                email: '@Session["email"]',
+                amount: amount*100,
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+234" + String(@Session["phone"]).substr(1),
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    var obj = {};
+                    obj.subid = subId;
+                    obj.paymentRef = response.reference;
+                       var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("UpdatePayment","Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                    success: function (response) {
+                        if (btnid == "btnPlan1") {
+                            $("#btnPlan1").removeAttr( "disabled").html("Subscribe");
+                           
+                        }
+                        else {
+                            $("#btnPlan2").removeAttr("disabled").html("Subscribe");
+                          
+                        }
+                        if (response.value == 1) {
+                           
+
+                        new PNotify({
+                            title: 'Transaction Successful',
+                            text: "success. transaction ref is " + obj.paymentRef + "",
+                            type: 'success',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            });
+                            window.location = "/Index/Home";
+                    }
+                    else {
+                       
+                        if (btnid == "btnPlan1") {
+                            $("#btnPlan1").removeAttr("disabled").html("Subscribe");
+
+                        }
+                        else {
+                            $("#btnPlan2").removeAttr("disabled").html("Subscribe");
+
+                        }
+                    };
+                    
+                },
+                error: function (error) {
+                    if (btnid == "btnPlan1") {
+                        $("#btnPlan1").removeAttr("disabled").html("Subscribe");
+
+                    }
+                    else {
+                        $("#btnPlan2").removeAttr("disabled").html("Subscribe");
+
+                    }
+                   
+                }
+
+            });
+                   
+                   
+                },
+                onClose: function () {
+                    $("#btnPlan2").removeAttr("disabled").html("Subscribe");
+                }
+            });
+            handler.openIframe();
+        }
+    
+</script>

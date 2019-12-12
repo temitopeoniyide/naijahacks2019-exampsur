@@ -1,0 +1,529 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<link href="~/build/css/loading.css" rel="stylesheet" />
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+@*<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">*@
+<script src="/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]},
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"]
+    });
+    MathJax.Hub.Startup.onload();
+
+</script>
+
+<style>
+    h1, h2, h3, h4, h5, h6, p, li {
+        font-family: 'ABeeZee', sans-serif;
+    }
+
+    .MathJax_Display {
+        display: inline !important
+    }
+
+    li {
+        /*list-style: none !important*/
+    }
+
+    .dashboard-widget-content .sidebar-widget {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        background: #fff;
+        border: 1px solid #abd9ea;
+        border-radius: 5px;
+        text-align: center;
+        float: left;
+        padding: 2px;
+        margin-top: 10px;
+        margin-left: 40px;
+    }
+
+    .jcount {
+        font-size: 30px;
+        line-height: 47px;
+        font-weight: 600;
+    }
+</style>
+<div class="loading" style="display:none">Loading your result&#8230;</div>
+<div class="row">
+    <div class="col-sm-12">
+
+
+
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h4>Student Performance by Topic</h4>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="x_content">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="row" style="margin-bottom:20px">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <select id="ddlclass2" class="form-control"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <select id="ddlsubject" class="form-control"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-10 col-xs-12">
+                                                    <div class="form-group">
+                                                        <select id="ddltopic" class="form-control"></select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-2 col-xs-12">
+                                                    <div class="form-group">
+                                                     <button class="btn btn-sm btn-success form-control" id="btnviewresult"><i class="fa fa-eye"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h4 id="subject"></h4>
+
+                                                </div>
+
+                                                <div class="x_content">
+
+
+
+                                                    <div class="table table-responsive">
+
+                                                        <table class="table table-bordered table-dark table-striped datatable-buttons" id="table2">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>First Name</th>
+                                                                    <th>Last Name</th>
+                                                                    <th>Username</th>
+                                                                    <th>Class</th>
+                                                                    <th>Avg. Performance</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbody2"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                </div>
+
+         
+<div id="myModal" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Exam Correction</h4>
+            </div>
+            <div class="modal-body" style="max-height:400px;overflow-y:scroll">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_content">
+                            <br />
+                            <div class="animated flipInY col-md-12 col-sm-12 col-xs-12">
+                                <div class="tile-stats">
+                                    <h1>You scored <strong id="score" class="text-warning"></strong> in  <strong class="subject"></strong></h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 class="subject">Use of English</h2>
+                                @*<div class="year pull-right">
+                                        2014
+                                    </div>*@
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="row" id="corr">
+                                @*<div class="col-md-12 col-xs-12">
+                                        <div class="x_content">
+                                            <p id="question">Which of the following is NOT a characteristic of the parliamentary system of government?</p>
+                                            <ol type="a">
+
+                                                <li class="text-success">
+                                                    Ministers are usually members of parliament
+                                                </li>
+
+
+                                            </ol>
+                                            <div class="ln_solid"></div>
+                                            <p>You Chose: <strong></strong></p>
+                                            <p class="text-success">Correct Answer is: <strong></strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>*@
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="~/vendors/jszip/dist/jszip.min.js"></script>
+<script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="~/vendors/Chart.js/dist/Chart.min.js"></script>
+<script src="~/vendors/gauge.js/dist/gauge.min.js"></script>
+<script src="~/vendors/raphael/raphael.min.js"></script>
+<script src="~/vendors/morris.js/morris.min.js"></script>
+<script src="~/vendors/nprogress/nprogress.js"></script>
+<script src="~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<script>
+    $(document).ready(function () {
+        loadClass();
+    });
+
+
+
+
+
+    
+    function loadTopics(id) {
+
+      var  subjectid = parseInt(id);
+
+            var obj = {};
+             obj.subjectId = subjectid;
+        var jsonData = JSON.stringify(obj);
+        var top = "";
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("loadTopicssss", "Index")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                success: function(response){
+                    if (response.value == 1) {
+                        $.each(response.resp, function (i, item) {
+
+                        top   += "<option value= " + item.TopicId + " >" + item.TopicName + "</option>";
+                           
+                        });
+                        $("#ddltopic").html(top);
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: response.msg,
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        })
+
+                    };
+
+                },
+                error: function (error) {
+
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: "Error Occured. Please trying to Load Topics ",
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+
+            });
+    };
+
+
+
+    let loadSubject = function (classId) {
+        var obj = {};
+        obj.examId = 1000;
+        var ddls="";
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("LoadSubject","Index")",
+            contentType: "Application/json",
+        data: jsonData,
+        dataType: "json",
+        success: function (response) {
+            if (response.value == 1) {
+                $.each(response.resp, function (idx, Subject) {
+                    ddls += "<option value=" + Subject["SubjectID"] + ">" + Subject["SubjectName"] + "</option>";
+                });
+                $("#ddlsubject").html(ddls);
+                $("#subject").text(response.resp[0].SubjectName);
+            
+                loadTopics(response.resp[0].SubjectID);
+                            }
+        }
+                });
+
+
+    }
+    let loadClass = function () {
+        var obj = {};
+        // obj.merchantid =
+
+
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json charset=utf-8',
+            url: '/Index/loadClass',
+            data: jsonData,
+            dataType: 'json',
+            success: function (response) {
+                var tBody = "";
+                var ddlClass = "";
+                if (response == null) {
+
+                    ddlClass = "<option value=" + 0 + ">" + "--Select Class or Group--" + "</option>";
+                    $("#ddlclass").html(ddlClass);
+
+                }
+                else {
+                    $.each(response, function (i, item) {
+
+                        ddlClass += "<option value=" + item.id + ">" + item.Class + "</option>";
+                    });
+                    $(".class").text(response[0].Class);
+                    $("#ddlclass,#ddlclass2").html(ddlClass);
+
+                }
+               // loadResult(response[0].id);
+                loadSubject(response[0].id);
+             
+            }
+        });
+    }
+    $("#ddlclass").change(function () {
+       // loadResult($(this).val());
+
+    })
+    $("#ddlclass2").change(function () {
+       /// loadPerformanceBySubject($(this).val(), $("#ddlsubject").val());
+
+    });
+    $("#ddlsubject").change(function () {
+        $("#subject").text($("#ddlsubject :selected").text());
+       // loadPerformanceBySubject($("#ddlclass2").val(), $(this).val());
+        loadTopics($(this).val());
+    });
+    $("#btnviewresult").click(function () {
+        loadPerformanceByTopic($("#ddlclass2").val(), $("#ddltopic").val());
+    })
+    let loadPerformanceByTopic = function (classId,topicId) {
+        $(".loading").show();
+        var obj = {};
+        obj.classId = parseInt(classId);
+        obj.topicId = parseInt(topicId);
+       // obj.subjectId=parseInt(subjectId)
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json charset=utf-8',
+            url: '/Admin/loadResultByTopic',
+            data: jsonData,
+            dataType: 'json',
+            success: function (response) {
+                $(".loading").hide();
+              //  $(".avg").text(0);
+                if (response.length != 0) {
+                   $("#table2").DataTable().destroy();
+                    $("#tbody2").html("");
+                    var scores = 0;
+                    $.each(response, function (i, item) {
+                        
+                        var row = " <tr>" +
+                                                    "<td>" + item.firstname + "</td>" +
+                                                    "<td>" + item.lastname + "</td> " +
+                                                    "<td>" + item.email + "</td>    " +
+                                                    "<td>" + item.Sclass + "</td>   " +
+                            "<td>" + parseFloat(item.score).toFixed(0) + " / 10</td>    " +
+                                                "</tr>";
+
+                      //  scores += parseFloat(sum/5);
+                        $("#tbody2").append(row);
+                    });
+
+                    handleDataTableButtons($("#table2"));
+                }
+
+            }
+        }).done(function () {
+            $(".loading").hide();
+        });
+
+    }
+    var handleDataTableButtons = function ($this) {
+        if ($this.length) {
+            $($this).DataTable({
+                dom: "Blfrtip",
+                buttons: [
+                  {
+                      extend: "copy",
+                      className: "btn-sm"
+                  },
+                  {
+                      extend: "csv",
+                      className: "btn-sm",
+                      text: "Download Excel"
+                  },
+                  {
+                      extend: "excel",
+                      className: "btn-sm"
+                  },
+                  {
+                      extend: "pdfHtml5",
+                      className: "btn-sm"
+                  },
+                  {
+                      extend: "print",
+                      className: "btn-sm"
+                  },
+                ],
+                responsive: false
+            });
+        }
+    };
+    $(document).on("click", ".view", function () {
+        var obj = {};
+        var data = [];
+        var label = [];
+        $("#studentname").html("<h4 class=\"text-primary\">"+$(this).closest("tr").find("td:eq(0)").text().toUpperCase() + " " + $(this).closest("tr").find("td:eq(1)").text().toUpperCase()+"</h4>");
+        obj.userid = parseInt($(this).data("id"));
+
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json charset=utf-8',
+            url: '/Index/ResultSummaryForMerchant',
+            data: jsonData,
+            dataType: 'json',
+            success: function (response) {
+                let row = "";
+                if (response.length == 0)
+                    row = "<tr><td colspan=\"6\">No UTME Mock Exam Result to Display </td></tr>";
+                else {
+                    $.each(response, function (i, item) {
+                        var type = (item.exammode == "1") ? "Straight" : "Pause and Resume";
+                        label.push(item.startdate);
+
+                        data.push(parseInt(item.score.split('.')[0]));
+                         row = +"<tr>" +
+                            "<td>" + item.examid + "</td>" +
+                            "<td>" + type + "</td> " +
+                            "<td>" + item.startdate + "</td>" +
+                            "<td>" + item.timeused + "</td> " +
+                            "<td>" + item.score.split('.')[0] + "</td>    " +
+                            " <td><button class=\"btn btn-info btn-sm rr\" type=\"button\" idd=" + item.examid + ">View Result</button></td>" +
+                            "</tr>";
+                    });
+
+                };
+                $("#tbody3").html(row);
+                $("#divresult").slideDown(2000, function () {
+                    $('html, body').animate({
+                        scrollTop: $("#divresult").offset().top
+                    }, 2000)
+                });
+                if ($('#lineChart').length) {
+
+                    var ctx = document.getElementById("lineChart");
+                    var lineChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: label,
+                            datasets: [{
+                                label: "My Score",
+                                backgroundColor: "rgba(38, 185, 154, 0.31)",
+                                borderColor: "rgba(38, 185, 154, 0.7)",
+                                pointBorderColor: "rgba(38, 185, 154, 0.7)",
+                                pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "rgba(220,220,220,1)",
+                                pointBorderWidth: 1,
+                                data: data
+                            }]
+                        },
+                    });
+
+                }
+            }
+        });
+
+    });
+    $(document).on("click", ".rr", function () {
+        getDetails($(this).attr("idd"));
+    });
+    function getDetails(examTakenId) {
+        let url = "@Url.Action("ResultDetails", "Index")";
+        $("#divDetails").load(url, { examId: examTakenId, trial: 0 }, function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+
+                $("#divDetails").slideDown("slow");
+                //   $("#mainDiv").slideUp();
+                if ($(".progress .progress-bar")[0]) {
+                    $('.progress .progress-bar').progressbar();
+                }
+            }
+
+            if (statusTxt == "error")
+                alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+    };
+
+
+ 
+    $("#close").click(function () {
+        $("#divresult").slideUp("fast");
+        $("#divDetails").html("");
+    });
+</script>
+

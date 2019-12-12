@@ -1,0 +1,288 @@
+﻿@model IEnumerable<ExamSpur.Models.PinBatch>
+@{
+    Layout = "~/Views/Shared/_Layout11.cshtml";
+}
+
+<link href="../vendors/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+
+<!-- Datatables -->
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered datatable-buttons">
+                <thead>
+                    <tr>
+                        <th>
+                            Batch ID
+                        </th>
+                        <th>
+                            Date Generated
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Used
+                        </th>
+                        <th>
+                            Remmmited Amount
+                        </th>
+                        <th>
+                            status
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @{
+                        if (Model != null)
+                        {
+                            if (Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    var paid = (item.paid==null)?0:item.paid;
+                            <tr>
+                                <td>@item.batchid</td>
+                                <td>@item.gendate.ToShortDateString()</td>
+                                <td>@item.count</td>
+                                <td>@item.used</td>
+                              @if (item.paid == null) {
+                                   <td>@(string.Format("{0:n}",0))</td>
+                              }
+
+                              else
+                              { <td>@(string.Format("{0:n}", item.paid))</td>
+                              }
+                                @if (item.remitted == 1)
+                                {
+                                    <td><span class="label label-success">Closed</span></td>
+                                }
+                                else
+                                {
+                                    <td><button class="btn btn-sm btn-success btn-remit" data-batch="@item.batchid" data-bal="@(6000 - paid)">Remmit</button></td>
+                                }
+                                @if (item.used == 12)
+                                {
+                                    <td><button disabled="disabled"><i class="fa fa-print"></i></button></td>
+                                }
+                                else
+                                {
+
+                                    <td><a class="btn-print btn btn-sm btn-primary" data-batch="@item.batchid" href="/Admin/PrintPin/@item.batchid" target="_blank"><i class="fa fa-print"></i></a></td>
+
+                                }
+                            </tr>
+                                    }
+                                }
+                            }
+                        }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<div id="myModal" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Subcription</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+
+                            <label class="label label-danger ">Total Amount</label>
+                            <input class="form-control input-sm" placeholder="total Amount" id="totalamount" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:20px">
+
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="col-xs-offset-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-primary" id="btnPay"> Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../vendors/sweetalert/dist/sweetalert.min.js?45667"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="~/vendors/jszip/dist/jszip.min.js"></script>
+<script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+<script>
+    var batchid = 0;
+   var  bal = 0;
+    $(document).ready(function () {
+        if ("@Session["email"]" == "") window.location = "/Account/PartnerAccount";
+        $(".btn-remit").click(function () {
+            batchid = parseInt($(this).data("batch"));
+            bal = parseInt($(this).data("bal"));
+            $("#myModal").modal("show");
+        });
+        $("#btnPay").click(function () {
+            if (batchid == 0) {
+                new PNotify({
+                    title: '',
+                    text: "Please Select a batch",
+                    type: 'error',
+                    hide: 'false',
+                    styling: 'bootstrap3',
+                })
+                return;
+
+            }
+            if (parseInt($("#totalamount").val()) % 500 != 0) {
+                new PNotify({
+                    title: '',
+                    text: "Enter Amount in Multiples of 500",
+                    type: 'error',
+                    hide: 'false',
+                    styling: 'bootstrap3',
+                })
+                return;
+            }
+            if (parseInt($("#totalamount").val()) > bal) {
+                new PNotify({
+                    title: '',
+                    text: "Amount greater than remittance Balance",
+                    type: 'error',
+                    hide: 'false',
+                    styling: 'bootstrap3',
+                })
+                return;
+            }
+
+
+            swal({
+                title: "Payment Confirmation?",
+                text: "You are paying a total sum of " + $("#totalamount").val() + " for Batch:" + batchid,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-success",
+                cancelButtonClass: "btn-danger",
+                confirmButtonText: "Yes, continue!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        swal.close();
+                        $("#btnPay").html("<i class=\"fa fa-spinner fa-spin \"></i>").attr("disabled", "disabled");
+                        payWithPaystack(parseInt($("#totalamount").val()));
+                    } else {
+                        swal("Cancelled", "", "error");
+                    }
+                });
+
+        });
+
+    });
+        function payWithPaystack(amount) {
+            var handler = PaystackPop.setup({
+               // key: 'pk_live_104cd64d66b833281410d703bc2555b421f796a0',
+               key: 'pk_test_26e54fa675cfd3456b34ed00f4d06bfbdc7bf7d9',
+                email: '@Session["email"]',
+                amount: amount*100,
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+234" + String(@Session["phone"]).substr(1),
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    var obj = {};
+                  //  obj.subid = subId;
+                    obj.paymentRef = response.reference;
+                    obj.unit = amount / 500;
+                    obj.batchid = batchid;
+                    obj.amount = parseFloat(amount).toFixed(2);
+                       var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("RemitPayPostPaid","Admin")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                    success: function (response) {
+
+
+                            $("#btnPay").removeAttr("disabled").html("Pay");
+
+
+                    if (response.value == 1) {
+                        new PNotify({
+                            title: 'Transaction Successful',
+                            text: "success. transaction ref is " + obj.paymentRef + "",
+                            type: 'success',
+                            hide: false,
+                            styling: 'bootstrap3',
+                        });
+                        location.reload();
+                    }
+                    else {
+
+                        $("#btnPay").removeAttr("disabled").html("Pay");
+                    };
+
+                },
+                error: function (error) {
+                    $("#btnPay").removeAttr("disabled").html("Pay");
+
+                }
+
+            });
+
+
+                },
+                onClose: function () {
+                    $("#btnPay").removeAttr("disabled").html("Pay");
+                }
+            });
+            handler.openIframe();
+        }
+
+</script>

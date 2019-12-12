@@ -1,0 +1,213 @@
+﻿
+@model IEnumerable<ExamSpur.Models.ResultDetailsViewModel>
+<script type="text/javascript">
+       @*sessionStorage.obj = JSON.stringify(@Model);*@
+</script>
+<div class="col-md-12 col-sm-12 col-xs-12" id="111" fff="">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Result Details</h2>
+            <ul class="nav navbar-right panel_toolbox">
+
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+                <li>
+                    <a class="close-link"><i class="fa fa-close" id="closed"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th><strong>Topic</strong></th>
+                            <th><strong>Total Question</strong></th>
+                            <th><strong>Attempted</strong></th>
+                            <th><strong>Failed</strong></th>
+                            <th><strong>Passsed</strong></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-info">@item.subject</td>
+                                <td class="text-info">@item.totalQuestion</td>
+                                <td class="text-info">@item.attempted</td>
+                                <td class="text-danger">@(Convert.ToInt32(item.totalQuestion) - item.passed)</td>
+                                <td class="text-info">@item.passed</td>
+
+                                <td><a class="btn btn-sm btn-danger cc" sid="@item.subjectID" examid="@item.examid"><i class="fa fa-eye"></i>See Correction</a></td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Performance Statistics</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 bg-white">
+                                    <div class="x_title">
+                                        <h2>Subject Performance</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div>
+                                                <p>@item.subject</p>
+                                                <div class="">
+
+                                                    @{ if (item.score <= 40)
+                                                        { <div class="progress progress_lg">
+                                                                <div class="progress-bar bg-red text-dark" data-transitiongoal="@Math.Round((decimal)item.score/Convert.ToInt32(item.totalQuestion)*100,1)">@Math.Round((decimal)item.score / Convert.ToInt32(item.totalQuestion) * 100, 1)%</div>
+                                                            </div>
+                                                        }
+                                                        else if (item.score > 40 && item.score < 70)
+                                                        {
+                                                            <div class="progress progress_lg">
+                                                                <div class="progress-bar bg-yellow text-dark" data-transitiongoal="@Math.Round((decimal)item.score/Convert.ToInt32(item.totalQuestion)*100,1)">@Math.Round((decimal)item.score / Convert.ToInt32(item.totalQuestion) * 100, 1)%</div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="progress progress_lg">
+                                                                <div class="progress-bar bg-green text-dark" data-transitiongoal="@Math.Round((decimal)item.score/Convert.ToInt32(item.totalQuestion)*100,1)">@Math.Round((decimal)item.score / Convert.ToInt32(item.totalQuestion) * 100, 1)%</div>
+
+
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+
+
+                                            @*<div class="col-md-12 col-sm-12 col-xs-6">
+                                                    <div>
+                                                        <p>Biology</p>
+                                                        <div class="">
+                                                            <div class="progress progress_sm" style="width: 76%;">
+                                                                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="86"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <p>Economics</p>
+                                                        <div class="">
+                                                            <div class="progress progress_sm" style="width: 76%;">
+                                                                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="90"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <br />
+
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="x_panel">
+                               
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_content">
+                                            @*<div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <h2>Total Percentage</h2>
+                                                        <h1 class="jcount text-success">@(Model.Sum(o => o.score)) %</h1>
+                                                    </div>
+                                                </div>*@
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <h2>Total Score</h2>
+                                                    <h1 class="jcount text-success">@Math.Round(Model.Sum(o => o.score), 0)</h1>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Time Analysis</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                @*<div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_content">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <h5><strong>Start Time</strong></h5>
+                                                    <h5><strong>Time Spent</strong></h5>
+                                                    <h5><strong>Time Advantage</strong></h5>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <h5>@Model.FirstOrDefault().startTime</h5>
+                                                    <h5 class="text-danger">@Model.FirstOrDefault().timeUsed</h5>
+                                                    <h5 class="text-danger">@(Model.FirstOrDefault().timeAdv) %</h5>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,160 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Partners Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Client Signup Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Custom Theme files -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- //Custom Theme files -->
+    <!-- web font -->
+    <link href="//fonts.googleapis.com/css?family=Old+Standard+TT:400,400i,700" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'><!--web font-->
+    <!-- //web font -->
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+
+</head>
+<body>
+    <!-- main -->
+    <div class="main main-agileits">
+        <h1> Login Form</h1>
+        <div class="main-agilerow">
+            <div class="signup-wthreetop">
+                <h2>   EXAMSPUR</h2>
+                <p> </p>
+            </div>
+            <div class="contact-wthree">
+                <div>
+
+                    <div class="form-w3step1">
+
+                        <input type="email" class="" name="Email" placeholder="Username or Email" required="" id="username">
+
+
+                        <input type="password" name="Password" placeholder="Password" required="" id="password">
+
+
+
+                    </div>
+                    <div class="tabs-content">
+
+                    </div>
+                    <input type="button" value="Login" id="btnLogin">
+
+                    @*<li style="width:100%"><a href="#" class="login-tab active">Reset Password</a></li>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //main -->
+    <!-- copyright -->
+    <div class="w3copyright-agile">
+        <p>© @DateTime.Now.Year Examspur. All right reserved | Design By   <a href="https://mcadwaresolutions.com" target="_blank"><span style="color: #FF1493">mc</span><span style="color:#ff7d01">Adware</span> <span style="color:#8492a5">Solutions</span></a></p>
+
+    </div>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#btnLogin").click(function () {
+                var userName = $("#username").val();
+
+                var password = $("#password").val();
+
+
+
+
+                if (userName == "" || userName.length < 4) {
+                    $("#username").notify(
+                        "Please enter a valid username or email",
+                        { position: "top", className: "error" }
+                    );
+                    return;
+
+                }
+
+
+
+                if (password == "") {
+                    $("#password").notify(
+                        "Enter password",
+                        { position: "right", className: "error" }
+                    );
+                    return;
+
+                }
+
+                let obj = {};
+                obj.username = userName;
+                obj.password = password;
+
+                let jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json charsetutf-8',
+                    url: '/Account/LoginAtso',
+                    data: jsonData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.value == 1 && userName == "operators") {
+                            window.location = "/Index/AssociationDashBoard";
+
+                        }
+
+                       if (response.value == 1 && userName == "mcAdware") {
+                            window.location = "/Index/AdminDashboard";
+                        }
+
+                        if (response.value == 1 && userName == "elder") {
+                            window.location = "/Index/ElderDashBoar";
+                        }
+
+
+                        if (response.value == 1 && userName == "partners") {
+                            window.location = "/Index/OurPartnersDashboard";
+                        }
+
+                        if (response.value == 1 && userName == "mcAdwaredashboard") {
+                            window.location = "/Index/mcadwareDashBoard";
+                        }
+                        else $.notify(response.msg, "error");
+                    
+                    },
+                    error: function (error) {
+
+                        $.notify("Ooooops !!!!! Something went wrong. Try again shortly", "error");
+
+                    }
+
+
+
+
+
+                });
+
+
+
+            });
+        });
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+
+
+
+    </script>
+</body>
+</html>

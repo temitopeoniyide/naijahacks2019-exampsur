@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ExamSpur.Models.PinInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link href="~/fonts/fa-svg-with-js.css" rel="stylesheet" />
+
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <!-- bootstrap-progressbar -->
+    <link href="~/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+    <!-- JQVMap -->
+    <link href="~/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="~/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+    <link href="~/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+    <link href="~/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+    <link href="~/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css?66" rel="stylesheet" />
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css?9777769f" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        h1, h2, h3, h4, h5, h6, p, li {
+            font-family: 'ABeeZee', sans-serif;
+        }
+    </style>
+    <style type="text/css" media="print">
+  @@page { size: landscape; }
+    </style>
+
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/build/js/custom.js?v=1249456"></script>
+</head>
+<body>
+    @{
+        var k = 0;
+        for (var i = 0; i < Model.Count(); i++)
+        { <div class="row" style="margin:20px">
+
+                @for (var j=0;j < 12;j++)
+                {
+
+                <div class="col-xs-4 col-md-4 invoice-col" style="height:180px;border:1px solid #ccc">
+                    <div class="row">
+                        <div class="col-xs-3 invoice-col form-group" style="margin-top:5px">
+                            <img src="~/ExamSpur_Img/logo.jpg" class="img-thumbnail" />
+                        </div>
+                        <div class="col-xs-offset-6 col-xs-3" style="margin-top:5px"> <img src="~/ExamSpur_Img/atsologo.jpg" width="50" class="img-thumbnail" /></div>
+                        <div class="row form-group">
+                            <div class="col-xs-offset-2 col-xs-10" style="font-size:24px;font-weight:bold">@Model.ElementAt(i).PinNumber</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-12 " style="text-align:center"><small>Visit www.examspur.com/Account/studentaccount to register/login<br />Navigate to Subscribe by pin and enter the code above<br /></small></div>
+                        </div>
+                        <div class="row"><div class="col-xs-12" style="bottom:-10px;position:absolute;text-align:right;margin:10px"><b>N1000</b></div></div>
+                    </div>
+                </div>
+                    if (i == Model.Count() - 1) { break; }
+                    if (j != 11) { i++; }
+                }
+
+            </div>
+        }
+    }
+    <script>
+        $(document).ready(function () {
+            window.print();
+        })
+    </script>
+</body>
+</html>

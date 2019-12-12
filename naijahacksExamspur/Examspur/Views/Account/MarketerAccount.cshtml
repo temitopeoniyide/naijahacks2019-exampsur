@@ -1,0 +1,534 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "MarketerAccount";
+    Layout = "~/Views/Shared/_Layout5.cshtml";
+}
+<link href="../vendors/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+
+<!--Render Body-->
+<style>
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="text"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="email"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="number"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="password"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field textarea {
+        padding: 10px 20px;
+        text-align: left;
+        width: 100%;
+        border: 1px solid #fff;
+        color: #fff;
+        background: transparent;
+    }
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #fff !important;
+        opacity: 1 !important; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #fff !important;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: #fff !important;
+    }
+</style>
+<!--Render Body-->
+<div class="page-header  parallax layout-1"></div>
+
+@*<div id="content" class="site-content" style="background:url('/images/loimages/bookcase-books-bookshop-220326.jpg')round">*@
+<div id="content" class="site-content" style="background-color:rgba(0,0,0,1)">
+    <div class="container">
+        <div class="row">
+            <div id="primary" class="content-area col-md-12">
+                <div class="tl-empty-space ">
+                    <div class="tl_empty_space_lg" style="height: 50px"></div>
+                    <div class="tl_empty_space_md" style="height: 50px"></div>
+                    <div class="tl_empty_space_xs" style="height: 50px"></div>
+                </div>
+                <div class="wpb_wrapper">
+                    <div class="tl-section-title clearfix style-1 text-center show-under_line dark ">
+                        <h2>
+                            <span class="main-color" id="header">Marketer Login</span><span class="under-line star">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </span>
+                        </h2>
+                    </div>
+
+                </div>
+                <main id="main" class="site-main">
+
+                    <article id="post-7" class="post-7 page type-page status-publish hentry">
+                        <div class="entry-content">
+                            <div class="learnpress">
+                                <div id="learn-press-user-profile" class="lp-user-profile guest has-sidebar">
+                                    <div class="tl-customer-login">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 col-login">
+                                                <div class="tl-tabs ">
+                                                    <ul class="tabs-nav">
+                                                        <li> <a href="#" class="login-tab active">Login</a></li>
+                                                        <li> <a class="register-tab" href="#">Register</a></li>
+                                                    </ul>
+                                                    <div class="tabs-content">
+                                                        <div class="tabs-panel login-panel active">
+                                                            <div class="learn-press-form-login learn-press-form">
+                                                                <h3>Login</h3>
+                                                                <form name="learn-press-login" method="post" action="#">
+                                                                    <ul class="form-fields">
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <label for="username">Username or email</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <input size="30" placeholder="Username or email" type="text" required id="username" class="rwmb-field rwmb-text-wrapper " name="username">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-text-wrapper " value="username" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper main-color" id="luser"></h4>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                    <label for="password">Password</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                    <input size="30" placeholder="Password" type="password" required id="password" class="rwmb-field rwmb-password-wrapper " name="password">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-password-wrapper " value="password" />
+                                                                                <h4 class="rwmb-field rwmb-password-wrapper  main-color" id="lpass"></h4>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <p> </p>
+                                                                    <p>
+                                                                        <input type="hidden" name="learn-press-login-nonce" value="d13681a2e0">
+                                                                        <button type="button" id="btnlogin">Login</button>
+                                                                    </p>
+                                                                    <div id="tl_account_widget-2" class="widget tl-account-widget tl-account-modal">
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a data-account="0" class="login-link tl-login" href="" style="color:#d42a2a">Lost your password?</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tabs-panel register-panel">
+                                                            <div class="learn-press-form-register learn-press-form">
+                                                                <h3>Register</h3>
+                                                                <form name="learn-press-register" method="post" action="#">
+                                                                    <ul class="form-fields">
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <label for="reg_firstname">First Name</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <input size="30" placeholder="First Name" type="text" required id="reg_firstname" class="rwmb-field rwmb-text-wrapper inputr" name="reg_firstname">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-text-wrapper " value="reg_firstname" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper main-color" id="errorfirst"></h4>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <label for="reg_lastname">Last Name</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <input size="30" placeholder="Last Name" type="text" required id="reg_lastname" class="rwmb-field rwmb-text-wrapper inputr" name="reg_lastname">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-text-wrapper " value="reg_lastname" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper " id="errorlast"></h4>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <label for="reg_number">Phone</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-text-wrapper ">
+                                                                                    <input size="30" placeholder="Phone" type="text" required id="reg_number" class="rwmb-field rwmb-text-wrapper inputr" name="reg_number">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-text-wrapper " value="reg_number" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper main-color" id="errorphone"></h4>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-email-wrapper ">
+                                                                                <div class="rwmb-field rwmb-email-wrapper ">
+                                                                                    <label for="reg_email">Email</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-email-wrapper ">
+                                                                                    <input size="30" placeholder="Email" type="email" required id="reg_email" class="rwmb-field rwmb-email-wrapper inputr" name="reg_email">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-email-wrapper " value="reg_email" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper main-color" id="erroremail"></h4>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                    <label for="reg_password">Password</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                    <input size="30" placeholder="Password" type="password" required id="reg_password" class="rwmb-field rwmb-password-wrapper inputr" name="reg_password">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-password-wrapper " value="reg_password" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper main-color" id="errorpass"></h4>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="form-field">
+                                                                            <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                    <label for="reg_cpassword">Confirm Password</label>
+                                                                                </div>
+                                                                                <div class="rwmb-field rwmb-password-wrapper ">
+                                                                                    <input size="30" placeholder="Confirm Password" type="password" required id="reg_cpassword" class="rwmb-field rwmb-password-wrapper inputr" name="reg_cpassword">
+                                                                                </div>
+                                                                                <input type="hidden" class="rwmb-field rwmb-password-wrapper " value="reg_password" />
+                                                                                <h4 class="rwmb-field rwmb-text-wrapper main-color" id="errorcpass"></h4>
+                                                                            </div>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                    <p>
+                                                                        <label>
+                                                                            <input type="checkbox" id="reg_check" /> &nbsp;<a href="/Home/Terms" style="cursor:pointer">Agree terms &amp; conditions</a> and<a href="/Home/Policy" style="cursor:pointer"> privacy policy</a>
+                                                                        </label>
+                                                                        <h4 class="rwmb-field rwmb-text-wrapper main-color" id="errorterms"></h4>
+                                                                    </p>
+                                                                    <p>
+                                                                        <input type="hidden" id="learn-press-register-nonce" name="learn-press-register-nonce" value="43a2219f1b" />
+                                                                        <input type="hidden" name="_wp_http_referer" value="/taalem/" />
+                                                                        <button type="button" id="btnregister">SIGN UP</button>
+                                                                    </p>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="tl-empty-space ">
+                        <div class="tl_empty_space_lg" style="height: 100px"></div>
+                        <div class="tl_empty_space_md" style="height: 100px"></div>
+                        <div class="tl_empty_space_xs" style="height: 100px"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="login-modal" class="login-modal taalem-modal" tabindex="-1">
+    <div class="modal-content">
+        <div class="container">
+            <div class="tl-customer-login">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3 col-login">
+
+                        <div class="tl-tabs ">
+                            <ul class="tabs-nav">
+                                <li style="width:100%"> <a href="#" class="login-tab active">Reset Password</a></li>
+
+                            </ul>
+                            <div class="tabs-content">
+                                <div class="tabs-panel login-panel active">
+                                    <div class="learn-press-form-login learn-press-form">
+                                        <h4>Enter your Email address</h4>
+                                        <div name="learn-press-login">
+                                            <ul class="form-fields">
+                                                <li class="form-field">
+                                                    <div class="rwmb-field rwmb-text-wrapper ">
+
+                                                        <div class="rwmb-field rwmb-text-wrapper ">
+                                                            <input size="30" placeholder="Enter your email Address" type="text"
+                                                                   required id="femail" class="rwmb-field rwmb-text-wrapper " name="femail">
+                                                        </div>
+                                                        <input type="hidden" class="rwmb-field rwmb-text-wrapper " value="username" />
+                                                        <div class="rwmb-field rwmb-text-wrapper " id="femailerror"></div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                            <p>
+                                                <input type="hidden" name="learn-press-login-nonce" value="65391ab643">
+                                                <button type="button" id="btnsend">Reset Password</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer"> <a href="#" class="close-modal">Close</a></div>
+</div>
+<!--Render Body-->
+
+<script>
+    jQuery(".login-tab").click(function () { jQuery("#header").text("Marketer Login") });
+    jQuery(".register-tab").click(function () { jQuery("#header").text("Marketer Registration") });
+</script>
+
+<script src="~/js/jquery-3.2.1.min.js"></script>
+
+<script src="../vendors/sweetalert/dist/sweetalert.min.js?45667"></script>
+<script src="~/vendors/pnotify/dist/pnotify.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<script>
+    $("#btnregister").click(function () {
+        $(this).html("<img src =\"../Images/2load.gif\" width=\"100\" height=\"100\" />").attr("disabled", "disabled");
+        var firstName = $("#reg_firstname").val();
+        var lastName = $("#reg_lastname").val();
+        var email = $("#reg_email").val();
+        var phone = $("#reg_number").val();
+        var password = $("#reg_password").val();
+        var confirmPassword = $("#reg_cpassword").val();
+        if (firstName == "") {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_firstname").offset().top - 300)
+            }, 1000);
+            $("#errorfirst").text("Please enter Firstname").fadeIn(2000);
+            setTimeout(function () { $("#errorfirst").fadeOut(2000) }, 3000);
+
+
+
+            return;
+        }
+        if (lastName == "") {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_lastname").offset().top - 300)
+            }, 1000);
+            $("#errorlast").text("Please enter Lastname").fadeIn(2000);
+            setTimeout(function () { $("#errorlast").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (phone == "" || phone.length < 11) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_number").offset().top - 300)
+            }, 1000);
+            $("#errorphone").text("Please enter a valid Phone number").fadeIn(2000);
+            setTimeout(function () { $("#errorphone").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (email == "" || isValidEmailAddress(email) == false) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_email").offset().top - 300)
+            }, 1000);
+            $("#erroremail").text("Please enter a valid email").fadeIn(2000);
+            setTimeout(function () { $("#erroremail").fadeOut(2000) }, 3000);
+            return;
+        }
+
+
+
+        if (password == "" || password.length < 4) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_password").offset().top - 300)
+            }, 1000);
+            $("#errorpass").text("Please enter a password of atleast 4 characters").fadeIn(2000);
+            setTimeout(function () { $("#errorpass").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (password != confirmPassword) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_cpassword").offset().top - 300)
+            }, 1000);
+            $("#errorcpass").text("Password does not match").fadeIn(2000);
+            setTimeout(function () { $("#errorcpass").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (!$("#reg_check").is(":checked")) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $('html, body').animate({
+                scrollTop: ($("#reg_check").offset().top - 300)
+            }, 1000);
+            $("#errorterms").text("You have to agree to our terms and privacy poliy to register").fadeIn(2000);
+            setTimeout(function () { $("#errorterms").fadeOut(2000) }, 3000);
+
+            return;
+        }
+        var obj = {};
+        obj.firstName = firstName;
+        obj.lastName = lastName;
+        obj.email = email;
+        obj.phone = phone;
+        obj.password = password;
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json charset=utf-8',
+            url: '/Account/RegisterMarketer',
+            data: jsonData,
+            dataType: 'json',
+            success: function (response) {
+                $("#btnregister").html("SiGN UP").removeAttr("disabled");
+                if (response.value == 1) {
+                    swal({
+                        title: "Welcome Onboard!",
+                        text: response.msg,
+                        icon: "success",
+                    });
+
+                    $(".inputr").val("");
+                    $("#reg_check").prop("checked", false);
+                }
+                else
+                    swal("Ooops!!", response.msg, "error");
+
+            },
+            error: function (error) {
+                $("#btnregister").html("SIGN UP").removeAttr("disabled");
+                swal("Ooops!!!", "Something Went Wrong.Kindly try again later.", "error");
+
+            },
+            failure: function (failure) {
+                $("#btnregister").html("SIGN UP").removeAttr("disabled");
+                swal("Ooops!!!", "Cannot coonect to our Server due to Poor Internet Coonection.", "error")
+            }
+
+        })
+
+
+    })
+
+       $("#btnlogin").click(function () {
+                login();
+            });
+       $("#lpass").keydown(function (e) {
+           if (e.keyCode == 13) {
+               login();
+           }
+       });
+       $("#luser").keydown(function (e) {
+           if (e.keyCode == 13) {
+               login();
+           }
+       });
+            function login() {
+                $("#btnlogin").attr("disabled", "disabled").html("<i class=\" fa fa-spin fa-spinner\"></i>");
+                var email = $("#username").val();
+                resendemail = email;
+                var pass = $("#password").val();
+                if (!isValidEmailAddress(email) && !email.length==11) {
+                    $("#luser").text("Invalid Email or Phone Number").fadeIn(2000);
+                    setTimeout(function () { $("#luser").fadeOut(2000) }, 3000);
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                    return;
+                }
+                if (email == "" || pass == "") {
+                    $("#lpass").text("Username or password cannot be empty").fadeIn(2000);
+                    setTimeout(function () { $("#lpass").fadeOut(2000) }, 3000);
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                    return;
+                }
+                var obj = {};
+                obj.email = email;
+                obj.password = pass;
+                var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("LoginMarketer","Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                success: function(response){
+                    if (response.value == 1) {
+
+                        window.location = "/Index/MarketerDashboard";
+                    }
+                    else {
+                        swal("Ooops!!", response.msg, "error")
+
+                    };
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                },
+                    error: function (error) {
+                        swal("Something Went Wrong!!", "We are working to fix this as soon as possible.Kindly try again later", "error")
+
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                }
+
+            });
+            }
+
+            $("#lpassword").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    login();
+                }
+            });
+            $("#lusername").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    login();
+                }
+            });
+            $("#femail").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    forgot($(this).val());
+                }
+            });
+            $("#btnsend").click(function () {
+                forgot($("#femail").val());
+            });
+
+
+            function forgot(email) {
+                $("#btnsend").attr("disabled", "disabled").html("<i class=\" fa fa-spin fa-spinner\"></i>");
+                var obj = {};
+                if (!isValidEmailAddress(email)) {
+                   $("#femail").text("Invalid Email Address").fadeIn(2000);
+                    setTimeout(function () { $("#femailerror").fadeOut(2000) }, 3000);
+                    $("#btnsend").removeAttr("disabled").html("Reset Password");
+                    return;
+                }
+                obj.email = email;
+
+                var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ForgotPasswordMarketer", "Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.value == 1) swal("Reset Successful", response.msg, "success");
+                        else swal("Ooops!!", response.msg, "error");
+                        $("#btnsend").removeAttr("disabled").html("Reset Password");
+                    },
+                    error: function (error) {
+                        swal("Something Went Wrong", "we are working to fix this as soon as possibl. Try again later", "error");
+                        $("#btnsend").removeAttr("disabled").html("Reset Password");
+                    }
+
+                });
+            }
+
+
+    function isValidEmailAddress(emailAddress) {
+        var pattern = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(emailAddress);
+    };
+</script>

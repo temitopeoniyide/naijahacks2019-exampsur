@@ -1,0 +1,138 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+<link href="~/vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+<link href="~/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+<link href="~/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+<style>
+    h1, h2, h3, h4, h5, h6, p, li, div, input, th, td {
+        font-family: 'ABeeZee', sans-serif;
+    }
+</style>
+
+<div style="margin:auto;width:50%;padding:10px">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title bg-red">
+                    <h2>SUBSCRIBE BY PIN NUMBER</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="label label-info">Enter Pin Number </label>
+                                <input type="text" class="form-control" id="pinNumber" />
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group" style="margin:auto!important;width:50%">
+                                <button type="button" class="btn btn-success" id="btnsubscribe">SUBSCRIBE</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/vendors/pnotify/dist/pnotify.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<script>
+
+    $("#btnsubscribe").click(function () {
+                subscribe();
+            });
+
+              function subscribe() {
+                  $("#btnsubscribe").attr("disabled", "disabled").html("<i class=\" fa fa-spin fa-spinner\"></i>");
+               
+
+                  var pinNumber = $("#pinNumber").val();
+               
+                  if (pinNumber=="") {
+                    new PNotify({
+                        title: '',
+                        text: 'Please enter pin number',
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    });
+                    $("#btnsubscribe").removeAttr("disabled").html("SUBSCRIBE");
+                    return;
+                }
+               
+                var obj = {};
+
+                
+                  obj.PinNumber = pinNumber;
+
+                var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("subscribeByPin", "Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                    dataType: "json",
+                    success: function(response){
+                    if (response.value == 1) {
+                    new PNotify({
+                    title: '',
+                    text: response.msg,
+                    type: 'success',
+                    hide: 'true',
+                    styling: 'bootstrap3',
+                        });
+                        $(".form-control").val("");
+                    }
+                    else {
+                    new PNotify({
+                    title: 'Ooops!!!',
+                    text: response.msg,
+                    type: 'error',
+                    hide: 'false',
+                    styling: 'bootstrap3',
+                    })
+
+                    };
+                        $("#btnsubscribe").removeAttr("disabled").html("SUBSCRIBE");
+                    },
+                    error: function (error) {
+                    new PNotify({
+                    title: 'Something Went Wrong',
+                    text: "We are working to fix this as soon as possible. Kindly try again later",
+                    type: 'error',
+                    hide: 'false',
+                    styling: 'bootstrap3',
+                    });
+                        $("#btnsubscribe").removeAttr("disabled").html("SUBSCRIBE");
+                    }
+
+                    });
+                    }
+
+                    $("#pinNumber").keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        subscribe();
+                    }
+                    });
+                   
+
+
+
+
+</script>

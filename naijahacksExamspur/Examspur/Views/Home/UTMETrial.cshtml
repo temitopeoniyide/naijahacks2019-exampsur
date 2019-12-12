@@ -1,0 +1,2298 @@
+﻿@{
+    Layout = null; //"~/Views/Shared/_Layout3.cshtml";
+    ViewBag.Title = "UTME Trial -";
+}
+<head>
+    <link rel="icon" href="/Images/ExamSpur_Im/favicon_46x46.png" type="image/png" />
+
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+    <link href="~/vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+    <link href="~/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+    <link href="~/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <link href="~/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+    <link href="~/build/css/custom.min.css?99f" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+
+    <script src="/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]},
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        messageStyle: "none",
+        "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        styles: {".MathJax_Display": {display: "inlinne !important"}}
+        }
+        });
+        MathJax.Hub.Startup.onload();
+
+    </script>
+    <style>
+            h1, h2, h3, h4, h5, h6, p, li, div, input, th, td {
+                font-family: 'ABeeZee', sans-serif;
+            }
+
+            .MathJax_Display {
+                display: inline !important
+            }
+
+            /*li {
+            list-style: none !important;
+        }*/
+
+/*html {
+  background: #100a1c;
+  background-image:
+    radial-gradient(50% 30% ellipse at center top, #201e40 0%, rgba(0,0,0,0) 100%),
+    radial-gradient(60% 50% ellipse at center bottom, #261226 0%, #100a1c 100%);
+  background-attachment: fixed;
+  color: #6cacc5;
+}
+
+body {
+  color: #6cacc5;
+  font: 300 18px/1.6 "Source Sans Pro",sans-serif;
+  margin: 0;
+  padding: 5em 0 2em;
+  text-align: center;
+}*/
+
+h1 {
+  font-weight: 300;
+  margin: 0;
+}
+
+/* Gradient text only on Webkit */
+.warning {
+  background: -webkit-linear-gradient(45deg,  #c97874 10%, #463042 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #8c5059;
+  font-weight: 400;
+  margin: 0 auto 6em;
+  /*max-width: 9em;*/
+}
+
+        .calculator {
+            font-size: 28px;
+            padding: 10px;
+            background: #100a1c;
+            background-image: radial-gradient(50% 30% ellipse at center top, #201e40 0%, rgba(0,0,0,0) 100%), radial-gradient(60% 50% ellipse at center bottom, #261226 0%, #100a1c 100%);
+            background-attachment: fixed;
+            color: #6cacc5;
+            border:solid 5px #e7e7e7;
+
+            &::before, &::after {
+    content: " ";
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+/* Calculator after dividing by zero */
+.broken {
+  animation: broken 2s;
+  transform: translate3d(0,-2000px,0);
+  opacity: 0;
+}
+
+.viewer {
+  background-color: #6cacc5;
+  margin-bottom:10px;
+  color:white;
+  float: left;
+  line-height: 2em;
+  text-align: right;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 2em;
+  border:solid 2px #261226;
+  margin-top:10px
+}
+
+.button {
+  /*border: 0;
+  background: rgba(42,50,113, .28);
+  color: #6cacc5;
+  cursor: pointer;
+  float: left;
+  font:  200 14px!important;
+  margin: 0.25em;
+  width: 1em;
+  height: 1em;*/
+  transition: all 0.5s;
+
+  &:hover {
+    background: #201e40;
+  }
+
+  &:focus {
+    outline: 0; // Better check accessibility
+
+    /* The value fade-ins that appear */
+    &::after {
+      animation: zoom 1s;
+      animation-iteration-count: 1;
+      animation-fill-mode: both; // Fix Firefox from firing animations only once
+      content: attr(data-num);
+      cursor: default;
+      font-size: 100px;
+      position: absolute;
+           top: 1.5em;
+           left: 50%;
+      text-align: center;
+      margin-left: -24px;
+      opacity: 0;
+      width: 48px;
+    }
+  }
+}
+
+/* Same as above, modified for operators */
+.ops:focus::after {
+  content: attr(data-ops);
+  margin-left: -210px;
+  width: 420px;
+}
+
+/* Same as above, modified for result */
+.equals:focus::after {
+  content: attr(data-result);
+  margin-left: -300px;
+  width: 600px;
+}
+
+/* Reset button */
+
+.reset {
+  background: rgba(201,120,116,.28);
+  color:#c97874;
+  font-weight: 400;
+  margin-left: -77px;
+  padding: 0.5em 1em;
+  position: absolute;
+    top: -20em;
+    left: 50%;
+  width: auto;
+  height: auto;
+
+  &:hover {
+    background: #c97874;
+    color: #100a1c;
+  }
+
+  /* When button is revealed */
+  &.show {
+    top: 20em;
+    animation: fadein 4s;
+  }
+}
+
+/* Animations */
+
+/* Values that appear onclick */
+@@keyframes zoom {
+  0% {
+    transform: scale(.2);
+    opacity: 1;
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Division by zero animation */
+@@keyframes broken {
+  0% {
+    transform: translate3d(0,0,0);
+    opacity: 1;
+  }
+
+  5% {
+    transform: rotate(5deg);
+  }
+
+  15% {
+    transform: rotate(-5deg);
+  }
+
+  20% {
+    transform: rotate(5deg);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(45deg);
+  }
+
+  70% {
+    transform: translate3d(0,2000px,0);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate3d(0,-2000px,0);
+  }
+}
+
+/* Reset button fadein */
+@@keyframes fadein {
+  0% {
+    top: 20em;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@@media (min-width: 420px) {
+  .calculator {
+    /*width: 12em;*/
+  }
+  .viewer {
+    /*width: 8.5em;*/
+  }
+  .button {
+    margin: -0.5em;
+  }
+}
+    </style>
+    <style>
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 50px;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+    </style>
+
+    <style>
+
+        h1, h2, h3, h4, h5, h6, p, li, div, input {
+            font-family: 'ABeeZee', sans-serif;
+        }
+
+        ul.bar_tabs {
+            overflow: visible;
+            background: #fff;
+            height: 25px;
+            margin: 0px 0 0px;
+            padding-left: 1px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            border-bottom: none;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .timer, .timer-done, .timer-loop {
+            font-size: 18px;
+            color: black;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .jst-hours {
+            float: left;
+        }
+
+        .jst-minutes {
+            float: left;
+        }
+
+        .jst-seconds {
+            float: left;
+        }
+
+        .jst-clearDiv {
+            clear: both;
+        }
+
+        .jst-timeout {
+            color: red;
+        }
+
+        .btn, .buttons, .modal-footer .btn + .btn, button {
+            margin-bottom: 5px !important;
+            margin-right: 0;
+        }
+
+        .x_title h2 {
+            margin-top: 10px !important;
+            float: left;
+            display: block;
+        }
+
+        .head-bg {
+            background-color: #fff;
+            padding-bottom: 9px;
+            padding-top: 10px;
+            color: #4b4b4b;
+            margin: -10px 5px 20px 5px;
+            border-radius: 4px;
+            border: 1px solid #e7e7e7;
+            font-family: 'ABeeZee', sans-serif;
+        }
+
+        .body-bg {
+            background-color: #fff;
+            padding-bottom: 9px;
+            padding-top: 10px;
+            color: #4b4b4b;
+            margin: -10px 5px 20px 5px;
+            border-radius: 4px;
+            border: 1px solid #e7e7e7;
+            font-family: 'ABeeZee', sans-serif;
+        }
+
+        .head-bg p {
+            font-family: 'ABeeZee', sans-serif;
+            font-size: 16px;
+            color: grey;
+            text-align: center;
+        }
+
+        ol, ul {
+            margin-top: 15px;
+            margin-bottom: 2px;
+        }
+
+        .body-bg ul li {
+            font-size: 16px !important;
+            margin-bottom: 12px;
+            list-style: none !important;
+            font-family: 'ABeeZee', sans-serif;
+        }
+
+            .body-bg ul li i {
+                margin: 0 10px 0 -25px;
+                color: #94b71d;
+            }
+
+        .inst-hd h3 {
+            color: #dd0202;
+            font-weight: 700;
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .inst-hd p {
+            font-size: 16px !important;
+            color: grey;
+        }
+
+        .hd-divider {
+            width: 20%;
+            height: 2px;
+            background-color: #b6b6b6;
+            margin-bottom: 4px;
+        }
+
+        .MathJax_Display {
+            display: inline !important
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/build/css/loading.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.0.3.js"></script>
+    <script src="~/Scripts/jquery.countdownTimer.min.js?d4d"></script>
+    <link href="../Content/jquery.countdownTimer.css?444" rel="stylesheet" />
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="UTF-8">
+    <meta name="description" content="Online HUB for exam practise and preparation in Nigeria. Practice free UTME,WAEC,A-LEVEL Past questions.">
+    <meta name="keywords" content="Free Jamb past questions, free UTME pratice questions, UTME, JAMB,WAEC, NECO, A-LEVEL, ICAN, practice utme online, practice waec online, best UTME exam preparation center ">
+    <meta name="author" content="mcadware Solutions Limited">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="icon" href="/Images/ExamSpur_Im/favicon_46x46.png" type="image/png" />
+
+    <title>@ViewBag.Title ExamSpur</title>
+
+</head>
+<body class="nav-md">
+    <div id="overlay">
+        <div id="text"><i class="fa fa-play fa-3x"></i></div>
+    </div>
+
+    <div class="loading" style="display:none">Loading your result&#8230;</div>
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col  menu_fixed">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="~/" class="site_title"> <span style="font-family: 'Dancing Script', cursive;font-size:24px;">ExamSpur<i class="fa fa-home fa-2x"></i></span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    @*<img src="~/ExamSpur_Img/Off.jpg"  class=""/>*@
+
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right"></ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="right_col" role="main">
+                <div id="divmain">
+                    <div class="row" id="examsetting" style="display:none">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>UTME</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="x_content">
+                                            <div class="row">
+                                                <div class="col-md-12 col-xs-12">
+
+                                                    <div class="row">
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <h3 style="color:#dd0202; font-size:16px!important"><strong>Let's Get Started</strong></h3><br />
+                                                            <p style="margin-top:-20px!important;font-size:14px">
+                                                                Please Note that to start practicing the online past questions,you have to select subjects to be examined on. <strong>English Language</strong> is compulsory
+                                                                so you are allowed to select <strong>three (3)</strong> other subjects of your choice.
+                                                                After selection, click <strong>"Enter Exam Hall"</strong> button to enter the Examination Hall.
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                                                <!--    First Name <span class="required">*</span>-->
+                                                            </label>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" id="divsubject">
+
+
+
+                                                        </div>
+                                                        <div class="ln_solid"></div>
+                                                        @*<div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-4 col-xs-12">Choose Exam Mode</label>
+                                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                                        <select class="form-control" id="exammode">
+                                                            <option value="0">Choose Mode</option>
+                                                            <option value="1">Straight</option>
+                                                            <option value="2">Pause and Resume</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>*@
+                                                        <div class="button-group">
+                                                            <p id="demo"></p>
+
+
+
+
+                                                            <button type="button" class="btn btn-success" style="float:right" id="btnGoToInstruction">Enter Exam Hall</button>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="instruction" style="display:none">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-10 col-xs-12">
+                                    <div class="x_panel">
+                                        <div class="inst-hd">
+                                            <h3>Instructions</h3>
+                                            <div class="hd-divider"></div>
+                                            <p>Please read the following instructions carefully</p>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="x_content">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="col-md-6 col-xs-12">
+                                                                <div class="head-bg">
+                                                                    <p>Mode: <strong id="mode">Trial</strong></p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 col-xs-12">
+                                                                <div class="head-bg">
+                                                                    <p>Time: <strong>20 mins</strong></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="col-md-6 col-xs-12">
+                                                                <div class="head-bg">
+                                                                    <p>Subjects: <strong id="subs"></strong></p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 col-xs-12">
+                                                                <div class="head-bg">
+                                                                    <p>Questions: 20</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xs-12">
+                                                            <div class="body-bg">
+                                                                <ul style="list-style:none">
+                                                                    <li><i class="fa fa-check-circle"></i>You will be given <strong>5 questions</strong> in <strong>English Language</strong> and <strong>5 questions</strong> on each of the other subjects (a total of 20 questions). The questions will be presented 1 each in series. Once you have answered a question, you will be required to click on <strong>"Next"</strong>to move to the next question and click <strong>"Finish"</strong> when you are done with all questions. If at anytime, you can no longer continue, you can click on <strong>"Submit Exam"</strong> to see your performance analysis.</li>
+                                                                    <li><i class="fa fa-check-circle"></i>You will be given <strong>20 mins</strong> to answer all <strong>20</strong> questions and submit. If at any point, you're unable to finish on time, you will be automatically shown the summary of your performance.</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-group">
+                                            <p id="demo"></p>
+
+
+
+                                            <button type="button" class="btn btn-danger" id="btnBackToSelection" style="float:left"><i class="fa fa-arrow-left"></i> Back</button>
+                                            <button type="button" class="btn btn-success" id="btnStartExam" style="float:right">Start</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                    <!--Adverts-->
+                                    <div class="x_panel"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="examhall" style="display:none">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2 id="subjectHeader"></h2>
+                                    <div class=" row">
+                                        <div class="col-sm-8 pull-right">
+                                            <div class="row">
+                                                <div class="col-sm-12 pull-right">  <span id="hms_timer"></span><span>&nbsp;&nbsp;<button id="pauseBtnhms" class="btn btn-sm btn-danger" style="display:none"><i class="fa fa-pause"></i></button></span><span>&nbsp;&nbsp;<button class="btn btn-sm btn-success show" id="showcalc">Show Calc.</button></span></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content" style="display:block">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-lg-12 col-xs-12">
+                                            <ul id="myTabs" class="nav nav-tabs bar_tabs" role="tablist"></ul>
+                                        </div>
+                                        <br /><br />
+                                        <div class="col-sm-12 col-xs-12">
+                                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                <div id="myTabContent" class="tab-content col-md-12 col-sm-12 col-xs-12">
+
+                                                </div>
+                                                <div class="row">
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <button class="btn btn-danger" style="float:left" type="button" id="btn-previous">Previous</button>
+
+
+                                    <button type="button" style="float:right" class="btn btn-success" id="btn-next">Next</button>
+                                    <div class="row">
+                                        <div class="col-lg-offset-4 col-sm-offset-4  col-lg-6 col-sm-6">
+                                            <div class="form-group" style="vertical-align:central">
+                                                <button type="button" class="btn btn-danger" id="btnsubmitexam">
+                                                    Submit Exam
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div id="calculator" class="calculator" style="display:none">
+                                <div class="row">
+                                    <div id="viewer" class="viewer col-sm-12">0</div>
+                                </div>
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col-sm-3">
+                                        <button id="clear" class="clear buttons btn btn-sm btn-danger">C</button>
+                                    </div><div class="col-sm-3">
+                                        <button data-ops="square" class="ops buttons btn btn-sm btn-warning">x<sup>2</sup></button>
+                                    </div>
+                                    <div class="col-sm-3"> <button data-ops="root" class="ops buttons btn btn-sm btn-warning">&radic;</button></div>
+
+                                </div>
+
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn-info btn-sm" data-num="7">7</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-info btn-sm" data-num="8">8</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-info btn-sm" data-num="9">9</button>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button data-ops="plus" class="ops buttons btn btn-sm btn-warning">+</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="4">4</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="5">5</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="6">6</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button data-ops="minus" class="ops buttons btn btn-warning btn-sm">-</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="1">1</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="2">2</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="3">3</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button data-ops="times" class="ops buttons btn btn-sm btn-warning">*</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num="0">0</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button class="num buttons btn btn-sm btn-info" data-num=".">.</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button id="equals" class="equals btn btn-success btn-sm" data-result="">=</button>
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                        <button data-ops="divided by" class="ops buttons btn btn-warning btn-sm">/</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="x_panel">
+
+
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group" id="btnQ">
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" id="divDetails" style="display:none">
+
+
+                </div>
+                <div id="myModalCalc" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            @*<div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Exam Correction</h4>
+                    </div>*@
+                            <div class="modal-body" style="max-height:400px;overflow-y:scroll">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <div id="calculator1" class="calculator">
+                                            <div class="row">
+                                                <div id="viewer1" class="viewer col-sm-12">0</div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px">
+                                                <div class="col-sm-3">
+                                                    <button id="clear1" class="clear buttons btn btn-sm btn-danger">C</button>
+                                                </div><div class="col-sm-3">
+                                                    <button data-ops="square" class="ops buttons btn btn-sm btn-warning">x<sup>2</sup></button>
+                                                </div>
+                                                <div class="col-sm-3"> <button data-ops="root" class="ops buttons btn btn-sm btn-warning">&radic;</button></div>
+
+                                            </div>
+
+                                            <div class="row" style="margin-bottom:10px">
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn-info btn-sm" data-num="7">7</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-info btn-sm" data-num="8">8</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-info btn-sm" data-num="9">9</button>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button data-ops="plus" class="ops1 buttons btn btn-sm btn-warning">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px">
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="4">4</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="5">5</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="6">6</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button data-ops="minus" class="ops1 buttons btn btn-warning btn-sm">-</button>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px">
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="1">1</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="2">2</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="3">3</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button data-ops="times" class="ops1 buttons btn btn-sm btn-warning">*</button>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom:10px">
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num="0">0</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button class="num1 buttons btn btn-sm btn-info" data-num=".">.</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button id="equals1" class="equals btn btn-success btn-sm" data-result="">=</button>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <button data-ops="divided by" class="ops1 buttons btn btn-warning btn-sm">/</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="myModal" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Exam Correction</h4>
+                            </div>
+                            <div class="modal-body" style="max-height:400px;overflow-y:scroll">
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="x_content">
+                                            <br />
+                                            <div class="animated flipInY col-md-12 col-sm-12 col-xs-12">
+                                                <div class="tile-stats">
+                                                    <h1>You scored <strong id="score" class="text-warning"></strong> in  <strong class="subject"></strong></h1>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2 class="subject">Use of English</h2>
+                                                @*<div class="year pull-right">
+                                            2014
+                                        </div>*@
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="row" id="corr">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </div>
+                <footer>
+                    <div class="pull-right">
+                        Copyright &copy; @DateTime.Now.Year All rights reserved | <a href="https://mcadwaresolutions.com" target="_blank"><span style="color:#7a1310">mc</span><span style="color:#ff7d01">Adware</span> <span style="color:#8492a5">Solutions</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+            </div>
+    </div>
+
+</body>
+<script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../vendors/sweetalert/dist/sweetalert.min.js?45667"></script>
+
+<script src="~/vendors/Chart.js/dist/Chart.min.js"></script>
+<script src="~/vendors/gauge.js/dist/gauge.min.js"></script>
+<script src="~/vendors/raphael/raphael.min.js"></script>
+<script src="~/vendors/morris.js/morris.min.js"></script>
+<script src="~/vendors/nprogress/nprogress.js"></script>
+<script src="~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<script>
+    var subjectIds = [];
+    var subjectNames = [];
+    var questionList = "";
+    var exammode = 0;
+       @*if (localStorage.getItem("ExamMethod") != "trial") {
+            if (parseInt("@Session["unitAvailable"]") <= 0) {
+                new PNotify({
+                    title: "Ooops!!! You Don't have Exam Access Unit Left",
+                    text: "Kindly Subscribe. We are redirecting you to the subscription page",
+                    type: 'error',
+                    hide: true,
+                    styling: 'bootstrap3',
+                })
+                setTimeout(function () { window.location="@Url.Action("Subscription","Account")"},1000)
+            }
+        }*@
+
+    $("#text").click(function () {
+        $("#pauseBtnhms").trigger("click");
+     });
+    function loadSubject() {
+        localStorage.clear();
+            var obj = {};
+            obj.examId = 1000;
+              var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("LoadSubject","Index")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                success: function(response){
+                    if (response.value == 1) {
+                        var subjectdiv = " <div class=\"col-md-4 col-sm-4 col-xs-12\">";
+                        $.each(response.resp, function (idx, Subject) {
+                            if (Subject.SubjectID == 1014) subjectdiv += " <div class=\"checkbox\">  <label> <input type=\"checkbox\" class=\"flat chksubject\" disabled=\"disabled\" checked=\"checked\" id=" + Subject["SubjectID"] + ">" + Subject["SubjectName"] + "  </label>   </div>   ";
+                            else subjectdiv += " <div class=\"checkbox\">  <label> <input type=\"checkbox\" class=\"flat chksubject\"   id=" + Subject["SubjectID"] + ">" + Subject["SubjectName"] + "  </label>   </div>   ";
+
+                            if ((idx+1) % 5 == 0) subjectdiv += "</div> <div class=\"col-md-4 col-sm-4 col-xs-12\">";
+                            
+                                
+                            if (idx == response.resp.length - 1) subjectdiv +="</div>"
+
+                        });
+                        $("#divsubject").html(subjectdiv);
+                        $("#examhall").hide(); $("#examsetting").slideDown("slow"); $("#instruction").hide();
+
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: response.msg,
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        })
+
+                    };
+
+                },
+                error: function (error) {
+
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: "Error Occured. Please try again",
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+
+            });
+        }
+    $(document).ready(function () {
+
+
+        if ($(window).width() <= 768) { $("#myTabs").removeClass("bar_tabs").addClass("tabs-left"); }
+        else $("#myTabs").removeClass("tabs-left").addClass("bar_tabs");
+        loadSubject();
+        //if (localStorage.reload == "0" && localStorage.examOngoing == "1") {
+        //    continueAfterRefresh();
+        //}
+        //else {
+        //    checkIfExamIsOngoing();
+        //  //  localStorage.reload = "0";
+        //}
+    });
+    $(window).resize(function () {
+        if ($(window).width() <= 768) { $("#myTabs").removeClass("bar_tabs").addClass("tabs-left"); } else { $("#myTabs").removeClass("tabs-left").addClass("bar_tabs");}
+    })
+    $(document).on("change", ".chksubject", function () {
+        if ($(".chksubject:checked").length >= 4) {
+            $(":checkbox:not(:checked)").attr("disabled", "disabled");
+        }
+        else {
+            $(":checkbox:not(:checked)").removeAttr("disabled");
+            $("#1014").prop("checked", true);
+        }
+
+    })
+    $("#btnGoToInstruction").click(function () {
+
+        setSubject()
+
+       // window.location = "/Index/UTME?v=Instruction";
+    });
+    //this function checks if student is on an exam on page load
+    let checkIfExamIsOngoing = function () {
+    var obj = {};
+        obj.examId = 1000;
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("checkIfExamIsOngoing", "Index")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                if (response.ExamTaken == null) {
+                    localStorage.setItem("v", "0");
+                    $("#examhall").hide(); $("#examsetting").slideDown("slow"); $("#instruction").hide(); loadSubject();
+                }
+                else {
+                    if (response.value == 1) {
+                        localStorage.setItem("v", "2");
+
+                       resumeExam(response);
+                    }
+                }
+
+
+
+            },
+            });
+
+    }
+    //checkIfExamIsOngoing ends here
+//continue exam even after refresh
+    let continueAfterRefresh = function () {
+        var tabs = "";
+        var tabContent = "";
+        $.each(localStorage.subjectNames.split(","), function (i, v) {
+
+            if (localStorage.subjectIds.split(",")[i] == localStorage.activesubject) {
+                $("#subjectHeader").text(v);
+                tabs += " <li role=\"presentation\" class=\"mytablist active\" id=" + localStorage.subjectIds.split(",")[i] + ">" +
+                    "<a href=\"#T_" + localStorage.subjectIds.split(",")[i] + "\" id=" + "P_" + localStorage.subjectIds.split(",")[i] +" role=\"tab\" data-toggle=\"tab\" aria-expanded=\"true\"><bold>" + v + "</bold></a>" +
+                    "</li>";
+                tabContent += "<div role=\"tabpanel\" class=\"tab-pane fade active in \" id=" + "T_" + localStorage.subjectIds.split(",")[i] + " aria-labelledby=\"home-tab\"></div>";
+            }
+
+            else {
+                tabs += " <li role=\"presentation\" class=\"mytablist\" id=" + localStorage.subjectIds.split(",")[i] + ">" +
+                    "<a href=\"#T_" + localStorage.subjectIds.split(",")[i] + "\"  id=" + "P_" + localStorage.subjectIds.split(",")[i] +" role=\"tab\" data-toggle=\"tab\" aria-expanded=\"false\"><bold>" + v + "</bold></a>" +
+                    "</li>";
+                tabContent += "<div role=\"tabpanel\" class=\"tab-pane fade  in \" id=" + "T_" + localStorage.subjectIds.split(",")[i] + " aria-labelledby=\"home-tab\"></div>";
+
+            }
+            if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show();
+            if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) $("#btn-next").hide(); else $("#btn-next").show();
+            $("#btn-previous").attr("actives", localStorage.activesubject);
+            $("#btn-next").attr("actives", localStorage.activesubject);
+        });
+        $("#myTabs").html(tabs);
+        $("#myTabContent").html(tabContent);
+        getActiveQuestion(localStorage.activesubject, localStorage.getItem("ActiveQuestion" + localStorage.activesubject));
+        loadbuttonsreload();
+        $("#examsetting").hide("slow"); $("#instruction").hide(); $("#examhall").show();
+        //d = Number();
+        var h = Number(localStorage.getItem("timer").split(":")[0]);
+        var m = Number(localStorage.timer.split(":")[1]);
+        var s = Number(localStorage.timer.split(":")[2]);
+        localStorage.reload = "0";
+        if (localStorage.ExamMode != "1") {
+
+            $("#pauseBtnhms").show();
+        }
+
+        else $("#pauseBtnhms").remove();
+            $(function () {
+                $('#hms_timer').countdowntimer({
+                    hours: h,
+                    minutes: m,
+                    seconds: s,
+                    size: "lg",
+                    pauseButton: "pauseBtnhms",
+                    timeUp: timeisUp,
+                    //stopButton: "stopBtnhms"
+                });
+              
+            });
+
+
+
+    }
+    let resumeExam = function (model) {
+        localStorage.setItem("activesubject", model[0].activeSubject);
+        $.each(model, function (idx, list) {
+            localStorage.setItem("Q" + list.SubjectID, list.QuestionList);
+            localStorage.setItem("ActiveQuestion" + list.SubjectID, list.LastQuestionID);
+            localStorage.setItem("ExamMode", 2);
+            localStorage.setItem("ExamTakenID", list.ExamTakenId);
+            var answerlist = [];
+            $.each(list.ChoosenAnswerList.split(","), function (a, x) {
+                answerlist.push(x);
+            });
+            localStorage.setItem("A" + list.SubjectID, answerlist.toString());
+            subjectIds.push(list.SubjectID);
+            subjectNames.push(list.SubjectName);
+        });
+        var tabs = "";
+        var tabContent = "";
+        $.each(subjectNames, function (i, v) {
+            if (subjectIds[i] == activeSubject) {
+                $("#subjectHeader").text(v);
+                tabs += " <li role=\"presentation\" class=\"mytablist active\" id=" + subjectIds[i] + ">" +
+                    "<a href=\"#T_" + subjectIds[i] + "\"  id=" + "P_" + subjectIds[i] +" role=\"tab\" data-toggle=\"tab\" aria-expanded=\"true\"><bold>" + v + "</bold></a>" +
+                    "</li>";
+                tabContent += "<div role=\"tabpanel\" class=\"tab-pane fade active in \" id=" + "T_" + subjectIds[i] + " aria-labelledby=\"home-tab\"></div>";
+            }
+
+            else {
+                tabs += " <li role=\"presentation\" class=\"mytablist\" id=" + subjectIds[i] + ">" +
+                    "<a href=\"#T_" + subjectIds[i] + "\"  id=" + "P_" + subjectIds[i] +" role=\"tab\" data-toggle=\"tab\" aria-expanded=\"false\"><bold>" + v + "</bold></a>" +
+                    "</li>";
+                tabContent += "<div role=\"tabpanel\" class=\"tab-pane fade  in \" id=" + "T_" + subjectIds[i] + " aria-labelledby=\"home-tab\"></div>";
+
+            }
+            if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show();
+            if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) $("#btn-next").hide(); else $("#btn-next").show();
+            $("#btn-previous").attr("actives", activeSubject);
+            $("#btn-next").attr("actives", activeSubject);
+        });
+        $("#myTabs").html(tabs);
+        $("#myTabContent").html(tabContent);
+        getActiveQuestion(activeSubject, localStorage.getItem("ActiveQuestion" + activeSubject));
+        loadbuttons();
+        $("#examsetting").hide("slow"); $("#instruction").hide(); $("#examhall").show();
+        d = Number(model[0].timeUsed);
+        var h = Math.floor(d / 3600);
+        var m = Math.floor(d % 3600 / 60);
+        var s = parseInt(Math.floor(d % 3600 % 60) + parseInt(1));
+        $("#pauseBtnhms").show();
+        $(function () {
+            $('#hms_timer').countdowntimer({
+                hours: h,
+                minutes: m,
+                seconds: s,
+                size: "lg",
+                pauseButton: "pauseBtnhms",
+                timeUp:timeisUp,
+                //stopButton: "stopBtnhms"
+            });
+                   });
+
+    }
+    function setSubject() {
+        if ($(".chksubject:checked").length < 4) {
+            new PNotify({
+                title: 'Subject Selection Incomplete',
+                text: "Make sure you select your complete subject combination of 4 subjects including Use of English ",
+                type: 'error',
+                hide: 'false',
+                styling: 'bootstrap3',
+            });
+            return false;
+        }
+        if ($("#exammode").val() == 0) {
+            new PNotify({
+                title: 'Ooops!!!',
+                text: "Please Select your Exam Mode",
+                type: 'error',
+                hide: 'false',
+                styling: 'bootstrap3',
+            });
+            $("#exammode").focus();
+            return false;
+        };
+        if (confirm("You are about to start exam")) {
+            subjectIds = [];
+            subjectNames = [];
+            subjectIds.push(1014);
+            subjectNames.push("Use of English")
+            $(".chksubject:checked").each(function () {
+
+
+            if (parseInt($(this).attr("id")) != 1014) {
+                subjectIds.push(parseInt($(this).attr("id")));
+                subjectNames.push($(this).closest('div').find('label').text());
+            }
+
+
+        })
+     //   exammode = parseInt($("#exammode").val());
+        localStorage.setItem("v", "1");
+        $("#subs").html(subjectNames.toString());
+      //  $("#mode").html($("#exammode").text());
+
+
+        $("#examhall").hide(); $("#examsetting").hide(); $("#instruction").slideDown("slow");
+            return true;
+        } else {
+
+        }
+    }
+    $("#btnBackToSelection").click(function () {
+        subjectNames = [];
+        subjectIds = [];
+        localStorage.setItem("v", "0")
+        $("#examhall").hide(); $("#examsetting").slideDown("slow"); $("#instruction").hide(); loadSubject();
+
+
+    });
+
+    $("#btnStartExam").click(function () {
+        localStorage.examOngoing = "1";
+        loadTabPanel(1014);
+        $(this).attr("disabled", "disabled").html("Please wait while we load your exam. <i class=\"fa fa-spin fa-spinner\"></i>");
+    });
+
+    var loadTabPanel = function (activeSubject) {
+        var tabs = "";
+        var tabContent = "";
+        $.each(subjectNames, function (i, v) {
+            if (subjectIds[i] == activeSubject) {
+                $("#subjectHeader").text(v);
+                tabs += " <li role=\"presentation\" class=\"mytablist active\" id=" + subjectIds[i] + ">" +
+                    "<a href=\"#T_" + subjectIds[i] + "\" id=\"\" role=\"tab\" data-toggle=\"tab\" aria-expanded=\"true\"><bold>" + v + "</bold></a>" +
+                    "</li>";
+                tabContent += "<div role=\"tabpanel\" class=\"tab-pane fade active in \" id=" + "T_" + subjectIds[i]+" aria-labelledby=\"home-tab\"></div>";
+            }
+
+            else {
+                tabs += " <li role=\"presentation\" class=\"mytablist\" id=" + subjectIds[i] + ">" +
+                    "<a href=\"#T_" + subjectIds[i] + "\"  id=" + "P_" + subjectIds[i] +" role=\"tab\" data-toggle=\"tab\" aria-expanded=\"false\"><bold>" + v + "</bold></a>" +
+                    "</li>";
+                tabContent += "<div role=\"tabpanel\" class=\"tab-pane fade  in \" id="+"T_" + subjectIds[i] + " aria-labelledby=\"home-tab\"></div>";
+
+            }
+            $("#btn-previous").attr("actives", activeSubject);
+            $("#btn-next").attr("actives", activeSubject);
+        });
+        $("#myTabs").html(tabs);
+        $("#myTabContent").html(tabContent);
+           var obj = {};
+        obj.examId = 1000;
+        obj.subjectids = subjectIds.toString();
+    //    obj.exammode = exammode;
+              var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("newQuestionListTrial","Index")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                success: function(response){
+                    if (response.value == 1) {
+                        localStorage.setItem("activesubject", subjectIds[0].toString());
+                        $.each(response.Qlist.split(","), function (idx, list) {
+                            localStorage.setItem("Q" + list.split("%")[0], list.split("%")[1]);
+                            localStorage.setItem("ActiveQuestion" + list.split("%")[0], 1);
+                            localStorage.setItem("ExamMode", response.exammode);
+                            localStorage.setItem("ExamTakenID", response.examtakenid);
+                            localStorage.subjectNames = subjectNames.toString();
+                            localStorage.subjectIds = subjectIds.toString();
+                            var answerlist = [];
+                            $.each(list.split("%")[1].split(","), function (a, x) {
+                                answerlist.push("");
+                            });
+                            localStorage.setItem("A" + list.split("%")[0], answerlist.toString());
+                        });
+                        $.each(response.Qlist.split(",")[0].split("%")[1].split("-"), function (idx, list) {
+                            if(idx==0)
+                            $("#btnQ").append("<button class=\"btn btn-warning btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(idx + 1) + "\"  type=\"button\">" + parseInt(idx + 1) + "</button>");
+                            else
+                                $("#btnQ").append("<button class=\"btn btn-default btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(idx + 1) + "\"  type=\"button\">" + parseInt(idx + 1) + "</button>");
+                        });
+                        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show();
+                        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) $("#btn-next").hide(); else $("#btn-next").show();
+                        getActiveQuestion(subjectIds[0], 1);
+                        if (exammode == 1) {
+                            $(function () {
+                                $('#hms_timer').countdowntimer({
+                                    hours: 0,
+                                    minutes: 20,
+                                    seconds: 0,
+                                    size: "sm",
+                                    timeUp: timeisUp,
+                                    //stopButton: "stopBtnhms"
+                                });
+                                                           });
+                        }
+                        else {
+                            $("#pauseBtnhms").show();
+                            $(function () {
+                                $('#hms_timer').countdowntimer({
+                                    hours: 0,
+                                    minutes: 20,
+                                    seconds: 0,
+                                    size: "sm",
+                                    pauseButton: "pauseBtnhms",
+                                    timeUp: timeisUp,
+                                    //stopButton: "stopBtnhms"
+                                });
+                            });
+                        }
+                        localStorage.setItem("v", "2")
+                        $("#examsetting").hide("slow"); $("#instruction").hide();
+                        $("#examhall").show();
+                     //   $("#divsubject").html(subjectdiv);
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: "Something Went Wrong Try Again later",
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        });
+                    };
+                },
+                error: function (error) {
+
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: "Error Occured. Please try again",
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                    },
+                    failure: function () {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: "There is Something wrong with your internet Connection. Check and refresh your page",
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        })
+
+
+                    }
+
+            });
+
+
+    }
+    function timeisUp() {
+  $(".loading").show();
+                     var examid = localStorage.getItem("ExamTakenID");
+        var obj = {};
+        obj.ExamTakenID = examid;
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("submitExamTrial","Index")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                //window.location = "/Index/ResultSummary?examId=" + window.btoa(String(examid));
+                getDetails(examid);
+                localStorage.examOngoing = "0";
+            },
+        });    }
+
+    //function myFunction() {
+    //    var txt;
+    //    if (confirm("Are you about to start exam")) {
+    //        txt = "You pressed OK!";
+    //    } else {
+    //        txt = "You pressed Cancel!";
+    //    }
+    //    document.getElementById("demo").innerHTML = txt;
+    //}
+
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+
+            if ($.inArray(hash[0], vars) > -1) {
+                vars[hash[0]] += "," + hash[1];
+            }
+            else {
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+        }
+
+        return vars;
+    }
+    $(document).on("click", ".mytablist",function () {
+        $("#subjectHeader").text($(this).text());
+        localStorage.setItem("activesubject", $(this).attr("id"));
+        loadbuttonsreload();
+        if (localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")) == "1") { $("#btn-next").show(); $("#btn-previous").hide(); }
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show();
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) $("#btn-next").hide(); else $("#btn-next").show();
+        getActiveQuestion(localStorage.activesubject, localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")));
+    });
+    let getActiveQuestion = function (subjectId, questionNo) {
+        var obj = {};
+        obj.subjectid =  parseInt(subjectId);
+        obj.questionno = parseInt(localStorage.getItem("Q" + subjectId).split("-")[parseInt(questionNo - 1)]);
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("getQuestionDetailTrial", "Index")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                var Anwsers = localStorage.getItem("A" + String(subjectId)).split(",");
+                var image = "";
+                var Q = "";
+                switch (response.HasImage) {
+                    case 0:
+                        Q += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">" + questionNo + "</span>   <li>" + image + response.Question + "  <ol type=\"a\">";
+
+                        if (response.OptionA != "" && response.OptionA != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                            Q += " <li>  <div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + response.OptionA +
+                                "</div> </li>";
+                        }
+                        if (response.OptionB != "" && response.OptionB != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\"class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + response.OptionB + "</div>   </li> ";
+                        }
+                        if (response.OptionC != "" && response.OptionC != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            Q +=  "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + response.OptionC + " </div> </li>";
+                        }
+                        if (response.OptionD != "" && response.OptionD != null) {
+                            var check = (Anwsers[parseInt(questionNo - 1)] == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + response.OptionD + "</div> </li>";
+                            if (response.OptionE != "" && response.OptionE != null && response.OptionE !="Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + response.OptionE + "</div> </li>";
+                            };
+                        };
+
+                        break;
+                    case 1:
+                        Q += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">" + questionNo + "</span>  <li><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + ".png\" class=\"simage\"/><br /></div>" + response.Question + "<ol type=\"a\">";
+                        if (response.OptionA != "" && response.OptionA != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                            Q += " <li>  <div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + response.OptionA +
+                                "</div> </li>";
+                        }
+                        if (response.OptionB != "" && response.OptionB != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + response.OptionB + "</div>   </li> ";
+                        }
+                        if (response.OptionC != "" && response.OptionC != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            Q += "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + response.OptionC + " </div> </li>";
+                        }
+                        if (response.OptionD != "" && response.OptionD != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + response.OptionD + "</div> </li>";
+                            if (response.OptionE != "" && response.OptionE != null && response.OptionE!="Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + response.OptionE + "</div> </li>";
+                            };
+                        };
+                        break;
+                    case 2:
+                        Q += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">" + questionNo + "</span> <li><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + ".png\" class=\"simage\"/><br /></div><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q.png\" class=\"simage\"/><br /></div><ol type=\"a\">";
+                        if (response.OptionA != "" && response.OptionA != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                            Q += " <li>  <div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + response.OptionA +
+                                "</div> </li>";
+                        }
+                        if (response.OptionB != "" && response.OptionB != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + response.OptionB + "</div>   </li> ";
+                        }
+                        if (response.OptionC != "" && response.OptionC != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            Q += "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + response.OptionC + " </div> </li>";
+                        }
+                        if (response.OptionD != "" && response.OptionD != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + response.OptionD + "</div> </li>";
+                            if (response.OptionE != "" && response.OptionE != null && response.OptionE!="Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + response.OptionE + "</div> </li>";
+                            };
+                        };
+
+                        break;
+                    case 3:
+                        Q += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">"+ questionNo + "</span>  <li><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + ".png\" class=\"simage\"/><br /></div>" + response.Question + "<ol type=\"a\">";
+                      //  var check = (Anwsers[parseInt(questionNo - 1)] == response.Answer) ? "checked=\"checked\"" : "";
+                        if (response.OptionA==0) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                            Q += " <li><div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-A.png\" class=\"simage\"/></div>" +
+                                "</div></li>";
+                        }
+                        if (response.OptionB) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-B.png\" class=\"simage\"/></div>" + "</div>   </li> ";
+                        }
+                        if (response.OptionC==0==0) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            Q += "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-C.png\" class=\"simage\"/></div>" + " </div> </li>";
+                        }
+                        if (response.OptionD==0) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-D.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            if (response.OptionE !="Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-E.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            };
+                        };
+
+                        break;
+                    case 4:
+                        data += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">" + questionNo + "</span>   <li>" + response.Question + "<ol type=\"a\">";
+                        var check = (Anwsers[parseInt(questionNo - 1)] == response.Answer) ? "checked=\"checked\"" : "";
+                        if (response.OptionA == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";                            Q += " <li><div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-A.png\" class=\"simage\"/></div>" +
+                                "</div></li>";
+                        }
+                        if (response.OptionB=="") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-B.png\" class=\"simage\"/></div>" + "</div>   </li> ";
+                        }
+                        if (response.OptionC == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";                            Q += "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-C.png\" class=\"simage\"/></div>" + " </div> </li>";
+                        }
+                        if (response.OptionD == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-D.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            if (response.OptionE != "Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-E.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            };
+                        };
+
+
+                        break;
+                    case 5:
+                        Q += "<ol><span class=\"badge badge-danger\">" + questionNo + "</span>   <li><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q.png\" class=\"simage\"/><br /></div><ol type=\"a\">";
+                   //     var check = (Anwsers[parseInt(questionNo - 1)] == response.Answer) ? "checked=\"checked\"" : "";
+                        if (response.OptionA != "" && response.OptionA != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                            Q += " <li>  <div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + response.OptionA +
+                                "</div> </li>";
+                        }
+                        if (response.OptionB != "" && response.OptionB != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + response.OptionB + "</div>   </li > ";
+                        }
+                        if (response.OptionC != "" && response.OptionC != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat opt\" name=\"iCheck\"  option=\"C\" " + check + "> " + response.OptionC + " </div> </li>";
+                        }
+                        if (response.OptionD != "" && response.OptionD != null) {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + response.OptionD + "</div> </li>";
+                            if (response.OptionE != "" && response.OptionE != null && response.OptionE!="Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)])== "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + response.OptionE + "</div> </li>";
+                            };
+                        };
+                        break;
+                    case 6:
+                        data += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">" + questionNo + "</span>   <li><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q.png\" class=\"simage\"/><br /></div><ol type=\"a\">";
+                        //var check = (Anwsers[parseInt(questionNo - 1)] == response.Answer) ? "checked=\"checked\"" : "";
+                        if (response.OptionA == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                            Q += " <li><div class=\"radio\"> <input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-A.png\" class=\"simage\"/></div>" +
+                                "</div></li>";
+                        }
+                        if (response.OptionB == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-B.png\" class=\"simage\"/></div>" + "</div>   </li> ";
+                        }
+                        if (response.OptionC == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            Q += "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-C.png\" class=\"simage\"/></div>" + " </div> </li>";
+                        }
+                        if (response.OptionD == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-D.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            if (response.OptionE != "Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-E.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            };
+                        };
+                        break;
+                    case 7:
+                        data += "<ol style=\"list-style:none\"><span class=\"badge badge-danger\">"+ questionNo + "</span>   <li><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + ".png\" class=\"simage\"/><br /></div><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q.png\" class=\"simage\"/><br /></div><ol type=\"a\">";
+                        var check = ((Anwsers[parseInt(questionNo - 1)]) == "A") ? "checked=\"checked\"" : "";
+                        if (response.OptionA == "") {
+                            var check = (Anwsers[parseInt(questionNo - 1)] == response.Answer) ? "checked=\"checked\"" : "";
+                            Q += " <li><div class=\"radio\"> < input type =\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"A\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-A.png\" class=\"simage\"/></div>" +
+                                "</div></li>";
+                        }
+                        if (response.OptionB == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "B") ? "checked=\"checked\"" : "";
+                            Q += " <li>    <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\" option=\"B\"" + check + " >" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-B.png\" class=\"simage\"/></div>" + "</div>   </li> ";
+                        }
+                        if (response.OptionC == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "C") ? "checked=\"checked\"" : "";
+                            Q +=   "<li><div class=\"radio\">    <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"C\" " + check + "> " + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-C.png\" class=\"simage\"/></div>" + " </div> </li>";
+                        }
+                        if (response.OptionD == "") {
+                            var check = ((Anwsers[parseInt(questionNo - 1)]) == "D") ? "checked=\"checked\"" : "";
+                            Q += "<li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"D\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-D.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            if (response.OptionE != "Z") {
+                                var check = ((Anwsers[parseInt(questionNo - 1)]) == "E") ? "checked=\"checked\"" : "";
+                                Q += "  <li> <div class=\"radio\">  <input type=\"radio\" class=\"flat optionradio\" name=\"iCheck\"  option=\"E\"" + check + ">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(response.SubjectID) + "/" + String(response.ImageId) + "Q-E.png\" class=\"simage\"/></div>" + "</div> </li>";
+                            };
+                        };
+                        break;
+                };
+
+                Q += "</ol> </li> </ol>";
+                $("#T_" + subjectId).html(Q)
+                setTimeout(function () {
+                    if ($(window).width() <= 768) { $(".simage").addClass("img-responsive"); } else $(".simage").removeClass("img-responsive")
+                    var math = document.getElementById("T_" + subjectId);
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+                }, 10);
+            }
+        });
+    };
+
+    $(document).on("click", ".optionradio", function () {
+        var activeQ = localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject"));
+        var activeS = localStorage.getItem("activesubject");
+        var answers = localStorage.getItem("A" + String(activeS)).split(",");
+        var examTakenId = localStorage.getItem("ExamTakenID");
+        answers[parseInt(activeQ-1)] = $(this).attr("option");
+        localStorage.setItem("A" + String(activeS), answers.toString());
+         var obj = {};
+        obj.examTakenId = parseInt(examTakenId);
+        obj.answers = answers.toString();
+        obj.subjectid = parseInt(activeS);
+        var time = $("#hms_timer").html();
+        obj.currentTime = (parseInt(time.split(":")[0]) * 3600) + (parseInt(time.split(":")[1]) * 60) + (parseInt(time.split(":")[2]));
+       var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("updateAnswersTrial","Index")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+
+            },
+        });
+    });
+
+    $("#btn-next").click(function () {
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) {
+          //  $("#btn-next").hide();
+            var a = $(".mytablist").index(".active");
+            var c = $("li.mytablist.active").next("li.mytablist").attr("id");
+
+          //  var b = $(".mytablist:eq(" + parseInt(a + 1) + ")")
+            if (c != undefined) {
+                $("li.mytablist.active").next("li.mytablist").find("a").trigger("click");
+                return;
+            }
+            else { $("#btn-next").hide()}
+
+    }// else $("#btn-next").show();
+
+        var activeQ = parseInt(localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")));
+        var activeS = localStorage.getItem("activesubject");
+        var answers = localStorage.getItem("A" + String(activeS)).split(",");
+        let u = answers[parseInt(activeQ - 1)];
+        if (answers[parseInt(activeQ-1)] == "" || u == undefined) $("#Q" + activeQ).removeClass("btn-success btn-warning").addClass("btn-danger");
+        else $("#Q" + activeQ).removeClass("btn-default btn-warning").addClass("btn-success");
+        activeQ += 1;
+        localStorage.setItem("ActiveQuestion" + localStorage.getItem("activesubject"), activeQ);
+
+
+        getActiveQuestion(activeS, activeQ);
+        $("#Q" + activeQ).removeClass("btn-default btn-success").addClass("btn-warning");
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show() ;
+       // if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) ;
+
+    });
+    $("#btn-previous").click(function () {
+        var activeQ = parseInt(localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")));
+        var activeS = localStorage.getItem("activesubject");
+        var answers = localStorage.getItem("A" + String(activeS)).split(",");
+        let u = answers[parseInt(activeQ - 1)];
+        if (answers[parseInt(activeQ-1)] == "" || u == undefined) $("#Q" + activeQ).removeClass("btn-success btn-warning").addClass("btn-danger");
+        else $("#Q" + activeQ).removeClass("btn-default btn-warning").addClass("btn-success");
+        activeQ -= 1;
+        localStorage.setItem("ActiveQuestion" + localStorage.getItem("activesubject"), activeQ);
+
+
+        getActiveQuestion(activeS, activeQ);
+        $("#Q" + activeQ).removeClass("btn-default btn-success").addClass("btn-warning");
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show();
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) $("#btn-next").hide(); else $("#btn-next").show();
+
+    });
+
+    $(document).on("click", ".btnq", function () {
+        var activeQ = localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject"));
+        var activeS = localStorage.getItem("activesubject");
+        var answers = localStorage.getItem("A" + String(activeS)).split(",");
+        let u = answers[parseInt(activeQ-1)];
+        if (answers[parseInt(activeQ-1)] == "" || u == undefined) $("#Q" + activeQ).removeClass("btn-success btn-warning").addClass("btn-danger");
+        else $("#Q" + activeQ).removeClass("btn-default btn-warning").addClass("btn-success");
+        localStorage.setItem("ActiveQuestion" + localStorage.getItem("activesubject"), $(this).text());
+        $(this).removeClass("btn-default btn-success btn-danger").addClass("btn-warning");
+        getActiveQuestion(activeS, parseInt($(this).text()));
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == "1") $("#btn-previous").hide(); else $("#btn-previous").show();
+        if (localStorage.getItem("ActiveQuestion" + localStorage.activesubject) == localStorage.getItem("Q" + localStorage.activesubject).split("-").length) $("#btn-next").hide(); else $("#btn-next").show();
+    });
+    let loadbuttons = function () {
+        var activeQ = localStorage.getItem("Q" + localStorage.getItem("activesubject")).split("-");
+        var activeS = localStorage.getItem("activesubject");
+        var answers = localStorage.getItem("A" + String(activeS)).split(",");
+        $("#btnQ").html("");
+        $.each(activeQ, function (i, btn) {
+            if (localStorage.getItem("A" + String(localStorage.getItem("activesubject"))).split(",")[i] != "") $("#btnQ").append("<button class=\"btn btn-default btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+            else if (String(localStorage.getItem("A" + String(localStorage.getItem("activesubject"))).split(",")[i]) == String(localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")))) $("#btnQ").append("<button class=\"btn btn-warning btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+            else $("#btnQ").append("<button class=\"btn btn-success btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+
+        });
+    }
+        let loadbuttonsreload = function () {
+            var activeQ = localStorage.getItem("Q" + localStorage.getItem("activesubject")).split("-");
+
+            var activeS = localStorage.getItem("activesubject");
+            var answers = localStorage.getItem("A" + String(activeS)).split(",");
+            $("#btnQ").html("");
+            $.each(activeQ, function (i, btn) {
+                if (localStorage.getItem("A" + String(localStorage.getItem("activesubject"))).split(",")[i] != "" && i + 1 == parseInt(localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")))) $("#btnQ").append("<button class=\"btn btn-warning btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+                else if (localStorage.getItem("A" + String(localStorage.getItem("activesubject"))).split(",")[i] == undefined) $("#btnQ").append("<button class=\"btn btn-default btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+                else if (localStorage.getItem("A" + String(localStorage.getItem("activesubject"))).split(",")[i] != "" && i + 1 != parseInt(localStorage.getItem("ActiveQuestion" + localStorage.getItem("activesubject")))) $("#btnQ").append("<button class=\"btn btn-success btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+                else $("#btnQ").append("<button class=\"btn btn-default btnq col-md-2 col-xs-2\" id =\"Q" + parseInt(i + 1) + "\"  type=\"button\">" + parseInt(i + 1) + "</button>");
+
+            });
+    }
+    $("#btnsubmitexam").click(function () {
+        swal({
+            title: "Exam Completion Confirmation",
+            text: "Are you sure you want to submit?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-success",
+            cancelButtonClass: "btn-danger",
+            confirmButtonText: "Yes, continue!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $(".loading").show();
+                    swal.close();
+                     var examid = localStorage.getItem("ExamTakenID");
+        var obj = {};
+        obj.ExamTakenID = examid;
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("submitExamTrial","Index")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                //window.location = "/Index/ResultSummary?examId=" + window.btoa(String(examid));
+                getDetails(examid);
+                localStorage.examOngoing = "0";
+            },
+        });
+                } else {
+                    swal("Cancelled", "", "error");
+                }
+            });
+
+
+    });
+    //window.onbeforeunload = function () {
+    //    localStorage.setItem("reload", "1");
+    //    localStorage.setItem("timer", $("#hms_timer").text());
+    //  //  alert("Dude, are you sure you want to leave? Think of the kittens!");
+    //    return "you want to leave";
+    //}
+      function getDetails(examid) {
+
+
+        $("#divDetails").load("@Url.Action("ResultDetails", "Index")", { examId: examid,trial:1 }, function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $(".loading").hide();
+
+                $("#divDetails").slideDown(4000);
+                $("#divmain").slideUp();
+                if ($(".progress .progress-bar")[0]) {
+                    $('.progress .progress-bar').progressbar();
+                }
+            }
+
+            if (statusTxt == "error")
+                alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+
+    }
+
+
+    $(document).on("click", ".cc", function () {
+        var examid = parseInt($(this).attr("examid"));
+        var subjectid = parseInt($(this).attr("sid"));
+        var u = $(this).closest("tr").find("td:eq(4)").html();
+        $("#score").html($(this).closest("tr").find("td:eq(4)").text());
+        $(".subject").text($(this).closest("tr").find('td:eq(0)').text());
+        var obj = {};
+        obj.subjectid = subjectid;
+        obj.examtakenid = examid;
+        var jsonData = JSON.stringify(obj);
+        $("#corr").html("");
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("correctionTrial","Index")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                if (response.value == 1) {
+                    ans = response.msg.choosenAns,
+                        $.each(response.msg.correctionQ, function (i, v) {
+                            var data = "";
+
+                            data += "  <div class=\"col-md-12 col-xs-12\">" +
+                                " <div class=\"x_content\">";
+
+                            var options = "";
+                            switch (v.HasImage) {
+                                case 0:
+                                    data += "<p>" + v.Question + "</p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    if (v.OptionD != "") (v.Answer == "D") ? options += "<li class=\"text-success\">" + v.OptionD + " </li>" : options += "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") (v.Answer == "E") ? options += "<li class=\"text-success\">" + v.OptionE + " </li>" : options += "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+
+                                    break;
+                                case 1:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div>" + v.Question + "</p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    if (v.OptionD != "") (v.Answer == "D") ? options += "<li class=\"text-success\">" + v.OptionD + " </li>" : options += "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") (v.Answer == "E") ? options += "<li class=\"text-success\">" + v.OptionE + " </li>" : options += "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+
+
+                                    break;
+                                case 2:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    if (v.OptionD != "") (v.Answer == "D") ? options += "<li class=\"text-success\">" + v.OptionD + " </li>" : options += "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") (v.Answer == "E") ? options += "<li class=\"text-success\">" + v.OptionE + " </li>" : options += "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+
+                                    break;
+                                case 3:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div>" + v.Question + "</p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+                                    break;
+                                case 4:
+                                    data += "<p>" + v.Question + "</p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+
+
+                                    break;
+                                case 5:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    options += (v.Answer == "D") ? "<li class=\"text-success\">" + v.OptionD + " </li>" : "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") options += (v.Answer == "E") ? "<li class=\"text-success\">" + v.OptionE + " </li>" : "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+                                    break;
+                                case 6:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionD == 0) options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+                                    break;
+                                case 7:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div><div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionD == 0) options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/QimagesT/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+                                    break;
+                            };
+                            var checkAns = (ans[i] == "" || ans[i] == undefined) ? "Nothing" : ans[i];
+                            var checkBonus = (v.Answer == "F") ? "Bonus" : v.Answer;
+                            options += "</ol>" +
+                                " </div>" +
+                                " <p>You Chose: <strong>" + checkAns + "</strong></p>" +
+                                " <p class=\"text-success\">Correct Answer is: <strong>" + checkBonus + "</strong></p>" +
+                                "    </div>" +
+                                " </div>" +
+                                "<div class=\"clearfix\"></div>";
+                            var sol = "";
+                            if (v.Solution == "") sol = "<h2 class=\"text-primary\">Explanation</h2> <p>No explanation avalaible for this question</p>";
+                            else sol = "<h2 class=\"text-primary\">Explanation</h2><div class=\"row\"><div class=\"col-sm-12 col-xs-12\">" + v.Solution + "</div></div>";
+                            data += options;
+                            $("#corr").append(data + sol + "<div class=\"ln_solid\"></div>");
+                            var math = document.getElementById("corr");
+                            MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+                        })
+                    $("#myModal").modal("show");
+                }
+                else {
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: response.msg,
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+            }
+        });
+    });
+    /*
+TODO:
+    Limit number input
+    Disallow . from being entered multiple times
+    Clean up structure
+*/
+
+    (function () {
+        "use strict";
+
+        // Shortcut to get elements
+        var el = function (element) {
+            if (element.charAt(0) === "#") { // If passed an ID...
+                return document.querySelector(element); // ... returns single element
+            }
+
+            return document.querySelectorAll(element); // Otherwise, returns a nodelist
+        };
+
+        // Variables
+        var viewer = el("#viewer"), // Calculator screen where result is displayed
+            equals = el("#equals"), // Equal button
+            nums = el(".num"), // List of numbers
+            ops = el(".ops"), // List of operators
+            theNum = "", // Current number
+            oldNum = "", // First number
+            resultNum, // Result
+            operator; // Batman
+
+        var viewer1 = el("#viewer1"), // Calculator screen where result is displayed
+            equals1 = el("#equals1"), // Equal button
+            nums1 = el(".num1"), // List of numbers
+            ops1 = el(".ops1"), // List of operators
+            theNum1 = "", // Current number
+            oldNum1 = "", // First number
+            resultNum1, // Result
+            operator1; // Batman
+
+        // When: Number is clicked. Get the current number selected
+        var setNum = function () {
+            if (resultNum) { // If a result was displayed, reset number
+                theNum = this.getAttribute("data-num");
+                resultNum = "";
+            } else { // Otherwise, add digit to previous number (this is a string!)
+                theNum += this.getAttribute("data-num");
+            }
+
+            viewer.innerHTML = theNum; // Display current number
+
+        };
+        var setNum1 = function () {
+            if (resultNum) { // If a result was displayed, reset number
+                theNum1 = this.getAttribute("data-num");
+                resultNum1 = "";
+            } else { // Otherwise, add digit to previous number (this is a string!)
+                theNum1 += this.getAttribute("data-num");
+            }
+
+            viewer1.innerHTML = theNum1; // Display current number
+
+        };
+
+        // When: Operator is clicked. Pass number to oldNum and save operator
+        var moveNum = function () {
+            oldNum = theNum;
+            theNum = "";
+            operator = this.getAttribute("data-ops");
+         //   operator1 = this.getAttribute("data-ops");
+
+            equals.setAttribute("data-result", ""); // Reset result in attr
+           // equals1.setAttribute("data-result", ""); // Reset result in attr
+
+        };
+        var moveNum1 = function () {
+            oldNum1 = theNum1;
+            theNum1 = "";
+            operator1 = this.getAttribute("data-ops");
+            //   operator1 = this.getAttribute("data-ops");
+
+            equals1.setAttribute("data-result", ""); // Reset result in attr
+            // equals1.setAttribute("data-result", ""); // Reset result in attr
+
+        };
+        // When: Equals is clicked. Calculate result
+        var displayNum = function () {
+
+            // Convert string input to numbers
+            oldNum = parseFloat(oldNum);
+            theNum = parseFloat(theNum);
+
+            // Perform operation
+            switch (operator) {
+                case "plus":
+                    resultNum = oldNum + theNum;
+                    break;
+
+                case "minus":
+                    resultNum = oldNum - theNum;
+                    break;
+
+                case "times":
+                    resultNum = oldNum * theNum;
+                    break;
+
+                case "divided by":
+                    resultNum = oldNum / theNum;
+                    break;
+                case "square":
+                    resultNum = oldNum*oldNum;
+                    break;
+                case "root":
+                    resultNum = Math.sqrt(oldNum);
+                    break;
+                // If equal is pressed without an operator, keep number and continue
+                default:
+                    resultNum = theNum;
+            }
+
+            // If NaN or Infinity returned
+            if (!isFinite(resultNum)) {
+                if (isNaN(resultNum)) { // If result is not a number; set off by, eg, double-clicking operators
+                    resultNum = "Error!";
+                } else { // If result is infinity, set off by dividing by zero
+                    resultNum = "Look at what you've done";
+                    el('#calculator').classList.add("broken"); // Break calculator
+                    el('#reset').classList.add("show"); // And show reset button
+                }
+            }
+
+            // Display result, finally!
+            viewer.innerHTML = resultNum;
+            equals.setAttribute("data-result", resultNum);
+
+            // Now reset oldNum & keep result
+            oldNum = 0;
+            theNum = resultNum;
+
+        };
+        var displayNum1 = function () {
+
+            // Convert string input to numbers
+            oldNum1 = parseFloat(oldNum1);
+            theNum1 = parseFloat(theNum1);
+
+            // Perform operation
+            switch (operator1) {
+                case "plus":
+                    resultNum1 = oldNum1 + theNum1;
+                    break;
+
+                case "minus":
+                    resultNum1 = oldNum1 - theNum1;
+                    break;
+
+                case "times":
+                    resultNum1 = oldNum1 * theNum1;
+                    break;
+
+                case "divided by":
+                    resultNum1 = oldNum1 / theNum1;
+                    break;
+                case "square":
+                    resultNum1 = oldNum1 * oldNum1;
+                    break;
+                case "root":
+                    resultNum1 = Math.sqrt(oldNum1);
+                    break;
+                // If equal is pressed without an operator, keep number and continue
+                default:
+                    resultNum1 = theNum1;
+            }
+
+            // If NaN or Infinity returned
+            if (!isFinite(resultNum1)) {
+                if (isNaN(resultNum1)) { // If result is not a number; set off by, eg, double-clicking operators
+                    resultNum1 = "Error!";
+                } else { // If result is infinity, set off by dividing by zero
+                    resultNum1 = "Look at what you've done";
+                    el('#calculator').classList.add("broken"); // Break calculator
+                }
+            }
+
+            // Display result, finally!
+            viewer1.innerHTML = resultNum1;
+            equals1.setAttribute("data-result", resultNum1);
+
+            // Now reset oldNum & keep result
+            oldNum1 = 0;
+            theNum1 = resultNum1;
+
+        };
+
+        // When: Clear button is pressed. Clear everything
+        var clearAll = function () {
+            oldNum = "";
+            theNum = "";
+            viewer.innerHTML = "0";
+            equals.setAttribute("data-result", resultNum);
+            oldNum1 = "";
+            theNum1 = "";
+            viewer1.innerHTML = "0";
+            equals1.setAttribute("data-result", resultNum1);
+
+        };
+       
+
+        /* The click events */
+
+        // Add click event to numbers
+        for (var i = 0, l = nums.length; i < l; i++) {
+            nums[i].onclick = setNum;
+        }
+
+        // Add click event to operators
+        for (var i = 0, l = ops.length; i < l; i++) {
+            ops[i].onclick = moveNum;
+        }
+        for (var i = 0, l = nums1.length; i < l; i++) {
+            nums1[i].onclick = setNum1;
+        }
+
+        // Add click event to operators
+        for (var i = 0, l = ops1.length; i < l; i++) {
+            ops1[i].onclick = moveNum1;
+        }
+        // Add click event to equal sign
+        equals.onclick = displayNum;
+        equals1.onclick = displayNum1;
+
+        // Add click event to clear button
+        el(".clear").onclick = clearAll;
+
+        // Add click event to reset button
+        //el("#reset").onclick = function () {
+        //    window.location = window.location;
+        //};
+
+    }());
+
+    $("#showcalc").click(function () {
+        if ($(this).hasClass("show")) {
+            $(this).text("Hide Calc.").removeClass("show").addClass("hides");
+        }
+        else $(this).text("Show Calc.").removeClass("hides").addClass("show");
+
+        if ($(window).width() <= 768) {
+            $("#myModalCalc").modal('toggle');
+        }
+        else {
+            $("#calculator").slideToggle(3000);
+        }
+
+    })
+</script>
+<script src="~/vendors/pnotify/dist/pnotify.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/build/js/custom.js?v=12334945556"></script>

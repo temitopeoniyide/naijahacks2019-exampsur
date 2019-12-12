@@ -1,0 +1,461 @@
+﻿@model IEnumerable<ExamSpur.Models.MerchantSubViewModel>
+@{
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewBag.Title = "Merchant Subscription";
+    
+}
+<link href="../vendors/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+<style>
+    h1, h2, h3, h4, h5, h6, p, li, div, input, th, td, span, small, sup, sub {
+        font-family: 'ABeeZee', sans-serif;
+    }
+
+    .ui-ribbon-container .ui-ribbon {
+        position: relative;
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        transform: rotate(45deg);
+        padding: 7px 0;
+        left: -5px;
+        top: 15px;
+        width: 120px;
+        line-height: 20px;
+        background-color: forestgreen;
+        box-shadow: 0 0 3px rgba(0,0,0,.3);
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Subscription Plans</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- price element -->
+                        @foreach (var item in Model)
+                        {
+                            if (!item.PlanRange.Contains("months"))
+                            {
+                            <div class=" col-sm-offset-3 col-sm-6 col-xs-12">
+
+                                <div class="pricing ui-ribbon-container">
+                                    @{if (item.PlanAmount < 500)
+                                        {
+                                            <div class="ui-ribbon-wrapper">
+                                                <div class="ui-ribbon">
+                                                    <i> @( Math.Floor(((500 - (decimal)@item.PlanAmount)) / 500 * 100))%</i>  <i>Off</i>
+                                                </div>
+
+
+                                            </div>
+                                        };
+                                    }
+
+                                    <div class="title">
+                                        <h2>@item.PlanType</h2>
+                                        <h1>&#8358 @item.PlanAmount.ToString().Split('.')[0]<n>/Unit</n></h1>
+                                    </div>
+                                    <div class="x_content">
+                                        <div class="">
+                                            <div class="pricing_features">
+                                                <ul class="list-unstyled text-left">
+                                                    <li><i class="fa fa-check text-success"></i> 5  <strong> Exam Access/Unit</strong></li>
+                                                    <li><i class="fa fa-check text-success"></i> <strong>No </strong> Access Expiry</li>
+                                                    <li><i class="fa fa-check text-success"></i>Minimum of   <strong>@item.PlanRange.Split('-')[0] Units Purchase </strong></li>
+                                                    <li><i class="fa fa-check text-success"></i>Maximum of   <strong>@item.PlanRange.Split('-')[1] Units Purchase </strong></li>
+                                                    <li><i class="fa fa-check text-success"></i>Monitor  <strong> Student Performance Trend</strong></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="pricing_footer">
+                                            <a href="javascript:void(0);" class="btn btn-danger btn-block btnsub" role="button" idd="@item.Id" mini="@item.PlanRange.Split('-')[0]" maxi="@item.PlanRange.Split('-')[1]" planname="@item.PlanType" tpp="1">Subscribe</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>}
+                                        }
+                        <!-- price element -->
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    @{ 
+                        foreach (var item in Model)
+                        {
+                            if (item.PlanRange.Contains("months"))
+                            {
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="pricing">
+                            <div class="title">
+                                <h2 id="p1">@item.PlanType</h2>
+                                <h1 id="price1">&#8358 @(String.Format("{0:n}", item.PlanAmount))</h1>
+                            </div>
+                            <div class="x_content">
+                                <div class="">
+                                    <div class="pricing_features">
+                                        <ul class="list-unstyled text-left">
+                                            <li><i class="fa fa-check text-success"></i> Unlimited number of <strong> Exam Access</strong></li>
+                                            <li><i class="fa fa-check text-success"></i> <strong>@item.PlanRange </strong> Access Expiry</li>
+                                            <li><i class="fa fa-check text-success"></i> Access to  <strong> Result and Correction</strong></li>
+                                            <li><i class="fa fa-check text-success"></i> Ability<strong>to Pause Exam</strong></li>
+                                            <li><i class="fa fa-check text-success"></i>Monitor  <strong> Performance Trend</strong></li>
+                                            <li><i class="fa fa-check text-success"></i>Access to  <strong>Monthly Performance Rewards</strong></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="pricing_footer">
+                                    <a href="javascript:void(0);" class="btn btn-danger btn-block btnsub" role="button"  idd="@item.Id" tpp="2">Subscribe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                }
+                            }
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Subcription</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="label label-success ">Enter Units to be Purchased</label>
+                            <input type="number" class="form-control input-sm" placeholder="" id="unit" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+
+                            <label class="label label-danger ">Total Amount</label>
+                            <input class="form-control input-sm" placeholder="total Amount" id="totalamount" readonly type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:20px">
+
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="col-xs-offset-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-primary" id="btnPay"> Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="../vendors/sweetalert/dist/sweetalert.min.js?45667"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+
+
+
+
+    var model = {};
+    $(document).ready(function () {
+
+
+
+    });
+
+        $(".btnsub").click(function () {
+            var $this = $(this);
+            $(".modal-title").html($(this).attr("planname") + " Subscription");
+
+            $("#unit").attr("min", $(this).attr("mini")).attr("max", $(this).attr("maxi")).val(parseInt($(this).attr("mini")));
+            //$(".modal-title").html(response.name + " Subscription");
+            let id = parseInt($(this).attr("idd"));
+        
+         var obj = {};
+
+            obj.id = parseInt($(this).attr("idd"));
+
+                var jsonData = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetPrice","Account")",
+                contentType: "Application/json",
+                data: jsonData,
+                dataType: "json",
+                success: function (response) {
+                    if (response.value == 1) {
+                        if ($this.attr("tpp") == "1") {
+                            $("#myModal").modal("show");
+                        }
+                        sessionStorage.Price = String(response.amount);
+                        sessionStorage.Min = String(response.min);
+                        sessionStorage.Max = String(response.max);
+                        sessionStorage.PlanId = String(id);
+                        sessionStorage.Type = String($this.attr("tpp"));
+                        if ($this.attr("tpp") == "1") $("#totalamount").val(parseInt(response.min) * response.amount);
+                        else {
+                            $("#totalamount").val(response.amount);
+                            unlimited();
+                        };
+                        
+                    }
+                    else new PNotify({
+                        title: 'Ooops!!!',
+                        text: response.msg,
+                        type: 'error',
+                        hide: true,
+                        styling: 'bootstrap3',
+                    })
+                }
+            });
+        })
+        $("#unit").change(function () {
+            $("#totalamount").val("N" + parseFloat(parseInt($(this).val()) * parseInt(sessionStorage.Price)).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString());
+        })
+        function unlimited() {
+                var obj = {};
+
+            obj.planid = parseInt(sessionStorage.PlanId);
+         
+                var jsonData = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("NewPayment","Account")",
+                contentType: "Application/json",
+                data: jsonData,
+                dataType: "json",
+                success: function (response) {
+                    if (response.value == 1) {
+                        model.id = response.subId;
+                        model.amount = response.amount;
+                        model.name = response.name;
+                        swal({
+                            title: "Payment Confirmation?",
+                            text: "You are paying a total sum of N" + parseFloat(model.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") + " for the "  + model.name +" Plan",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-success",
+                            cancelButtonClass: "btn-danger",
+                            confirmButtonText: "Yes, continue!",
+                            cancelButtonText: "No, cancel!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    swal.close();
+                                    $(this).html("<i class=\"fa fa-spinner fa-spin \"></i>").attr("disabled", "disabled");
+                                    payWithPaystack(response.subId, response.amount,1);
+                                } else {
+                                    swal("Cancelled", "", "error");
+                                }
+                            });
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: response.msg,
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        })
+
+                    };
+
+                },
+                error: function (error) {
+
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: "Error Occured. Please try again",
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+            });
+
+        }
+        $("#btnPay").click(function () {
+       //     if ($("#unit").val() < parseInt(sessionStorage.Min)) {
+            //    new PNotify({
+            //        title: 'Error',
+            //        text: "Unit cannot be less than " + sessionStorage.Min +" for this plan" ,
+            //        type: 'error',
+            //        hide: true,
+            //        styling: 'bootstrap3',
+            //    })
+            //    return;
+            //}
+            if ($("#unit").val() > parseInt(sessionStorage.Max)) {
+                new PNotify({
+                    title: 'Error',
+                    text: "Unit cannot be greater than " + sessionStorage.Max + " for this plan",
+                    type: 'error',
+                    hide: true,
+                    styling: 'bootstrap3',
+                })
+                return;
+            }
+            $("#myModal").modal("hide");
+             var obj = {};
+
+            obj.planid = parseInt(sessionStorage.PlanId);
+         
+                var jsonData = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("NewPayment","Account")",
+                contentType: "Application/json",
+                data: jsonData,
+                dataType: "json",
+                success: function (response) {
+                    if (response.value == 1) {
+                        model.id = response.subId;
+                        model.amount = response.amount;
+                        model.name = response.name;
+                        swal({
+                            title: "Payment Confirmation?",
+                            text: "You are paying a total sum of " + $("#totalamount").val() + " for " + $("#unit").val() + " unit(s) of " + $(".modal-title").text(),
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-success",
+                            cancelButtonClass: "btn-danger",
+                            confirmButtonText: "Yes, continue!",
+                            cancelButtonText: "No, cancel!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    swal.close();
+                                    $(this).html("<i class=\"fa fa-spinner fa-spin \"></i>").attr("disabled", "disabled");
+                                    payWithPaystack(response.subId, response.amount, parseInt($("#unit").val()));
+                                } else {
+                                    swal("Cancelled", "", "error");
+                                }
+                            });
+                    }
+                    else {
+                        new PNotify({
+                            title: 'Ooops!!!',
+                            text: response.msg,
+                            type: 'error',
+                            hide: 'false',
+                            styling: 'bootstrap3',
+                        })
+
+                    };
+
+                },
+                error: function (error) {
+
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: "Error Occured. Please try again",
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+            });
+    });
+
+
+        function payWithPaystack(subId,amount,unit) {
+            var handler = PaystackPop.setup({
+               // key: 'pk_live_104cd64d66b833281410d703bc2555b421f796a0',
+              key: 'pk_test_26e54fa675cfd3456b34ed00f4d06bfbdc7bf7d9',
+                email: '@Session["email"]',
+                amount: amount*100*unit,
+                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+234" + String(@Session["phone"]).substr(1),
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    var obj = {};
+                    obj.subid = subId;
+                    obj.paymentRef = response.reference;
+                    obj.unit = unit;
+                       var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("UpdatePaymentM","Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                    success: function (response) {
+
+
+                            $("#btnPay").removeAttr("disabled").html("Pay");
+                       
+
+                    if (response.value == 1) {
+                        new PNotify({
+                            title: 'Transaction Successful',
+                            text: "success. transaction ref is " + obj.paymentRef + "",
+                            type: 'success',
+                            hide: false,
+                            styling: 'bootstrap3',
+                        });
+                    }
+                    else {
+
+                        $("#btnPay").removeAttr("disabled").html("Pay");
+                    };
+
+                },
+                error: function (error) {
+                    $("#btnPay").removeAttr("disabled").html("Pay");
+
+                }
+
+            });
+
+
+                },
+                onClose: function () {
+                    $("#btnPay").removeAttr("disabled").html("Pay");
+                }
+            });
+            handler.openIframe();
+        }
+
+    </script>
+

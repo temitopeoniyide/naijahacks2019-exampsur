@@ -1,0 +1,571 @@
+﻿@model IEnumerable<ExamSpur.Models.ResultModel>
+@{
+    ViewBag.Title = "ResultSummary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+<link href="~/vendors/nprogress/nprogress.css" rel="stylesheet" />
+<link href="~/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+<link href="~/build/css/custom.min.css" rel="stylesheet" />
+<script src="/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]},
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"]
+    });
+    MathJax.Hub.Startup.onload();
+
+</script>
+<style>
+    h1, h2, h3, h4, h5, h6, p, li {
+        font-family: 'ABeeZee', sans-serif;
+    }
+
+    .MathJax_Display {
+        display: inline !important
+    }
+
+    li {
+        /*list-style: none !important*/
+    }
+
+    .dashboard-widget-content .sidebar-widget {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        background: #fff;
+        border: 1px solid #abd9ea;
+        border-radius: 5px;
+        text-align: center;
+        float: left;
+        padding: 2px;
+        margin-top: 10px;
+        margin-left: 40px;
+    }
+
+    .jcount {
+        font-size: 30px;
+        line-height: 47px;
+        font-weight: 600;
+    }
+</style>
+<div class="row" id="mainDiv">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Result Summary</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ExamID</th>
+                                        <th>Exam Mode</th>
+                                        <th>Exam Date</th>
+                                        <th>Time Spent</th>
+                                        <th>Score</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    @{if (Model.Count() == 0)
+                                        {
+                                            <tr><td colspan="6">No  Exam Result to Display </td></tr>
+
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@item.examid</td>
+                                                    <td>@{@( (item.exammode == "1") ? "Straight" : "Pause and Resume")}</td>
+                                                    <td>@item.startdate</td>
+                                                    <td>@item.timeused</td>
+                                                    <td>@item.score.Split('.')[0]</td>
+                                                    <td><button class="btn btn-info btn-sm rr" type="button" idd="@item.examid">View Result</button></td>
+                                                    @*<td><button class="btn btn-info btn-sm rr" type="button" idd="@item.examid">View Correction</button></td>*@
+
+                                                </tr>
+
+                                            }
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Performance Trend <small>Sessions</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content2">
+                                <canvas id="lineChart" style="width:100%; height:300px;"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+
+<div class="row" id="divDetails" style="display:none">
+
+
+</div>
+<div id="myModal" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Exam Correction</h4>
+            </div>
+            <div class="modal-body" style="max-height:400px;overflow-y:scroll">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_content">
+                            <br />
+                            <div class="animated flipInY col-md-12 col-sm-12 col-xs-12">
+                                <div class="tile-stats">
+                                    <h1>You scored <strong id="score" class="text-warning"></strong> in  <strong class="subject"></strong></h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 class="subject"></h2>
+                                @*<div class="year pull-right">
+                                        2014
+                                    </div>*@
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="row" id="corr">
+                                @*<div class="col-md-12 col-xs-12">
+                                        <div class="x_content">
+                                            <p id="question">Which of the following is NOT a characteristic of the parliamentary system of government?</p>
+                                            <ol type="a">
+
+                                                <li class="text-success">
+                                                    Ministers are usually members of parliament
+                                                </li>
+
+
+                                            </ol>
+                                            <div class="ln_solid"></div>
+                                            <p>You Chose: <strong></strong></p>
+                                            <p class="text-success">Correct Answer is: <strong></strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>*@
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="contestModal" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Contest Question Answer</h4>
+            </div>
+            <div class="modal-body" style="max-height:400px;overflow-y:scroll">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                          <label class="">Answer</label>
+                          <input  type="text" class="form-control" maxlength="1" style="text-transform:capitalize" id="txtans"/>
+                      </div>
+                       <div class="col-sm-12">
+                           <div class="form-group">
+                               <label class="">Explanation</label>
+                               <textarea type="text" class="form-control" maxlength="400" style="min-height:200px"></textarea>
+                           </div>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnsubmit">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    </div>
+
+
+
+<script src="~/vendors/Chart.js/dist/Chart.min.js"></script>
+<script src="~/vendors/gauge.js/dist/gauge.min.js"></script>
+<script src="~/vendors/raphael/raphael.min.js"></script>
+<script src="~/vendors/morris.js/morris.min.js"></script>
+<script src="~/vendors/nprogress/nprogress.js"></script>
+<script src="~/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<script>
+    var ans;
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+
+            if ($.inArray(hash[0], vars) > -1) {
+                vars[hash[0]] += "," + hash[1];
+            }
+            else {
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+        }
+
+        return vars;
+    }
+
+    $(document).ready(function () {
+        if (window.location.href.indexOf("?")==-1) {
+            var data = [];
+            var label = [];
+            var jsonData = JSON.stringify({});
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ResultSummaryAjax", "Admin")",
+                contentType: "Application/json",
+                data: jsonData,
+                dataType: "json",
+                success: function (response) {
+
+                    $.each(response, function (i, v) {
+                        var obj = {};
+                        label.push(v.startdate);
+
+                        data.push(parseInt(v.score));
+                    });
+                        if ($('#lineChart').length) {
+
+                            var ctx = document.getElementById("lineChart");
+                            var lineChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels:label,
+                                    datasets: [{
+                                        label: "My Score",
+                                        backgroundColor: "rgba(38, 185, 154, 0.31)",
+                                        borderColor: "rgba(38, 185, 154, 0.7)",
+                                        pointBorderColor: "rgba(38, 185, 154, 0.7)",
+                                        pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+                                        pointHoverBackgroundColor: "#fff",
+                                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                                        pointBorderWidth: 1,
+                                        data: data
+                                    }]
+                                },
+                            });
+
+                        }
+                    }
+
+            });
+
+
+
+            $("#mainDiv").slideDown(4000)
+        }
+        else {
+            var examId = parseInt(window.atob(getUrlVars()["examId"]));
+            var examTakenId = parseInt(window.atob(getUrlVars()["examTakenId"]));
+            getDetails(examTakenId,examId)
+        };
+    });
+    function formatdate(month) {
+        switch (month) {
+            case "Jan":
+                return "01";
+                break;
+            case "Feb":
+                return "02"
+                break
+            case "Mar":
+                return "03"
+                break
+            case "Apr":
+                return "04"
+                break
+            case "May":
+                return "05"
+                break
+            case "Jun":
+                return "06"
+                break
+            case "Jul":
+                return "07"
+                break
+            case "Aug":
+                return "08"
+                break
+            case "Sep":
+                return "09"
+                break
+            case "Oct":
+                return "10"
+                break
+            case "Nov":
+                return "11"
+                break
+            case "Dec":
+                return "12"
+
+                break
+        };
+    };
+    $(document).on("click", ".contest", function () {
+
+        $("#contestModal").modal("show");
+
+
+
+    });
+    $(document).on("click", "#btnsubmit", function () {
+        if ($("#txtans").val() == "") {
+
+            new PNotify({
+                title: '',
+                text: "Please input your suggested answer",
+                type: 'error',
+                hide: 'false',
+                styling: 'bootstrap3',
+            });
+            return;
+        }
+        new PNotify({
+            title: 'Thank You!!',
+            text: "Your Suggested Answer will be reviewed by our team of Experts and will be updated accordingly",
+            type: 'success',
+            hide: 'false',
+            styling: 'bootstrap3',
+        })
+
+        $("#contestModal").modal("hide");
+        $(".form-control").val("");
+    });
+    $(document).on("click", ".rr", function () {
+        var examid = $(this).attr("idd");
+                window.location = "/Admin/ResultSummaryTopic?examTakenId=" + window.btoa(String(examid)) + "&examId=" + window.btoa(String(1003));
+    })
+     $(document).on("click", "#closed", function () {
+
+        window.location = "@Url.Action("ResultSummaryTopic","Admin")";
+    })
+    $(document).on("click", ".cc", function () {
+        var $this = $(this);
+        $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>").prop("disabled", true);
+        var examid = parseInt($(this).attr("examid"));
+        var topicid = parseInt($(this).attr("sid"));
+        var u = $(this).closest("tr").find("td:eq(4)").html();
+        $("#score").html($(this).closest("tr").find("td:eq(4)").text());
+        $(".subject").text($(this).closest("tr").find('td:eq(0)').text());
+        var obj = {};
+        obj.topicid = topicid;
+        obj.examtakenid = examid;
+        var jsonData = JSON.stringify(obj);
+        $("#corr").html("");
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("correctionTopic", "Admin")",
+            contentType: "Application/json",
+            data: jsonData,
+            dataType: "json",
+            success: function (response) {
+                $this.html("<i class=\"fa fa-eye\"></i>See Correction").prop("disabled", false);
+                if (response.value == 1) {
+                    ans = response.msg.choosenAns,
+                        $.each(response.msg.correctionQ, function (i, v) {
+                            var data = "";
+
+                            data += "  <div class=\"col-md-12 col-xs-12\">" +
+                                " <div class=\"x_content\">";
+
+                            var options = "";
+                            switch (v.HasImage) {
+                                case 0:
+                                    data += "<p>" + v.Question + "</p><ol type=\"A\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    if (v.OptionD != "") (v.Answer == "D") ? options += "<li class=\"text-success\">" + v.OptionD + " </li>" : options += "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "" && v.OptionE != "Z") (v.Answer == "E") ? options += "<li class=\"text-success\">" + v.OptionE + " </li>" : options += "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+
+                                    break;
+                                case 1:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div>" + v.Question + "</p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    if (v.OptionD != "") (v.Answer == "D") ? options += "<li class=\"text-success\">" + v.OptionD + " </li>" : options += "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") (v.Answer == "E") ? options += "<li class=\"text-success\">" + v.OptionE + " </li>" : options += "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+
+
+                                    break;
+                                case 2:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    if (v.OptionD != "") (v.Answer == "D") ? options += "<li class=\"text-success\">" + v.OptionD + " </li>" : options += "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") (v.Answer == "E") ? options += "<li class=\"text-success\">" + v.OptionE + " </li>" : options += "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+
+                                    break;
+                                case 3:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div>" + v.Question + "</p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+                                    break;
+                                case 4:
+                                    data += "<p>" + v.Question + "</p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+
+
+                                    break;
+                                case 5:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + v.OptionA + " </li>" : "<li class=\"text-danger\">" + v.OptionA + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + v.OptionB + " </li>" : "<li class=\"text-danger\">" + v.OptionB + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + v.OptionC + " </li>" : "<li class=\"text-danger\">" + v.OptionC + "</li> ";
+                                    options += (v.Answer == "D") ? "<li class=\"text-success\">" + v.OptionD + " </li>" : "<li class=\"text-danger\">" + v.OptionD + "</li> ";
+                                    if (v.OptionE != "Z" && v.OptionE != "") options += (v.Answer == "E") ? "<li class=\"text-success\">" + v.OptionE + " </li>" : "<li class=\"text-danger\">" + v.OptionE + "</li> ";
+                                    break;
+                                case 6:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionD == 0) options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+                                    break;
+                                case 7:
+                                    data += "<p><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + ".png\" class=\"img-responsive\"/><br /></div><div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q.png\" class=\"img-responsive\"/><br /></div></p><ol type=\"a\">";
+                                    options += (v.Answer == "A") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-A.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "B") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-B.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    options += (v.Answer == "C") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-C.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionD == 0) options += (v.Answer == "D") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-D.png\" class=\"img-responsive\"/></div>" + "</li> ";
+                                    if (v.OptionE != "Z") options += (v.Answer == "E") ? "<li class=\"text-success\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + " </li>" : "<li class=\"text-danger\">" + "<div class=\"table-reponsive\"><img src=\"/Qimages/" + String(v.SubjectID) + "/" + String(v.ImageId) + "Q-E.png\" class=\"img-responsive\"/></div>" + "</li> ";
+
+                                    break;
+                            };
+                            var checkAns = (ans[i] == "" || ans[i] == undefined) ? "Nothing" : ans[i];
+                            var checkBonus = (v.Answer == "F") ? "Bonus" : v.Answer;
+                            options += "</ol>" +
+                                " </div>" +
+                                " <p>You Chose: <strong>" + checkAns + "</strong></p>" +
+                                " <p class=\"text-success\">Correct Answer is: <strong>" + checkBonus + "</strong></p>" +
+                                "    </div>" +
+                                " </div>" +
+                                "<div class=\"clearfix\"></div><button class=\" btn btn-info contest\" data-subjectid="+v.SubjectID+">Contest Answer</button>";
+                            var sol = "";
+                            if (v.Solution == "") sol = "<h2 class=\"text-primary\">Explanation</h2> <p>No explanation avalaible for this question</p>";
+                            else sol = "<h2 class=\"text-primary\">Explanation</h2><div class=\"row\"><div class=\"col-sm-12 col-xs-12\">" + v.Solution + "</div></div>";
+                            data += options;
+                            $("#corr").append(data + sol + "<div class=\"ln_solid\"></div>");
+                        var math = document.getElementById("corr");
+                            MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+                        })
+                    $("#myModal").modal("show");
+                }
+                else {
+                    new PNotify({
+                        title: 'Ooops!!!',
+                        text: response.msg,
+                        type: 'error',
+                        hide: 'false',
+                        styling: 'bootstrap3',
+                    })
+                }
+            }
+        });
+    });
+    function getDetails(examTakenId, examId) {
+        let   url = "@Url.Action("ResultDetailsTopic", "Admin")";
+
+
+        $("#divDetails").load(url, { examId: examTakenId}, function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+
+                $("#divDetails").slideDown("slow");
+                $("#mainDiv").slideUp();
+                if ($(".progress .progress-bar")[0]) {
+                    $('.progress .progress-bar').progressbar();
+                }
+            }
+
+            if (statusTxt == "error")
+                alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+        
+    }
+
+
+
+
+
+
+</script>

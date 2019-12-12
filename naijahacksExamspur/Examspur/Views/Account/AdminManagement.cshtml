@@ -1,0 +1,534 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+<link href="../vendors/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+
+<style>
+    h1, h2, h3, h4, h5, h6, p, li, div, input, th, td, option, select {
+        font-family: 'ABeeZee', sans-serif;
+    }
+</style>
+
+<!-- Dropzone.js -->
+<link href="~/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<!-- Datatables -->
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+
+<link href="~/vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+<link href="~/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+<link href="~/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+<style>
+    h1, h2, h3, h4, h5, h6, p, li, div, input, th, td {
+        font-family: 'ABeeZee', sans-serif;
+    }
+</style>
+
+<div style="margin:auto;width:50%;padding:10px">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title bg-red">
+                    <h2>Add A new Teacher/Instructor</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="label label-danger">FirstName</label>
+                                <input type="text" class="form-control input100" id="firstname" />
+                                <h4 style="display:none;color:#d42a2a" id="errorfirst"></h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="label label-danger">Last Name</label>
+                                <input type="text" class="form-control input100" id="lastname" />
+                                <h4 style="display:none;color:#d42a2a" id="errorlast"></h4>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="label label-danger">Email</label>
+                                <input type="text" class="form-control input100" id="email" />
+                                <h4 style="display:none;color:#d42a2a" id="erroremail"></h4>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="label label-info">Phone</label>
+                                <input type="text" class="form-control input100" id="phone" placeholder="Phone(ex 080...)" />
+                                <h4 style="display:none;color:#d42a2a" id="errorphone"></h4>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="label label-danger">Role</label>
+                                <select id="role" class="form-control">
+                                    <option value="0">-select user role--</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Teacher</option>
+                                </select>
+                                <h4 style="display:none;color:#d42a2a" id="errorrole"></h4>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group" style="margin:auto!important;width:50%">
+                                <button type="button" class="btn btn-success" id="btnadduser">Add User</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 id="">User Information</h4>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+          
+            <div class="x_content">
+
+
+
+                <div class="table table-responsive">
+
+                    <table class="table table-bordered table-dark table-striped datatable-buttons">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                             
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModalRole" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Role <small id="name" style="color:#d42a2a"></small></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+              
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="label label-success ">User Role</label>
+                            <select class="form-control input-sm" id="role2">
+                                <option value="1" >Admin</option>
+                                <option value="2">Teacher</option>
+                            </select>
+                        </div>
+                    </div>
+                 
+                </div>
+                <div class="row" style="margin-bottom:20px">
+
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="col-xs-offset-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-primary" id="btnUpdate"> Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/vendors/pnotify/dist/pnotify.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<script src="../vendors/sweetalert/dist/sweetalert.min.js?45667"></script>
+<!-- Datatables -->
+<script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="~/vendors/jszip/dist/jszip.min.js"></script>
+<script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script>
+    var userId = 0;
+    var userName ="" ;
+    $(document).ready(function () {
+        loadUsers();
+    })
+     $("#btnadduser").click(function () {
+                save();
+     });
+
+     let save = function () {
+
+
+         var firstName = $("#firstname").val();
+         var lastName = $("#lastname").val();
+         var email = $("#email").val();
+         var phone = $("#phone").val();
+         var role = $("#role").val();
+
+
+         if (firstName == "") {
+             $(this).html("Add User").removeAttr("disabled");
+             $('html, body').animate({
+                 scrollTop: ($("#firstname").offset().top - 300)
+             }, 1000);
+
+             $("#errorfirst").text("Please enter Firstname").fadeIn(2000);
+             setTimeout(function () { $("#errorfirst").fadeOut(2000) }, 3000);
+
+
+
+             return;
+         }
+         if (lastName == "") {
+             $(this).html("Add User").removeAttr("disabled");
+             $('html, body').animate({
+                 scrollTop: ($("#lastname").offset().top - 300)
+             }, 1000);
+
+             $("#errorlast").text("Please enter Lastname").fadeIn(2000);
+             setTimeout(function () { $("#errorlast").fadeOut(2000) }, 3000);
+             return;
+         }
+         if (email == "" || isValidEmailAddress(email) == false) {
+             $(this).html("Add User").removeAttr("disabled");
+             $('html, body').animate({
+                 scrollTop: ($("#email").offset().top - 300)
+             }, 1000);
+
+             $("#erroremail").text("Please enter a valid email").fadeIn(2000);
+             setTimeout(function () { $("#erroremail").fadeOut(2000) }, 3000);
+             return;
+         }
+    
+         if ($("#role").val()==0) {
+             $(this).html("Add User").removeAttr("disabled");
+             $('html, body').animate({
+                 scrollTop: ($("#role").offset().top - 300)
+             }, 1000);
+
+             $("#errorrole").text("Please select user role").fadeIn(2000);
+             setTimeout(function () { $("#errorrole").fadeOut(2000) }, 3000);
+
+             return;
+         }
+         $("#btnadduser").attr("disabled", "disabled").html("<i class=\"fa fa-spin fa-spinner\"></i>");
+         var obj = {};
+         obj.firstName = firstName;
+         obj.lastName = lastName;
+         obj.email = email;
+         obj.phone = phone; 
+         obj.role = parseInt(role);
+         var jsonData = JSON.stringify(obj);
+         $.ajax({
+             type: 'POST',
+             contentType: 'application/json charset=utf-8',
+             url: '/Account/AddMerchantUser',
+             data: jsonData,
+             dataType: 'json',
+             success: function (response) {
+                 $("#btnadduser").html("Add User").removeAttr("disabled");
+                 if (response.value == 1) {
+                     loadUsers();
+                     new PNotify({
+                         title: 'User added successfully and has been nofified accordingly',
+                         text: "",
+                         type: 'success',
+                         hide: 'true',
+                         styling: 'bootstrap3',
+                     });
+
+                     $(".input100").val("");
+                 }
+                 else
+
+                 new PNotify({
+                     title: response.msg,
+                     text: "",
+                     type: 'success',
+                     hide: 'true',
+                     styling: 'bootstrap3',
+                 });
+             },
+             error: function (error) {
+                 $("#btnadduser").html("Add User").removeAttr("disabled");
+                 swal("Ooops!!!", "Something Went Wrong.Kindly try again later.", "error");
+
+             },
+             failure: function (failure) {
+                 $("#btnadduser").html("Add User").removeAttr("disabled");
+                 swal("Ooops!!!", "Cannot coonect to our Server due to Poor Internet Coonection.", "error")
+             }
+
+         })
+
+
+
+
+     }
+     function isValidEmailAddress(emailAddress) {
+         var pattern = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+         return pattern.test(emailAddress);
+     };
+     $(document).on("click", ".delete", function () {
+         var id = parseInt($(this).data("id"));
+         swal({
+             title: "Delete Confirmation",
+             text: "Are you sure you want to delete this user?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonClass: "btn-success",
+             cancelButtonClass: "btn-danger",
+             confirmButtonText: "Yes, continue!",
+             cancelButtonText: "No, cancel!",
+             closeOnConfirm: false,
+             closeOnCancel: false
+         },
+           function (isConfirm) {
+               if (isConfirm) {
+                   var obj = {};
+                   obj.id = parseInt(id);
+                   //obj.unit = parseInt($("sunit").val());
+                   var jsonData = JSON.stringify(obj);
+                   $.ajax({
+                       type: "POST",
+                       url: "@Url.Action("deleteMerchantUser","Index")",
+                       contentType: "Application/json",
+                   data: jsonData,
+                   dataType: "json",
+                   success: function (response) {
+                       if (response.value == 1) {
+                           swal.close();
+                           loadUsers();
+                           
+                           new PNotify({
+                               title: 'User deleted successfully',
+                               text: "",
+                               type: 'success',
+                               hide: 'true',
+                               styling: 'bootstrap3',
+                           });
+                           swal.close();
+                       }
+                       else {
+                           new PNotify({
+                               title: response.msg,
+                               text: "",
+                               type: 'success',
+                               hide: 'true',
+                               styling: 'bootstrap3',
+                           });
+                           swal.close();
+                       }
+                       //   swal.close();
+
+                   },
+                   });
+           } else {
+                   swal.close();
+     }
+     });
+
+     })
+
+     function loadUsers() {
+         var obj = {};
+
+         var jsonData = JSON.stringify(obj);
+         $.ajax({
+             type: 'POST',
+             contentType: 'application/json charset=utf-8',
+             url: '/Index/loadMechantuser',
+             data: jsonData,
+             dataType: 'json',
+             success: function (response) {
+                 if (response.length>0) {
+                     $(".datatable-buttons").DataTable().destroy();
+                     $("#tbody").html("");
+                     $.each(response, function (i, item) {
+                         var role = (item.role == 1) ? "Admin" : "Teacher";
+                         var row = " <tr>" +
+                                                     "<td>" + item.firstname + "</td>" +
+                                                     "<td>" + item.lastname + "</td> " +
+                                                     "<td>" + item.email + "</td>    " +
+                                                     "<td>" + role + "</td>   " +
+                                                    
+
+                                                   " <td><a class=\"btn btn-success edit\" title=\"edit User Role\" data-id=" + item.Userid + " data-toggle=\"tooltip\" data-placement=\"bottom\"><i class=\"fas fa-edit\"></i></a></td>" +
+                                                   " <td><a class=\"btn btn-danger delete\" title=\"delete user\" data-id=" + item.Userid + " data-toggle=\"tooltip\" data-placement=\"bottom\"><i class=\"fa fa-trash\"></i></a></td>" +
+                                                 "</tr>";
+                         $("#tbody").append(row);
+
+                     });
+                     handleDataTableButtons();
+                     $(".btn").tooltip();
+                 }
+             }
+         });
+
+
+
+     }
+     var handleDataTableButtons = function () {
+         if ($(".datatable-buttons").length) {
+             $(".datatable-buttons").DataTable({
+                 dom: "Blfrtip",
+                 buttons: [
+                   {
+                       extend: "copy",
+                       className: "btn-sm"
+                   },
+                   {
+                       extend: "csv",
+                       className: "btn-sm",
+                       text: "Download Excel"
+                   },
+                   {
+                       extend: "excel",
+                       className: "btn-sm"
+                   },
+                   {
+                       extend: "pdfHtml5",
+                       className: "btn-sm"
+                   },
+                   {
+                       extend: "print",
+                       className: "btn-sm"
+                   },
+                 ],
+                 responsive: false
+             });
+         }
+     };
+     $(document).on("click", ".edit", function () {
+          userId = parseInt($(this).data("id"));
+          userName = "(" + $(this).closest("tr").find("td:eq(0)").text() + " " + $(this).closest("tr").find("td:eq(1)").text() + ")";
+         var role = $(this).closest("tr").find("td:eq(3)").text();
+         if (role == "Teacher") $("#role2").val(2);
+         else $("#role2").val(1);
+         $("#name").html(userName);
+         $("#myModalRole").modal("show");
+
+
+
+     })
+     $("#btnUpdate").click(function () {
+
+         swal({
+             title: "Update Confirmation",
+             text: "Are you sure you want to update this user?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonClass: "btn-success",
+             cancelButtonClass: "btn-danger",
+             confirmButtonText: "Yes, continue!",
+             cancelButtonText: "No, cancel!",
+             closeOnConfirm: false,
+             closeOnCancel: false
+         },
+         function (isConfirm) {
+             if (isConfirm) {
+                 var obj = {};
+                 obj.userId = parseInt(userId);
+                 obj.roleId = parseInt($("#role2").val());
+                 //obj.unit = parseInt($("sunit").val());
+                 var jsonData = JSON.stringify(obj);
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("updateRole","Index")",
+                     contentType: "Application/json",
+                 data: jsonData,
+                 dataType: "json",
+                 success: function (response) {
+                     if (response.value == 1) {
+                         $("#myModalRole").modal("hide");
+                         swal.close();
+                         loadUsers();
+                         new PNotify({
+                             title: 'User role updated successfully',
+                             text: "",
+                             type: 'success',
+                             hide: 'true',
+                             styling: 'bootstrap3',
+                         });
+                     }
+                     else {
+                         new PNotify({
+                             title: response.msg,
+                             text: "",
+                             type: 'success',
+                             hide: 'true',
+                             styling: 'bootstrap3',
+                         });
+
+                     }
+                     //   swal.close();
+
+                 },
+                 });
+         } else {
+                 swal.close();
+     }
+     });
+
+
+
+     })
+</script>

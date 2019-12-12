@@ -1,0 +1,292 @@
+﻿
+@{
+    ViewBag.Title = "Merchant";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" href="images/ExamSpur_Im/favicon.png" type="image/x-icon" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lovendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lofonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lofonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lovendor/animate/animate.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lovendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lovendor/animsition/css/animsition.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lovendor/select2/select2.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../plugins/lovendor/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="../../styles/locss/main.css" rel="stylesheet" />
+    <link href="../../styles/locss/util.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+
+    <!--===============================================================================================-->
+    <style>
+        .wrap-login100 {
+            width: 500px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, p, li, span, input, div, button, a, em {
+            font-family: 'ABeeZee', sans-serif !important;
+        }
+
+        a {
+            color: #9b9b9b;
+        }
+
+        .label-input100 {
+            color: #9b9b9b;
+        }
+
+        .login100-form-title {
+            font-family: Poppins-Bold;
+            color: #fff;
+        }
+
+        .txt1 {
+            color: #fff;
+        }
+
+        button {
+            outline: none !important;
+            border: none;
+        }
+
+        .input100 {
+            color: #fff !important;
+        }
+
+        .txt2 {
+            font-family: Poppins-Regular;
+            font-size: 20px;
+            line-height: 1.5;
+            color: #9b9b9b;
+            text-transform: uppercase;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #a20a0a;
+        }
+
+        .p-b-54 {
+            padding-bottom: 15px;
+        }
+
+        .p-t-65 {
+            padding-top: 15px;
+        }
+
+        .p-r-55 {
+            padding-right: 35px;
+        }
+
+        .p-l-55 {
+            padding-left: 35px;
+        }
+
+        .p-t-155 {
+            padding-top: 30px;
+        }
+
+        .p-t-54 {
+            padding-top: 30px;
+        }
+
+        .p-b-49 {
+            padding-bottom: 0px;
+        }
+
+        .input100 {
+            height: 25px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('../../Images/suimages/SignUpN.jpeg');">
+
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <div class="login100-form validate-form">
+                    <span class="login100-form-title p-b-49">
+                        Sign Up
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Company Name is required">
+                        <span class="label-input100"></span>
+                        <input class="input100" type="text" name="name" placeholder="Company Name" id="cname">
+                        <span class="focus-input100" data-symbol="&#xf206;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Company Address is required">
+                        <span class="label-input100"></span>
+                        <input class="input100" type="text" name="address" placeholder="Address" id="maddr">
+                        <span class="focus-input100" data-symbol="&#xf175;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Phone is required">
+                        <span class="label-input100"></span>
+                        <input class="input100" type="text" name="number" placeholder="Phone (Ex. +23480.....)" id="mphone">
+                        <span class="focus-input100" data-symbol="&#xf2be;"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Email is required">
+                        <span class="label-input100"></span>
+                        <input class="input100" type="email" name="mail" placeholder="Email" id="memail">
+                        <span class="focus-input100" data-symbol="&#xf15a;"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100"></span>
+                        <input class="input100" type="password" name="pass" placeholder="Password" id="mpassword">
+                        <span class="focus-input100" data-symbol="&#xf190;"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password don't match'">
+                        <span class="label-input100"></span>
+                        <input class="input100" type="password" name="pass" placeholder="Confirm Password" id="mpassword">
+                        <span class="focus-input100" data-symbol="&#xf190;"><i class="fa fa-lock"></i></span>
+                    </div>
+
+                    <div class="text-right p-t-8 p-b-31">
+                        <a href="/Account/Login" style="color:#fff!important">
+                            <em>Already have an account?</em>
+                        </a>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" id="btnregister" type="button">
+                                Sign Up
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="txt1 text-center p-t-54 p-b-20">
+                        <span>
+                            <em>Sign Up with</em>
+                        </span>
+                    </div>
+
+                    <div class="flex-c-m">
+                        <a href="#" class="login100-social-item bg1">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="login100-social-item bg2">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a href="#" class="login100-social-item bg3">
+                            <i class="fa fa-google"></i>
+                        </a>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id=""></div>
+
+
+    <!--===============================================================================================-->
+    <script src="../../plugins/lovendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../plugins/lovendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../plugins/lovendor/bootstrap/js/popper.js"></script>
+    <script src="../../plugins/lovendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../plugins/lovendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../plugins/lovendor/daterangepicker/moment.min.js"></script>
+    <script src="../../plugins/lovendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+
+    <script src="../../plugins/lovendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../plugins/lojs/main.js"></script>
+    <script>
+        $("#btnregister").click(function () {
+            var firstName = $("#fname").val();
+            var lastName = $("#lname").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var password = $("#password").val();
+            var confirmPassword = $("#cpassword").val();
+            if (firstName == "") { alert("Please enter Firstname");
+                return;
+            }
+            if (lastName == "") {
+                alert("Please enter Lastname");
+                return;
+            }
+            if (email == "") {
+                alert("Please enter Email");
+                return;
+            }
+            if (phone == "" || phone.length<11) {
+                alert("Please enter a valid Phone Nummber");
+                return;
+            }
+            if (password !=confirmPassword) {
+                alert("Password Does not Match");
+                return;
+            }
+            var obj = {};
+            obj.firstName = firstName;
+            obj.lastName = lastName;
+            obj.email = email;
+            obj.phone = phone;
+            obj.password = password;
+            var jsonData =JSON.stringify(obj);
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json charset=utf-8',
+                url: '/Account/Register',
+                data: jsonData,
+                dataTyp:'json',
+                success: function (response) {
+                    if (response.value == 1) {
+                        alert("Registration Successful. Kindly check the email you provided for activation link.");
+                    }
+                    else  alert("Something Went Wrong. Kindly try again later.");
+                },
+                error: function (error) {
+                    alert("Something Went Wrong. Kindly try again later.");
+                },
+                failure: function (failure) {
+                    alert("Poor internet Connection.");
+                }
+
+            })
+
+
+        })
+
+
+
+
+
+    </script>
+</body>
+</html>
+

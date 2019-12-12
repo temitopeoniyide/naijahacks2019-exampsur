@@ -1,0 +1,398 @@
+﻿
+@{
+    ViewBag.Title = "StudentAccount";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+<link href="../vendors/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+
+
+<style>
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="text"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="email"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="number"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field input[type="password"],
+    #learn-press-user-profile .learn-press-form .form-fields .form-field textarea {
+        padding: 10px 20px;
+        text-align: left;
+        width: 100%;
+        border: 1px solid #fff;
+        color: #fff;
+        background: transparent;
+    } 
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #fff !important;
+        opacity: 1 !important; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #fff !important;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: #fff !important;
+    }
+    .box-item {
+     padding-left: 15px!important;
+     padding-right:15px!important;
+    position: relative;
+       transition: all 0.2s linear;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px 0px rgba(0, 11, 40, 0.1);
+    overflow: hidden;
+}
+    .box-item:hover {
+   box-shadow: 0px 30px 60px 0px rgba(0, 11, 40, 0.14);
+}
+    .tl-icon-box-2 .box-item:nth-child(even) .box-item-content {
+     background-color: #fff!important;
+}
+    .tl-icon-box-2 .box-item:nth-child(odd) .box-item-content {
+    background-color: #fff!important;
+}
+    .btn-secondary .btn-primary{
+         box-shadow: 0px 20px 30px 0px rgba(12, 0, 46, 0.1)!important;
+    }
+</style>
+
+<!--Render Body-->
+<div class="page-header  parallax layout-1"></div>
+<div class="page-header  parallax layout-1 has-image">
+    <div class="page-header-content" style="padding: 30px 0 20px!important;">
+        <div class="featured-image" style="background-image: url(../ExamSpur_Img/contact-bg-2.png)"></div>
+        <div class="container">
+            <h2 style="font-size:18px">Examination Categories</h2>
+        </div>
+    </div>
+</div>
+<div id="content" class="site-content">
+    <div class="container">
+        <div class="row">
+            <div id="primary" class="content-area col-md-12 col-lg-12">
+                <main id="main" class="site-main">
+                    <div class="tl-empty-space ">
+                        <div class="tl_empty_space_lg" style="height: 50px"></div>
+                        <div class="tl_empty_space_md" style="height: 50px"></div>
+                        <div class="tl_empty_space_xs" style="height: 50px"></div>
+                    </div>
+                    <div class="vc_row wpb_row vc_inner vc_row-fluid">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="tl-icon-box-2 style-1 items-3 all-cat">
+                                        <div class="box-item box-item-1 col-xs-12 col-md-4 col-sm-4 all-box"id="ExamGroup">
+                                            <div class="box-item-content">
+                                                <div class="box-bg" style="background-image: url('../examspur_Img/h1-constr.jpeg')"></div><span class="tl-icon"><i class="icon-writing"></i></span>
+                                                <h4 class="box-title"id="exams"><span>O'Level Exams Practice Test</span></h4>
+                                                <div class="desc">
+                                                    <button class="button btn-secondary exam-cat">GET STARTED</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-item box-item-2 col-xs-12 col-md-4 col-sm-4 all-box">
+                                            <div class="box-item-content">
+                                                <div class="box-bg" style=" background-image:url('../examspur_Img/h1-gradu.jpeg');"></div><span class="tl-icon"><i class="icon-writing"></i></span>
+                                                <h4 class="box-title"><span>A'Level Exams Practice Test</span></h4>
+                                                <div class="desc">
+                                                    <button class="button btn-secondary exam-cat">GET STARTED</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-item box-item-3 col-xs-12 col-md-4 col-sm-4 all-box">
+                                            <div class="box-item-content">
+                                                <div class="box-bg" style="background-image: url('../examspur_Img/h1-constr.jpeg');"></div><span class="tl-icon"><i class="icon-writing"></i></span>
+                                                <h4 class="box-title"><span>Professional Exams Practice Test </span></h4>
+                                                <div class="desc">
+                                                    <button class="button btn-secondary exam-cat">GET STARTED</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tl-icon-box-2 style-1 items-3 cat-result" style="display:none">
+                                        <div class="box-item box-item-1 col-xs-12 col-md-4 col-sm-4 all-box">
+                                            <div class="box-item-content">
+                                                <div class="box-bg" style="background-image: url('../examspur_Img/h1-constr.jpeg')"></div><span class="tl-icon"><i class="icon-writing"></i></span>
+                                                <h4 class="box-title"><span>JAMB Practice Test</span></h4>
+                                                <div class="desc">
+                                                    <button class="button btn-secondary exam-type">START EXAM</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-item box-item-2 col-xs-12 col-md-4 col-sm-4 all-box">
+                                            <div class="box-item-content">
+                                                <div class="box-bg" style=" background-image:url('../examspur_Img/h1-gradu.jpeg');"></div><span class="tl-icon"><i class="icon-writing"></i></span>
+                                                <h4 class="box-title"><span>WAEC Practice Test</span></h4>
+                                                <div class="desc">
+                                                    <button class="button btn-secondary exam-type">START EXAM</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-item box-item-3 col-xs-12 col-md-4 col-sm-4 all-box">
+                                            <div class="box-item-content">
+                                                <div class="box-bg" style="background-image: url('../examspur_Img/h1-constr.jpeg');"></div><span class="tl-icon"><i class="icon-writing"></i></span>
+                                                <h4 class="box-title"><span>POST UTME Practice Test </span></h4>
+                                                <div class="desc">
+                                                    <button class="button btn-secondary exam-type">START EXAM</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tl-empty-space ">
+                                        <div class="tl_empty_space_lg" style="height: 60px"></div>
+                                        <div class="tl_empty_space_md" style="height: 60px"></div>
+                                        <div class="tl_empty_space_xs" style="height: 60px"></div>
+                                    </div>
+                                    <div class="tl-button align-center primary-color cat-result" style="display:none">
+                                        <button class="button btn-primary" id="go-back">BACK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tl-empty-space ">
+                        <div class="tl_empty_space_lg" style="height: 50px"></div>
+                        <div class="tl_empty_space_md" style="height: 50px"></div>
+                        <div class="tl_empty_space_xs" style="height: 50px"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Render Body-->
+
+<script>
+    $(".exam-cat").click(function () {
+       $(".all-cat").slideUp(2000);
+       $(".cat-result").slideDown(2000);
+    });
+     $("#go-back").click(function () {
+        $(".cat-result").slideUp(2000);
+        $(".all-cat").slideDown(2000);
+    });
+</script>
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script src="../vendors/sweetalert/dist/sweetalert.min.js?45667"></script>
+<script src="~/vendors/pnotify/dist/pnotify.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+<script>
+
+    $("#btnregister").click(function () {
+        $(this).html("<img src =\"../Images/2load.gif\" width=\"100\" height=\"100\" />").attr("disabled", "disabled");
+        var firstName = $("#reg_firstname").val();
+        var lastName = $("#reg_lastname").val();
+        var email = $("#reg_email").val();
+        var phone = $("#reg_number").val();
+        var password = $("#reg_password").val();
+        var confirmPassword = $("#reg_cpassword").val();
+        //var code = $("#reg_code").val();
+        if (firstName == "") {
+            $(this).html("SIGN UP").removeAttr("disabled");
+
+            $("#fname").text("Please enter Firstname").fadeIn(2000);
+            setTimeout(function () { $("#fname").fadeOut(2000) }, 3000);
+
+
+
+            return;
+        }
+        if (lastName == "") {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $("#lname").text("Please enter Lastname").fadeIn(2000);
+            setTimeout(function () { $("#fname").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (phone == "" || phone.length < 11) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $("#phone").text("Please enter a valid Phone number").fadeIn(2000);
+            setTimeout(function () { $("#phone").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (email == "" || isValidEmailAddress(email) == false) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $("#email").text("Please enter a valid email").fadeIn(2000);
+            setTimeout(function () { $("#email").fadeOut(2000) }, 3000);
+            return;
+        }
+
+        if (password == "" || password.length < 4) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $("#pass").text("Please enter a password of atleast 4 characters").fadeIn(2000);
+            setTimeout(function () { $("#pass").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (password != confirmPassword) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $("#cpass").text("Password does not match").fadeIn(2000);
+            setTimeout(function () { $("#cpass").fadeOut(2000) }, 3000);
+            return;
+        }
+        if (!$("#reg_check").is(":checked")) {
+            $(this).html("SIGN UP").removeAttr("disabled");
+            $("#chk").text("You have to agree to our terms and privacy poliy to register").fadeIn(2000);
+            setTimeout(function () { $("#chk").fadeOut(2000) }, 3000);
+
+            return;
+        }
+        var obj = {};
+        obj.firstName = firstName;
+        obj.lastName = lastName;
+        obj.email = email;
+        obj.phone = phone;
+        obj.password = password;
+        obj.code = "contest";
+        var jsonData = JSON.stringify(obj);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json charset=utf-8',
+            url: '/Account/Register',
+            data: jsonData,
+            dataType: 'json',
+            success: function (response) {
+                $("#btnregister").html("SIGN UP").removeAttr("disabled");
+                if (response.value == 1) {
+                    swal({
+                        title: "Welcome Onboard!",
+                        text: response.msg,
+                        icon: "success",
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+
+
+                                window.location = "/Account/Subscription";
+
+                            }
+                        }
+                    );
+
+                    $(".inputr").val("");
+                    $("#reg_check").prop("checked", false);
+
+                }
+                else
+                    swal("Ooops!!", response.msg, "error");
+
+            },
+            error: function (error) {
+                $("#btnregister").html("SIGN UP").removeAttr("disabled");
+                swal("Ooops!!!", "Something Went Wrong.Kindly try again later.", "error");
+
+            },
+            failure: function (failure) {
+                $("#btnregister").html("SIGN UP").removeAttr("disabled");
+                swal("Ooops!!!", "Cannot coonect to our Server due to Poor Internet Coonection.", "error")
+            }
+
+        })
+
+
+    })
+    $("#btnlogin").click(function () {
+                login();
+            });
+     function login() {
+                $("#btnlogin").attr("disabled", "disabled").html("<i class=\" fa fa-spin fa-spinner\"></i>");
+                var email = $("#lusername").val();
+                resendemail = email;
+                var pass = $("#lpassword").val();
+                if (!isValidEmailAddress(email) && !email.length==11) {
+                    $("#luser").text("Invalid Email or Phone Number").fadeIn(2000);
+                    setTimeout(function () { $("#luser").fadeOut(2000) }, 3000);
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                    return;
+                }
+                if (email == "" || pass == "") {
+                    $("#lpass").text("Username or password cannot be empty").fadeIn(2000);
+                    setTimeout(function () { $("#lpass").fadeOut(2000) }, 3000);
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                    return;
+                }
+                var obj = {};
+                obj.email = email;
+                obj.password = pass;
+                var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Login","Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                dataType: "json",
+                success: function(response){
+                    if (response.value == 1) {
+                        if (parseInt('@Session["unitavailable"]') > 0)
+                            window.location = "/Index/Home";
+                            else
+                        window.location = "/Account/Subscription";
+
+                    }
+                    else {
+                        swal("Ooops!!", response.msg, "error")
+
+                    };
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                },
+                    error: function (error) {
+                        swal("Something Went Wrong!!", "We are working to fix this as soon as possible.Kindly try again later", "error")
+
+                    $("#btnlogin").removeAttr("disabled").html("Login");
+                }
+
+            });
+            }
+    $("#lpassword").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    login();
+                }
+            });
+    $("#lusername").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    login();
+                }
+            });
+    $("#femail").keydown(function (e) {
+                if (e.keyCode == 13) {
+                    forgot($(this).val());
+                }
+            });
+    $("#btnsend").click(function () {
+                forgot($("#femail").val());
+            });
+    function forgot(email) {
+                $("#btnsend").attr("disabled", "disabled").html("<i class=\" fa fa-spin fa-spinner\"></i>");
+                var obj = {};
+                if (!isValidEmailAddress(email)) {
+                   $("#femail").text("Invalid Email Address").fadeIn(2000);
+                    setTimeout(function () { $("#femailerror").fadeOut(2000) }, 3000);
+                    $("#btnsend").removeAttr("disabled").html("Reset Password");
+                    return;
+                }
+                obj.email = email;
+
+                var jsonData = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ForgotPassword", "Account")",
+                    contentType: "Application/json",
+                    data: jsonData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.value == 1) swal("Reset Successful", response.msg, "success");
+                        else swal("Ooops!!", response.msg, "error");
+                        $("#btnsend").removeAttr("disabled").html("Reset Password");
+                    },
+                    error: function (error) {
+                        swal("Something Went Wrong", "we are working to fix this as soon as possibl. Try again later", "error");
+                        $("#btnsend").removeAttr("disabled").html("Reset Password");
+                    }
+
+                });
+            }
+
+
+    function isValidEmailAddress(emailAddress) {
+        var pattern = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(emailAddress);
+    };
+</script>
