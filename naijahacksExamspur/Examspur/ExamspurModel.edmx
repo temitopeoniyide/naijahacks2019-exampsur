@@ -1,0 +1,3141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExamspurDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_ExamGroup">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="_tblbank">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Code" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblclass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Class" Type="varchar" MaxLength="50" />
+          <Property Name="merchantID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="_tblExamTaken">
+          <Key>
+            <PropertyRef Name="ExamTakenID" />
+          </Key>
+          <Property Name="ExamTakenID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" />
+          <Property Name="StartTimestamp" Type="datetime" />
+          <Property Name="EndTimestamp" Type="datetime" />
+          <Property Name="TimeUsed" Type="int" />
+          <Property Name="TotalTime" Type="int" />
+          <Property Name="ExamMode" Type="int" />
+          <Property Name="ActiveSubject" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblExamType">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="GroupID" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblLogin">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblMarketer">
+          <Key>
+            <PropertyRef Name="MarketerID" />
+          </Key>
+          <Property Name="MarketerID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="100" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" />
+          <Property Name="stateId" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="phoneno" Type="varchar" MaxLength="20" />
+          <Property Name="address" Type="varchar" MaxLength="200" />
+          <Property Name="regdate" Type="datetime" />
+          <Property Name="status" Type="bit" />
+          <Property Name="referralcode" Type="varchar" MaxLength="8" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="accountno" Type="varchar" MaxLength="50" />
+          <Property Name="bankcode" Type="varchar" MaxLength="5" />
+          <Property Name="BankAccountName" Type="varchar" MaxLength="200" />
+          <Property Name="partnerType" Type="smallint" />
+          <Property Name="CenterName" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="_tblMerchant">
+          <Key>
+            <PropertyRef Name="MerchantID" />
+          </Key>
+          <Property Name="MerchantID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CenterName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="100" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="stateId" Type="int" />
+          <Property Name="city" Type="varchar" MaxLength="100" />
+          <Property Name="UnitAvailable" Type="int" />
+          <Property Name="RefCode" Type="varchar" MaxLength="10" />
+          <Property Name="Expdate" Type="date" />
+          <Property Name="logo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="_tblMerchantUsage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MerchantID" Type="bigint" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="AssignedDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="MerchantUserID" Type="int" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblmerchantUser">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="role" Type="int" />
+          <Property Name="regdate" Type="datetime" />
+          <Property Name="merchantid" Type="bigint" />
+          <Property Name="status" Type="bit" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="_tblPayout">
+          <Key>
+            <PropertyRef Name="PayoutID" />
+          </Key>
+          <Property Name="PayoutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Paydate" Type="datetime" />
+          <Property Name="marketerid" Type="uniqueidentifier" />
+          <Property Name="Commission" Type="money" />
+          <Property Name="Transport" Type="money" />
+          <Property Name="Total" Type="money" />
+          <Property Name="PaymentRef" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="_tblQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionA" Type="nvarchar(max)" />
+          <Property Name="OptionB" Type="nvarchar(max)" />
+          <Property Name="OptionC" Type="nvarchar(max)" />
+          <Property Name="OptionD" Type="nvarchar(max)" />
+          <Property Name="OptionE" Type="nvarchar(max)" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="HasImage" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="char" MaxLength="1" />
+          <Property Name="NoOfOptions" Type="int" />
+          <Property Name="trial" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="QuestionNumber" Type="bigint" Nullable="false" />
+          <Property Name="Solution" Type="nvarchar(max)" />
+          <Property Name="TopicId" Type="int" />
+          <Property Name="GroupId" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="_tblQuestionList">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="QuestionList" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TimeElapsed" Type="int" />
+          <Property Name="LastQuestionID" Type="int" Nullable="false" />
+          <Property Name="ExamTakenId" Type="bigint" />
+          <Property Name="CorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="ChoosenAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="IncorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="NoAttempted" Type="int" />
+          <Property Name="NoCorrect" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblQuestionListTopic">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="TopicID" Type="int" Nullable="false" />
+          <Property Name="QuestionList" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TimeElapsed" Type="int" />
+          <Property Name="LastQuestionID" Type="int" Nullable="false" />
+          <Property Name="ExamTakenId" Type="bigint" />
+          <Property Name="CorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="ChoosenAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="IncorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="NoAttempted" Type="int" />
+          <Property Name="NoCorrect" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblQuestionUTMETrial">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionA" Type="nvarchar(max)" />
+          <Property Name="OptionB" Type="nvarchar(max)" />
+          <Property Name="OptionC" Type="nvarchar(max)" />
+          <Property Name="OptionD" Type="nvarchar(max)" />
+          <Property Name="OptionE" Type="nvarchar(max)" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="HasImage" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="char" MaxLength="1" />
+          <Property Name="NoOfOptions" Type="int" />
+          <Property Name="trial" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="QuestionNumber" Type="bigint" Nullable="false" />
+          <Property Name="Solution" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="_tblQuestionWAEC">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionA" Type="nvarchar(max)" />
+          <Property Name="OptionB" Type="nvarchar(max)" />
+          <Property Name="OptionC" Type="nvarchar(max)" />
+          <Property Name="OptionD" Type="nvarchar(max)" />
+          <Property Name="OptionE" Type="nvarchar(max)" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="HasImage" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="char" MaxLength="1" />
+          <Property Name="NoOfOptions" Type="int" />
+          <Property Name="trial" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="QuestionNumber" Type="bigint" Nullable="false" />
+          <Property Name="Solution" Type="nvarchar(max)" />
+          <Property Name="TopicId" Type="int" />
+          <Property Name="GroupId" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="_tblQuestionWAECTrial">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionA" Type="nvarchar(max)" />
+          <Property Name="OptionB" Type="nvarchar(max)" />
+          <Property Name="OptionC" Type="nvarchar(max)" />
+          <Property Name="OptionD" Type="nvarchar(max)" />
+          <Property Name="OptionE" Type="nvarchar(max)" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="HasImage" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="char" MaxLength="1" />
+          <Property Name="NoOfOptions" Type="int" />
+          <Property Name="trial" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="QuestionNumber" Type="bigint" Nullable="false" />
+          <Property Name="Solution" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="_tblSchool">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="_tblScore">
+          <Key>
+            <PropertyRef Name="ScoreID" />
+          </Key>
+          <Property Name="ScoreID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamCode" Type="bigint" Nullable="false" />
+          <Property Name="SubjectID" Type="int" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblstate">
+          <Key>
+            <PropertyRef Name="stateId" />
+          </Key>
+          <Property Name="stateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="_tblStudentReg">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="MerchantID" Type="bigint" />
+          <Property Name="Unit" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="secretPin" Type="varchar" MaxLength="100" />
+          <Property Name="RefCode" Type="varchar" MaxLength="10" />
+          <Property Name="ClassID" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblStudentUsage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="StudentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsedDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="MerchantID" Type="bigint" />
+          <Property Name="ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblSubjectGeneral">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="NoOfQuestions" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblSubjectSchoolBased">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="SchoolID" Type="int" Nullable="false" />
+          <Property Name="NoOfQuestions" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblSubscription">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptionDate" Type="datetime" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" />
+          <Property Name="MerchantID" Type="bigint" />
+          <Property Name="paymentRef" Type="varchar" MaxLength="50" />
+          <Property Name="PlanID" Type="smallint" />
+          <Property Name="paymentStatus" Type="bit" />
+          <Property Name="Username" Type="varchar" MaxLength="100" />
+          <Property Name="Unit" Type="int" />
+          <Property Name="AmountPaid" Type="money" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="AgentStatus" Type="bit" />
+          <Property Name="RefCode" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="_tblSubscriptionPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanType" Type="varchar" MaxLength="100" />
+          <Property Name="PlanAmount" Type="money" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="PlanRange" Type="varchar" MaxLength="20" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
+        <EntityType Name="_tblTopics">
+          <Key>
+            <PropertyRef Name="TopicId" />
+          </Key>
+          <Property Name="TopicId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TopicName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MarketerPaylist">
+          <Key>
+            <PropertyRef Name="paylistid" />
+          </Key>
+          <Property Name="paylistid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="bigint" />
+          <Property Name="usertype" Type="smallint" />
+          <Property Name="marketerid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="subdate" Type="datetime" />
+          <Property Name="commission" Type="money" />
+          <Property Name="transport" Type="money" />
+        </EntityType>
+        <EntityType Name="PayoutPartners">
+          <Key>
+            <PropertyRef Name="PayoutPartnersID" />
+          </Key>
+          <Property Name="PayoutPartnersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Paydate" Type="datetime" />
+          <Property Name="PayeeID" Type="int" />
+          <Property Name="AmountPaidOut" Type="money" />
+          <Property Name="PaymentRef" Type="varchar" MaxLength="50" />
+          <Property Name="TotalRevenue" Type="money" />
+        </EntityType>
+        <EntityType Name="tableMailAlert">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="200" />
+          <Property Name="body" Type="varchar(max)" />
+          <Property Name="receiverEmail" Type="varchar" MaxLength="200" />
+          <Property Name="dropTimestamp" Type="datetime" />
+          <Property Name="sentTimestamp" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="header1" Type="varchar" MaxLength="50" />
+          <Property Name="header2" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblNewExamTaken">
+          <Key>
+            <PropertyRef Name="ExamTakenID" />
+          </Key>
+          <Property Name="ExamTakenID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" />
+          <Property Name="StartTimeStamp" Type="datetime" />
+          <Property Name="EndTimeStamp" Type="datetime" />
+          <Property Name="TimeUsed" Type="int" />
+          <Property Name="TotalTime" Type="int" />
+          <Property Name="ActiveSubject" Type="int" />
+          <Property Name="ExamMode" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionA" Type="nvarchar(max)" />
+          <Property Name="OptionB" Type="nvarchar(max)" />
+          <Property Name="OptionC" Type="nvarchar(max)" />
+          <Property Name="OptionD" Type="nvarchar(max)" />
+          <Property Name="OptionE" Type="nvarchar(max)" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="HasImage" Type="int" />
+          <Property Name="Answer" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="NoOfOptions" Type="int" />
+          <Property Name="Trial" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="QuestionNumber" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblNewQuestionList">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="QuestionList" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TimeElapsed" Type="int" />
+          <Property Name="LastQuestionID" Type="int" Nullable="false" />
+          <Property Name="ExamTakenID" Type="bigint" Nullable="false" />
+          <Property Name="CorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="ChoosenAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="IncorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="NoAttempted" Type="int" />
+          <Property Name="NoCorrect" Type="int" />
+          <Property Name="ExamID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewScore">
+          <Key>
+            <PropertyRef Name="ScoreID" />
+          </Key>
+          <Property Name="ScoreID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamCode" Type="bigint" Nullable="false" />
+          <Property Name="SubjectID" Type="int" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewStudentRecord">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PaymentRef" Type="varchar" MaxLength="100" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewSubjectGeneral">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+          <Property Name="NoOfQuestion" Type="int" />
+        </EntityType>
+        <EntityType Name="tblPinSubscription">
+          <Key>
+            <PropertyRef Name="PinId" />
+          </Key>
+          <Property Name="PinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PinNumber" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="DateGenerated" Type="datetime" Nullable="false" />
+          <Property Name="PinStatus" Type="bit" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="BatchId" Type="int" />
+          <Property Name="UsedBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK___tblSubje__Schoo__1BC821DD">
+          <End Role="_tblSchool" Type="Self._tblSchool" Multiplicity="1" />
+          <End Role="_tblSubjectSchoolBased" Type="Self._tblSubjectSchoolBased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="_tblSubjectSchoolBased">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK___tblSubsc__PlanI__6383C8BA">
+          <End Role="_tblSubscriptionPlan" Type="Self._tblSubscriptionPlan" Multiplicity="0..1" />
+          <End Role="_tblSubscription" Type="Self._tblSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubscriptionPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="_tblSubscription">
+              <PropertyRef Name="PlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblclass__tblMerchant">
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="0..1" />
+          <End Role="_tblclass" Type="Self._tblclass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="_tblclass">
+              <PropertyRef Name="merchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblExamTaken__tblStudentReg">
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="1" />
+          <End Role="_tblExamTaken" Type="Self._tblExamTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="_tblExamTaken">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblExamType__ExamGroup">
+          <End Role="_ExamGroup" Type="Self._ExamGroup" Multiplicity="0..1" />
+          <End Role="_tblExamType" Type="Self._tblExamType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_ExamGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="_tblExamType">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMarketer__tblbank">
+          <End Role="_tblbank" Type="Self._tblbank" Multiplicity="0..1" />
+          <End Role="_tblMarketer" Type="Self._tblMarketer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblbank">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="_tblMarketer">
+              <PropertyRef Name="bankcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMarketer__tblstate">
+          <End Role="_tblstate" Type="Self._tblstate" Multiplicity="0..1" />
+          <End Role="_tblMarketer" Type="Self._tblMarketer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblstate">
+              <PropertyRef Name="stateId" />
+            </Principal>
+            <Dependent Role="_tblMarketer">
+              <PropertyRef Name="stateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchant__tblstate">
+          <End Role="_tblstate" Type="Self._tblstate" Multiplicity="0..1" />
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblstate">
+              <PropertyRef Name="stateId" />
+            </Principal>
+            <Dependent Role="_tblMerchant">
+              <PropertyRef Name="stateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchantUsage__tblMerchant">
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="1" />
+          <End Role="_tblMerchantUsage" Type="Self._tblMerchantUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="_tblMerchantUsage">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchantUsage__tblmerchantUser">
+          <End Role="_tblmerchantUser" Type="Self._tblmerchantUser" Multiplicity="0..1" />
+          <End Role="_tblMerchantUsage" Type="Self._tblMerchantUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblmerchantUser">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="_tblMerchantUsage">
+              <PropertyRef Name="MerchantUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchantUsage__tblStudentReg">
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="1" />
+          <End Role="_tblMerchantUsage" Type="Self._tblMerchantUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="_tblMerchantUsage">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblmerchantUser__tblMerchant">
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="0..1" />
+          <End Role="_tblmerchantUser" Type="Self._tblmerchantUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="_tblmerchantUser">
+              <PropertyRef Name="merchantid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPayout__tblMarketer">
+          <End Role="_tblMarketer" Type="Self._tblMarketer" Multiplicity="0..1" />
+          <End Role="_tblPayout" Type="Self._tblPayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMarketer">
+              <PropertyRef Name="MarketerID" />
+            </Principal>
+            <Dependent Role="_tblPayout">
+              <PropertyRef Name="marketerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestion__ExamGroup">
+          <End Role="_ExamGroup" Type="Self._ExamGroup" Multiplicity="0..1" />
+          <End Role="_tblQuestion" Type="Self._tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_ExamGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="_tblQuestion">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestion__tblSubject">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="1" />
+          <End Role="_tblQuestion" Type="Self._tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblQuestion">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestion__tblTopics">
+          <End Role="_tblTopics" Type="Self._tblTopics" Multiplicity="0..1" />
+          <End Role="_tblQuestion" Type="Self._tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblTopics">
+              <PropertyRef Name="TopicId" />
+            </Principal>
+            <Dependent Role="_tblQuestion">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionList__tblExamTaken">
+          <End Role="_tblExamTaken" Type="Self._tblExamTaken" Multiplicity="0..1" />
+          <End Role="_tblQuestionList" Type="Self._tblQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="_tblQuestionList">
+              <PropertyRef Name="ExamTakenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionList__tblExamType">
+          <End Role="_tblExamType" Type="Self._tblExamType" Multiplicity="1" />
+          <End Role="_tblQuestionList" Type="Self._tblQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblExamType">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="_tblQuestionList">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionList__tblSubject">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="1" />
+          <End Role="_tblQuestionList" Type="Self._tblQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblQuestionList">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionListTopic__tblExamTaken">
+          <End Role="_tblExamTaken" Type="Self._tblExamTaken" Multiplicity="0..1" />
+          <End Role="_tblQuestionListTopic" Type="Self._tblQuestionListTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="_tblQuestionListTopic">
+              <PropertyRef Name="ExamTakenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionListTopic__tblExamType">
+          <End Role="_tblExamType" Type="Self._tblExamType" Multiplicity="1" />
+          <End Role="_tblQuestionListTopic" Type="Self._tblQuestionListTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblExamType">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="_tblQuestionListTopic">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionListTopic__tblTopics">
+          <End Role="_tblTopics" Type="Self._tblTopics" Multiplicity="1" />
+          <End Role="_tblQuestionListTopic" Type="Self._tblQuestionListTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblTopics">
+              <PropertyRef Name="TopicId" />
+            </Principal>
+            <Dependent Role="_tblQuestionListTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionUTMETrial__tblSubject">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="1" />
+          <End Role="_tblQuestionUTMETrial" Type="Self._tblQuestionUTMETrial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblQuestionUTMETrial">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAEC__ExamGroup">
+          <End Role="_ExamGroup" Type="Self._ExamGroup" Multiplicity="0..1" />
+          <End Role="_tblQuestionWAEC" Type="Self._tblQuestionWAEC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_ExamGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="_tblQuestionWAEC">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAEC__tblSubject">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="1" />
+          <End Role="_tblQuestionWAEC" Type="Self._tblQuestionWAEC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblQuestionWAEC">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAEC__tblTopics">
+          <End Role="_tblTopics" Type="Self._tblTopics" Multiplicity="0..1" />
+          <End Role="_tblQuestionWAEC" Type="Self._tblQuestionWAEC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblTopics">
+              <PropertyRef Name="TopicId" />
+            </Principal>
+            <Dependent Role="_tblQuestionWAEC">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAECTrial__tblSubject">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="1" />
+          <End Role="_tblQuestionWAECTrial" Type="Self._tblQuestionWAECTrial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblQuestionWAECTrial">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblExamTaken">
+          <End Role="_tblExamTaken" Type="Self._tblExamTaken" Multiplicity="1" />
+          <End Role="_tblScore" Type="Self._tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="_tblScore">
+              <PropertyRef Name="ExamCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblScore">
+          <End Role="_tblExamType" Type="Self._tblExamType" Multiplicity="0..1" />
+          <End Role="_tblScore" Type="Self._tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblExamType">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="_tblScore">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblStudentReg">
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="1" />
+          <End Role="_tblScore" Type="Self._tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="_tblScore">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblSubject">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="0..1" />
+          <End Role="_tblScore" Type="Self._tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblScore">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentReg__tblclass">
+          <End Role="_tblclass" Type="Self._tblclass" Multiplicity="0..1" />
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblclass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="_tblStudentReg">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentReg__tblMerchant">
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="0..1" />
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="_tblStudentReg">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentUsage__tblMerchant">
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="0..1" />
+          <End Role="_tblStudentUsage" Type="Self._tblStudentUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="_tblStudentUsage">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentUsage__tblStudentReg">
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="1" />
+          <End Role="_tblStudentUsage" Type="Self._tblStudentUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="_tblStudentUsage">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSubscription__tblMerchant">
+          <End Role="_tblMerchant" Type="Self._tblMerchant" Multiplicity="0..1" />
+          <End Role="_tblSubscription" Type="Self._tblSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="_tblSubscription">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSubscription__tblStudentReg">
+          <End Role="_tblStudentReg" Type="Self._tblStudentReg" Multiplicity="0..1" />
+          <End Role="_tblSubscription" Type="Self._tblSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="_tblSubscription">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTopics__tblSubjectGeneral">
+          <End Role="_tblSubjectGeneral" Type="Self._tblSubjectGeneral" Multiplicity="1" />
+          <End Role="_tblTopics" Type="Self._tblTopics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="_tblTopics">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarketerPaylist_MarketerPaylist">
+          <End Role="_tblMarketer" Type="Self._tblMarketer" Multiplicity="1" />
+          <End Role="MarketerPaylist" Type="Self.MarketerPaylist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblMarketer">
+              <PropertyRef Name="MarketerID" />
+            </Principal>
+            <Dependent Role="MarketerPaylist">
+              <PropertyRef Name="marketerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewExamTaken_tblNewStudentRecord">
+          <End Role="tblNewStudentRecord" Type="Self.tblNewStudentRecord" Multiplicity="1" />
+          <End Role="tblNewExamTaken" Type="Self.tblNewExamTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewExamTaken">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewExamTaken">
+          <End Role="tblNewExamTaken" Type="Self.tblNewExamTaken" Multiplicity="1" />
+          <End Role="tblNewQuestionList" Type="Self.tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="ExamTakenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewSubjectGeneral">
+          <End Role="tblNewSubjectGeneral" Type="Self.tblNewSubjectGeneral" Multiplicity="1" />
+          <End Role="tblNewQuestionList" Type="Self.tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewStudentRecord">
+          <End Role="tblNewStudentRecord" Type="Self.tblNewStudentRecord" Multiplicity="1" />
+          <End Role="tblNewScore" Type="Self.tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewSubjectGeneral">
+          <End Role="tblNewSubjectGeneral" Type="Self.tblNewSubjectGeneral" Multiplicity="0..1" />
+          <End Role="tblNewScore" Type="Self.tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamspurDBModelStoreContainer">
+          <EntitySet Name="_ExamGroup" EntityType="Self._ExamGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblbank" EntityType="Self._tblbank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblclass" EntityType="Self._tblclass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblExamTaken" EntityType="Self._tblExamTaken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblExamType" EntityType="Self._tblExamType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblLogin" EntityType="Self._tblLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblMarketer" EntityType="Self._tblMarketer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblMerchant" EntityType="Self._tblMerchant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblMerchantUsage" EntityType="Self._tblMerchantUsage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblmerchantUser" EntityType="Self._tblmerchantUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblPayout" EntityType="Self._tblPayout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblQuestion" EntityType="Self._tblQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblQuestionList" EntityType="Self._tblQuestionList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblQuestionListTopic" EntityType="Self._tblQuestionListTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblQuestionUTMETrial" EntityType="Self._tblQuestionUTMETrial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblQuestionWAEC" EntityType="Self._tblQuestionWAEC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblQuestionWAECTrial" EntityType="Self._tblQuestionWAECTrial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSchool" EntityType="Self._tblSchool" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblScore" EntityType="Self._tblScore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblstate" EntityType="Self._tblstate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblStudentReg" EntityType="Self._tblStudentReg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblStudentUsage" EntityType="Self._tblStudentUsage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSubjectGeneral" EntityType="Self._tblSubjectGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSubjectSchoolBased" EntityType="Self._tblSubjectSchoolBased" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSubscription" EntityType="Self._tblSubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSubscriptionPlan" EntityType="Self._tblSubscriptionPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblTopics" EntityType="Self._tblTopics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketerPaylist" EntityType="Self.MarketerPaylist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayoutPartners" EntityType="Self.PayoutPartners" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tableMailAlert" EntityType="Self.tableMailAlert" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewExamTaken" EntityType="Self.tblNewExamTaken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewQuestion" EntityType="Self.tblNewQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewQuestionList" EntityType="Self.tblNewQuestionList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewScore" EntityType="Self.tblNewScore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewStudentRecord" EntityType="Self.tblNewStudentRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewSubjectGeneral" EntityType="Self.tblNewSubjectGeneral" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPinSubscription" EntityType="Self.tblPinSubscription" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK___tblSubje__Schoo__1BC821DD" Association="Self.FK___tblSubje__Schoo__1BC821DD">
+            <End Role="_tblSchool" EntitySet="_tblSchool" />
+            <End Role="_tblSubjectSchoolBased" EntitySet="_tblSubjectSchoolBased" />
+          </AssociationSet>
+          <AssociationSet Name="FK___tblSubsc__PlanI__6383C8BA" Association="Self.FK___tblSubsc__PlanI__6383C8BA">
+            <End Role="_tblSubscriptionPlan" EntitySet="_tblSubscriptionPlan" />
+            <End Role="_tblSubscription" EntitySet="_tblSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblclass__tblMerchant" Association="Self.FK__tblclass__tblMerchant">
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+            <End Role="_tblclass" EntitySet="_tblclass" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblExamTaken__tblStudentReg" Association="Self.FK__tblExamTaken__tblStudentReg">
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+            <End Role="_tblExamTaken" EntitySet="_tblExamTaken" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblExamType__ExamGroup" Association="Self.FK__tblExamType__ExamGroup">
+            <End Role="_ExamGroup" EntitySet="_ExamGroup" />
+            <End Role="_tblExamType" EntitySet="_tblExamType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMarketer__tblbank" Association="Self.FK__tblMarketer__tblbank">
+            <End Role="_tblbank" EntitySet="_tblbank" />
+            <End Role="_tblMarketer" EntitySet="_tblMarketer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMarketer__tblstate" Association="Self.FK__tblMarketer__tblstate">
+            <End Role="_tblstate" EntitySet="_tblstate" />
+            <End Role="_tblMarketer" EntitySet="_tblMarketer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchant__tblstate" Association="Self.FK__tblMerchant__tblstate">
+            <End Role="_tblstate" EntitySet="_tblstate" />
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchantUsage__tblMerchant" Association="Self.FK__tblMerchantUsage__tblMerchant">
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+            <End Role="_tblMerchantUsage" EntitySet="_tblMerchantUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchantUsage__tblmerchantUser" Association="Self.FK__tblMerchantUsage__tblmerchantUser">
+            <End Role="_tblmerchantUser" EntitySet="_tblmerchantUser" />
+            <End Role="_tblMerchantUsage" EntitySet="_tblMerchantUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchantUsage__tblStudentReg" Association="Self.FK__tblMerchantUsage__tblStudentReg">
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+            <End Role="_tblMerchantUsage" EntitySet="_tblMerchantUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblmerchantUser__tblMerchant" Association="Self.FK__tblmerchantUser__tblMerchant">
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+            <End Role="_tblmerchantUser" EntitySet="_tblmerchantUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPayout__tblMarketer" Association="Self.FK__tblPayout__tblMarketer">
+            <End Role="_tblMarketer" EntitySet="_tblMarketer" />
+            <End Role="_tblPayout" EntitySet="_tblPayout" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestion__ExamGroup" Association="Self.FK__tblQuestion__ExamGroup">
+            <End Role="_ExamGroup" EntitySet="_ExamGroup" />
+            <End Role="_tblQuestion" EntitySet="_tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestion__tblSubject" Association="Self.FK__tblQuestion__tblSubject">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblQuestion" EntitySet="_tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestion__tblTopics" Association="Self.FK__tblQuestion__tblTopics">
+            <End Role="_tblTopics" EntitySet="_tblTopics" />
+            <End Role="_tblQuestion" EntitySet="_tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionList__tblExamTaken" Association="Self.FK__tblQuestionList__tblExamTaken">
+            <End Role="_tblExamTaken" EntitySet="_tblExamTaken" />
+            <End Role="_tblQuestionList" EntitySet="_tblQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionList__tblExamType" Association="Self.FK__tblQuestionList__tblExamType">
+            <End Role="_tblExamType" EntitySet="_tblExamType" />
+            <End Role="_tblQuestionList" EntitySet="_tblQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionList__tblSubject" Association="Self.FK__tblQuestionList__tblSubject">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblQuestionList" EntitySet="_tblQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionListTopic__tblExamTaken" Association="Self.FK__tblQuestionListTopic__tblExamTaken">
+            <End Role="_tblExamTaken" EntitySet="_tblExamTaken" />
+            <End Role="_tblQuestionListTopic" EntitySet="_tblQuestionListTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionListTopic__tblExamType" Association="Self.FK__tblQuestionListTopic__tblExamType">
+            <End Role="_tblExamType" EntitySet="_tblExamType" />
+            <End Role="_tblQuestionListTopic" EntitySet="_tblQuestionListTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionListTopic__tblTopics" Association="Self.FK__tblQuestionListTopic__tblTopics">
+            <End Role="_tblTopics" EntitySet="_tblTopics" />
+            <End Role="_tblQuestionListTopic" EntitySet="_tblQuestionListTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionUTMETrial__tblSubject" Association="Self.FK__tblQuestionUTMETrial__tblSubject">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblQuestionUTMETrial" EntitySet="_tblQuestionUTMETrial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAEC__ExamGroup" Association="Self.FK__tblQuestionWAEC__ExamGroup">
+            <End Role="_ExamGroup" EntitySet="_ExamGroup" />
+            <End Role="_tblQuestionWAEC" EntitySet="_tblQuestionWAEC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAEC__tblSubject" Association="Self.FK__tblQuestionWAEC__tblSubject">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblQuestionWAEC" EntitySet="_tblQuestionWAEC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAEC__tblTopics" Association="Self.FK__tblQuestionWAEC__tblTopics">
+            <End Role="_tblTopics" EntitySet="_tblTopics" />
+            <End Role="_tblQuestionWAEC" EntitySet="_tblQuestionWAEC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAECTrial__tblSubject" Association="Self.FK__tblQuestionWAECTrial__tblSubject">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblQuestionWAECTrial" EntitySet="_tblQuestionWAECTrial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblExamTaken" Association="Self.FK__tblScore__tblExamTaken">
+            <End Role="_tblExamTaken" EntitySet="_tblExamTaken" />
+            <End Role="_tblScore" EntitySet="_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblScore" Association="Self.FK__tblScore__tblScore">
+            <End Role="_tblExamType" EntitySet="_tblExamType" />
+            <End Role="_tblScore" EntitySet="_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblStudentReg" Association="Self.FK__tblScore__tblStudentReg">
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+            <End Role="_tblScore" EntitySet="_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblSubject" Association="Self.FK__tblScore__tblSubject">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblScore" EntitySet="_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentReg__tblclass" Association="Self.FK__tblStudentReg__tblclass">
+            <End Role="_tblclass" EntitySet="_tblclass" />
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentReg__tblMerchant" Association="Self.FK__tblStudentReg__tblMerchant">
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentUsage__tblMerchant" Association="Self.FK__tblStudentUsage__tblMerchant">
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+            <End Role="_tblStudentUsage" EntitySet="_tblStudentUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentUsage__tblStudentReg" Association="Self.FK__tblStudentUsage__tblStudentReg">
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+            <End Role="_tblStudentUsage" EntitySet="_tblStudentUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSubscription__tblMerchant" Association="Self.FK__tblSubscription__tblMerchant">
+            <End Role="_tblMerchant" EntitySet="_tblMerchant" />
+            <End Role="_tblSubscription" EntitySet="_tblSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSubscription__tblStudentReg" Association="Self.FK__tblSubscription__tblStudentReg">
+            <End Role="_tblStudentReg" EntitySet="_tblStudentReg" />
+            <End Role="_tblSubscription" EntitySet="_tblSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTopics__tblSubjectGeneral" Association="Self.FK__tblTopics__tblSubjectGeneral">
+            <End Role="_tblSubjectGeneral" EntitySet="_tblSubjectGeneral" />
+            <End Role="_tblTopics" EntitySet="_tblTopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarketerPaylist_MarketerPaylist" Association="Self.FK_MarketerPaylist_MarketerPaylist">
+            <End Role="_tblMarketer" EntitySet="_tblMarketer" />
+            <End Role="MarketerPaylist" EntitySet="MarketerPaylist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewExamTaken_tblNewStudentRecord" Association="Self.FK_tblNewExamTaken_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecord" />
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTaken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewExamTaken" Association="Self.FK_tblNewQuestionList_tblNewExamTaken">
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTaken" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewSubjectGeneral" Association="Self.FK_tblNewQuestionList_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGeneral" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewStudentRecord" Association="Self.FK_tblNewScore_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecord" />
+            <End Role="tblNewScore" EntitySet="tblNewScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewSubjectGeneral" Association="Self.FK_tblNewScore_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGeneral" />
+            <End Role="tblNewScore" EntitySet="tblNewScore" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamspurDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C_ExamGroup">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblExamType" Relationship="Self.FK__tblExamType__ExamGroup" FromRole="C_ExamGroup" ToRole="C_tblExamType" />
+          <NavigationProperty Name="C_tblQuestion" Relationship="Self.FK__tblQuestion__ExamGroup" FromRole="C_ExamGroup" ToRole="C_tblQuestion" />
+          <NavigationProperty Name="C_tblQuestionWAEC" Relationship="Self.FK__tblQuestionWAEC__ExamGroup" FromRole="C_ExamGroup" ToRole="C_tblQuestionWAEC" />
+        </EntityType>
+        <EntityType Name="C_tblbank">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_tblMarketer" Relationship="Self.FK__tblMarketer__tblbank" FromRole="C_tblbank" ToRole="C_tblMarketer" />
+        </EntityType>
+        <EntityType Name="C_tblclass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="merchantID" Type="Int64" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblclass__tblMerchant" FromRole="C_tblclass" ToRole="C_tblMerchant" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblStudentReg__tblclass" FromRole="C_tblclass" ToRole="C_tblStudentReg" />
+        </EntityType>
+        <EntityType Name="C_tblExamTaken">
+          <Key>
+            <PropertyRef Name="ExamTakenID" />
+          </Key>
+          <Property Name="ExamTakenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="StartTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="EndTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="TimeUsed" Type="Int32" />
+          <Property Name="TotalTime" Type="Int32" />
+          <Property Name="ExamMode" Type="Int32" />
+          <Property Name="ActiveSubject" Type="Int32" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblExamTaken__tblStudentReg" FromRole="C_tblExamTaken" ToRole="C_tblStudentReg" />
+          <NavigationProperty Name="C_tblQuestionList" Relationship="Self.FK__tblQuestionList__tblExamTaken" FromRole="C_tblExamTaken" ToRole="C_tblQuestionList" />
+          <NavigationProperty Name="C_tblQuestionListTopic" Relationship="Self.FK__tblQuestionListTopic__tblExamTaken" FromRole="C_tblExamTaken" ToRole="C_tblQuestionListTopic" />
+          <NavigationProperty Name="C_tblScore" Relationship="Self.FK__tblScore__tblExamTaken" FromRole="C_tblExamTaken" ToRole="C_tblScore" />
+        </EntityType>
+        <EntityType Name="C_tblExamType">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupID" Type="Int32" />
+          <NavigationProperty Name="C_ExamGroup" Relationship="Self.FK__tblExamType__ExamGroup" FromRole="C_tblExamType" ToRole="C_ExamGroup" />
+          <NavigationProperty Name="C_tblQuestionList" Relationship="Self.FK__tblQuestionList__tblExamType" FromRole="C_tblExamType" ToRole="C_tblQuestionList" />
+          <NavigationProperty Name="C_tblQuestionListTopic" Relationship="Self.FK__tblQuestionListTopic__tblExamType" FromRole="C_tblExamType" ToRole="C_tblQuestionListTopic" />
+          <NavigationProperty Name="C_tblScore" Relationship="Self.FK__tblScore__tblScore" FromRole="C_tblExamType" ToRole="C_tblScore" />
+        </EntityType>
+        <EntityType Name="C_tblLogin">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="C_tblMarketer">
+          <Key>
+            <PropertyRef Name="MarketerID" />
+          </Key>
+          <Property Name="MarketerID" Type="Guid" Nullable="false" />
+          <Property Name="Firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="stateId" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phoneno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="regdate" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="referralcode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="accountno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bankcode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="BankAccountName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="partnerType" Type="Int16" />
+          <Property Name="CenterName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblbank" Relationship="Self.FK__tblMarketer__tblbank" FromRole="C_tblMarketer" ToRole="C_tblbank" />
+          <NavigationProperty Name="C_tblstate" Relationship="Self.FK__tblMarketer__tblstate" FromRole="C_tblMarketer" ToRole="C_tblstate" />
+          <NavigationProperty Name="C_tblPayout" Relationship="Self.FK__tblPayout__tblMarketer" FromRole="C_tblMarketer" ToRole="C_tblPayout" />
+          <NavigationProperty Name="MarketerPaylists" Relationship="Self.FK_MarketerPaylist_MarketerPaylist" FromRole="C_tblMarketer" ToRole="MarketerPaylist" />
+        </EntityType>
+        <EntityType Name="C_tblMerchant">
+          <Key>
+            <PropertyRef Name="MerchantID" />
+          </Key>
+          <Property Name="MerchantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CenterName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="stateId" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UnitAvailable" Type="Int32" />
+          <Property Name="RefCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Expdate" Type="DateTime" Precision="0" />
+          <Property Name="logo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblclass" Relationship="Self.FK__tblclass__tblMerchant" FromRole="C_tblMerchant" ToRole="C_tblclass" />
+          <NavigationProperty Name="C_tblstate" Relationship="Self.FK__tblMerchant__tblstate" FromRole="C_tblMerchant" ToRole="C_tblstate" />
+          <NavigationProperty Name="C_tblMerchantUsage" Relationship="Self.FK__tblMerchantUsage__tblMerchant" FromRole="C_tblMerchant" ToRole="C_tblMerchantUsage" />
+          <NavigationProperty Name="C_tblmerchantUser" Relationship="Self.FK__tblmerchantUser__tblMerchant" FromRole="C_tblMerchant" ToRole="C_tblmerchantUser" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblStudentReg__tblMerchant" FromRole="C_tblMerchant" ToRole="C_tblStudentReg" />
+          <NavigationProperty Name="C_tblStudentUsage" Relationship="Self.FK__tblStudentUsage__tblMerchant" FromRole="C_tblMerchant" ToRole="C_tblStudentUsage" />
+          <NavigationProperty Name="C_tblSubscription" Relationship="Self.FK__tblSubscription__tblMerchant" FromRole="C_tblMerchant" ToRole="C_tblSubscription" />
+        </EntityType>
+        <EntityType Name="C_tblMerchantUsage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MerchantID" Type="Int64" Nullable="false" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="AssignedDate" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MerchantUserID" Type="Int32" />
+          <Property Name="Unit" Type="Int32" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblMerchantUsage__tblMerchant" FromRole="C_tblMerchantUsage" ToRole="C_tblMerchant" />
+          <NavigationProperty Name="C_tblmerchantUser" Relationship="Self.FK__tblMerchantUsage__tblmerchantUser" FromRole="C_tblMerchantUsage" ToRole="C_tblmerchantUser" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblMerchantUsage__tblStudentReg" FromRole="C_tblMerchantUsage" ToRole="C_tblStudentReg" />
+        </EntityType>
+        <EntityType Name="C_tblmerchantUser">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="Int32" />
+          <Property Name="regdate" Type="DateTime" Precision="3" />
+          <Property Name="merchantid" Type="Int64" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblmerchantUser__tblMerchant" FromRole="C_tblmerchantUser" ToRole="C_tblMerchant" />
+          <NavigationProperty Name="C_tblMerchantUsage" Relationship="Self.FK__tblMerchantUsage__tblmerchantUser" FromRole="C_tblmerchantUser" ToRole="C_tblMerchantUsage" />
+        </EntityType>
+        <EntityType Name="C_tblPayout">
+          <Key>
+            <PropertyRef Name="PayoutID" />
+          </Key>
+          <Property Name="PayoutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Paydate" Type="DateTime" Precision="3" />
+          <Property Name="marketerid" Type="Guid" />
+          <Property Name="Commission" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Transport" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaymentRef" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblMarketer" Relationship="Self.FK__tblPayout__tblMarketer" FromRole="C_tblPayout" ToRole="C_tblMarketer" />
+        </EntityType>
+        <EntityType Name="C_tblQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="HasImage" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NoOfOptions" Type="Int32" />
+          <Property Name="trial" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int64" Nullable="false" />
+          <Property Name="Solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TopicId" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_ExamGroup" Relationship="Self.FK__tblQuestion__ExamGroup" FromRole="C_tblQuestion" ToRole="C_ExamGroup" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblQuestion__tblSubject" FromRole="C_tblQuestion" ToRole="C_tblSubjectGeneral" />
+          <NavigationProperty Name="C_tblTopics" Relationship="Self.FK__tblQuestion__tblTopics" FromRole="C_tblQuestion" ToRole="C_tblTopics" />
+        </EntityType>
+        <EntityType Name="C_tblQuestionList">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeElapsed" Type="Int32" />
+          <Property Name="LastQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="ExamTakenId" Type="Int64" />
+          <Property Name="CorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ChoosenAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IncorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NoAttempted" Type="Int32" />
+          <Property Name="NoCorrect" Type="Int32" />
+          <NavigationProperty Name="C_tblExamTaken" Relationship="Self.FK__tblQuestionList__tblExamTaken" FromRole="C_tblQuestionList" ToRole="C_tblExamTaken" />
+          <NavigationProperty Name="C_tblExamType" Relationship="Self.FK__tblQuestionList__tblExamType" FromRole="C_tblQuestionList" ToRole="C_tblExamType" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblQuestionList__tblSubject" FromRole="C_tblQuestionList" ToRole="C_tblSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="C_tblQuestionListTopic">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeElapsed" Type="Int32" />
+          <Property Name="LastQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="ExamTakenId" Type="Int64" />
+          <Property Name="CorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ChoosenAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IncorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NoAttempted" Type="Int32" />
+          <Property Name="NoCorrect" Type="Int32" />
+          <NavigationProperty Name="C_tblExamTaken" Relationship="Self.FK__tblQuestionListTopic__tblExamTaken" FromRole="C_tblQuestionListTopic" ToRole="C_tblExamTaken" />
+          <NavigationProperty Name="C_tblExamType" Relationship="Self.FK__tblQuestionListTopic__tblExamType" FromRole="C_tblQuestionListTopic" ToRole="C_tblExamType" />
+          <NavigationProperty Name="C_tblTopics" Relationship="Self.FK__tblQuestionListTopic__tblTopics" FromRole="C_tblQuestionListTopic" ToRole="C_tblTopics" />
+        </EntityType>
+        <EntityType Name="C_tblQuestionUTMETrial">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="HasImage" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NoOfOptions" Type="Int32" />
+          <Property Name="trial" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int64" Nullable="false" />
+          <Property Name="Solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblQuestionUTMETrial__tblSubject" FromRole="C_tblQuestionUTMETrial" ToRole="C_tblSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="C_tblQuestionWAEC">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="HasImage" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NoOfOptions" Type="Int32" />
+          <Property Name="trial" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int64" Nullable="false" />
+          <Property Name="Solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TopicId" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_ExamGroup" Relationship="Self.FK__tblQuestionWAEC__ExamGroup" FromRole="C_tblQuestionWAEC" ToRole="C_ExamGroup" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblQuestionWAEC__tblSubject" FromRole="C_tblQuestionWAEC" ToRole="C_tblSubjectGeneral" />
+          <NavigationProperty Name="C_tblTopics" Relationship="Self.FK__tblQuestionWAEC__tblTopics" FromRole="C_tblQuestionWAEC" ToRole="C_tblTopics" />
+        </EntityType>
+        <EntityType Name="C_tblQuestionWAECTrial">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="HasImage" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NoOfOptions" Type="Int32" />
+          <Property Name="trial" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int64" Nullable="false" />
+          <Property Name="Solution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblQuestionWAECTrial__tblSubject" FromRole="C_tblQuestionWAECTrial" ToRole="C_tblSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="C_tblSchool">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblSubjectSchoolBased" Relationship="Self.FK___tblSubje__Schoo__1BC821DD" FromRole="C_tblSchool" ToRole="C_tblSubjectSchoolBased" />
+        </EntityType>
+        <EntityType Name="C_tblScore">
+          <Key>
+            <PropertyRef Name="ScoreID" />
+          </Key>
+          <Property Name="ScoreID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamCode" Type="Int64" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" />
+          <NavigationProperty Name="C_tblExamTaken" Relationship="Self.FK__tblScore__tblExamTaken" FromRole="C_tblScore" ToRole="C_tblExamTaken" />
+          <NavigationProperty Name="C_tblExamType" Relationship="Self.FK__tblScore__tblScore" FromRole="C_tblScore" ToRole="C_tblExamType" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblScore__tblStudentReg" FromRole="C_tblScore" ToRole="C_tblStudentReg" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblScore__tblSubject" FromRole="C_tblScore" ToRole="C_tblSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="C_tblstate">
+          <Key>
+            <PropertyRef Name="stateId" />
+          </Key>
+          <Property Name="stateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblMarketer" Relationship="Self.FK__tblMarketer__tblstate" FromRole="C_tblstate" ToRole="C_tblMarketer" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblMerchant__tblstate" FromRole="C_tblstate" ToRole="C_tblMerchant" />
+        </EntityType>
+        <EntityType Name="C_tblStudentReg">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MerchantID" Type="Int64" />
+          <Property Name="Unit" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="secretPin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RefCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <NavigationProperty Name="C_tblclass" Relationship="Self.FK__tblStudentReg__tblclass" FromRole="C_tblStudentReg" ToRole="C_tblclass" />
+          <NavigationProperty Name="C_tblExamTaken" Relationship="Self.FK__tblExamTaken__tblStudentReg" FromRole="C_tblStudentReg" ToRole="C_tblExamTaken" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblStudentReg__tblMerchant" FromRole="C_tblStudentReg" ToRole="C_tblMerchant" />
+          <NavigationProperty Name="C_tblMerchantUsage" Relationship="Self.FK__tblMerchantUsage__tblStudentReg" FromRole="C_tblStudentReg" ToRole="C_tblMerchantUsage" />
+          <NavigationProperty Name="C_tblScore" Relationship="Self.FK__tblScore__tblStudentReg" FromRole="C_tblStudentReg" ToRole="C_tblScore" />
+          <NavigationProperty Name="C_tblStudentUsage" Relationship="Self.FK__tblStudentUsage__tblStudentReg" FromRole="C_tblStudentReg" ToRole="C_tblStudentUsage" />
+          <NavigationProperty Name="C_tblSubscription" Relationship="Self.FK__tblSubscription__tblStudentReg" FromRole="C_tblStudentReg" ToRole="C_tblSubscription" />
+        </EntityType>
+        <EntityType Name="C_tblStudentUsage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="StudentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsedDate" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MerchantID" Type="Int64" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblStudentUsage__tblMerchant" FromRole="C_tblStudentUsage" ToRole="C_tblMerchant" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblStudentUsage__tblStudentReg" FromRole="C_tblStudentUsage" ToRole="C_tblStudentReg" />
+        </EntityType>
+        <EntityType Name="C_tblSubjectGeneral">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="NoOfQuestions" Type="Int32" />
+          <NavigationProperty Name="C_tblQuestion" Relationship="Self.FK__tblQuestion__tblSubject" FromRole="C_tblSubjectGeneral" ToRole="C_tblQuestion" />
+          <NavigationProperty Name="C_tblQuestionList" Relationship="Self.FK__tblQuestionList__tblSubject" FromRole="C_tblSubjectGeneral" ToRole="C_tblQuestionList" />
+          <NavigationProperty Name="C_tblQuestionUTMETrial" Relationship="Self.FK__tblQuestionUTMETrial__tblSubject" FromRole="C_tblSubjectGeneral" ToRole="C_tblQuestionUTMETrial" />
+          <NavigationProperty Name="C_tblQuestionWAEC" Relationship="Self.FK__tblQuestionWAEC__tblSubject" FromRole="C_tblSubjectGeneral" ToRole="C_tblQuestionWAEC" />
+          <NavigationProperty Name="C_tblQuestionWAECTrial" Relationship="Self.FK__tblQuestionWAECTrial__tblSubject" FromRole="C_tblSubjectGeneral" ToRole="C_tblQuestionWAECTrial" />
+          <NavigationProperty Name="C_tblScore" Relationship="Self.FK__tblScore__tblSubject" FromRole="C_tblSubjectGeneral" ToRole="C_tblScore" />
+          <NavigationProperty Name="C_tblTopics" Relationship="Self.FK__tblTopics__tblSubjectGeneral" FromRole="C_tblSubjectGeneral" ToRole="C_tblTopics" />
+        </EntityType>
+        <EntityType Name="C_tblSubjectSchoolBased">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="SchoolID" Type="Int32" Nullable="false" />
+          <Property Name="NoOfQuestions" Type="Int32" />
+          <NavigationProperty Name="C_tblSchool" Relationship="Self.FK___tblSubje__Schoo__1BC821DD" FromRole="C_tblSubjectSchoolBased" ToRole="C_tblSchool" />
+        </EntityType>
+        <EntityType Name="C_tblSubscription">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StudentID" Type="Int64" />
+          <Property Name="MerchantID" Type="Int64" />
+          <Property Name="paymentRef" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlanID" Type="Int16" />
+          <Property Name="paymentStatus" Type="Boolean" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="Int32" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="AgentStatus" Type="Boolean" />
+          <Property Name="RefCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="C_tblMerchant" Relationship="Self.FK__tblSubscription__tblMerchant" FromRole="C_tblSubscription" ToRole="C_tblMerchant" />
+          <NavigationProperty Name="C_tblStudentReg" Relationship="Self.FK__tblSubscription__tblStudentReg" FromRole="C_tblSubscription" ToRole="C_tblStudentReg" />
+          <NavigationProperty Name="C_tblSubscriptionPlan" Relationship="Self.FK___tblSubsc__PlanI__6383C8BA" FromRole="C_tblSubscription" ToRole="C_tblSubscriptionPlan" />
+        </EntityType>
+        <EntityType Name="C_tblSubscriptionPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PlanAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="PlanRange" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="Int32" />
+          <NavigationProperty Name="C_tblSubscription" Relationship="Self.FK___tblSubsc__PlanI__6383C8BA" FromRole="C_tblSubscriptionPlan" ToRole="C_tblSubscription" />
+        </EntityType>
+        <EntityType Name="C_tblTopics">
+          <Key>
+            <PropertyRef Name="TopicId" />
+          </Key>
+          <Property Name="TopicId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TopicName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblQuestion" Relationship="Self.FK__tblQuestion__tblTopics" FromRole="C_tblTopics" ToRole="C_tblQuestion" />
+          <NavigationProperty Name="C_tblQuestionListTopic" Relationship="Self.FK__tblQuestionListTopic__tblTopics" FromRole="C_tblTopics" ToRole="C_tblQuestionListTopic" />
+          <NavigationProperty Name="C_tblQuestionWAEC" Relationship="Self.FK__tblQuestionWAEC__tblTopics" FromRole="C_tblTopics" ToRole="C_tblQuestionWAEC" />
+          <NavigationProperty Name="C_tblSubjectGeneral" Relationship="Self.FK__tblTopics__tblSubjectGeneral" FromRole="C_tblTopics" ToRole="C_tblSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="MarketerPaylist">
+          <Key>
+            <PropertyRef Name="paylistid" />
+          </Key>
+          <Property Name="paylistid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int64" />
+          <Property Name="usertype" Type="Int16" />
+          <Property Name="marketerid" Type="Guid" Nullable="false" />
+          <Property Name="subdate" Type="DateTime" Precision="3" />
+          <Property Name="commission" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="transport" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="C_tblMarketer" Relationship="Self.FK_MarketerPaylist_MarketerPaylist" FromRole="MarketerPaylist" ToRole="C_tblMarketer" />
+        </EntityType>
+        <EntityType Name="PayoutPartner">
+          <Key>
+            <PropertyRef Name="PayoutPartnersID" />
+          </Key>
+          <Property Name="PayoutPartnersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Paydate" Type="DateTime" Precision="3" />
+          <Property Name="PayeeID" Type="Int32" />
+          <Property Name="AmountPaidOut" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaymentRef" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalRevenue" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tableMailAlert">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="receiverEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dropTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="sentTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="header1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="header2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblNewExamTaken">
+          <Key>
+            <PropertyRef Name="ExamTakenID" />
+          </Key>
+          <Property Name="ExamTakenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="StartTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="EndTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="TimeUsed" Type="Int32" />
+          <Property Name="TotalTime" Type="Int32" />
+          <Property Name="ActiveSubject" Type="Int32" />
+          <Property Name="ExamMode" Type="Int32" />
+          <NavigationProperty Name="tblNewStudentRecord" Relationship="Self.FK_tblNewExamTaken_tblNewStudentRecord" FromRole="tblNewExamTaken" ToRole="tblNewStudentRecord" />
+          <NavigationProperty Name="tblNewQuestionLists" Relationship="Self.FK_tblNewQuestionList_tblNewExamTaken" FromRole="tblNewExamTaken" ToRole="tblNewQuestionList" />
+        </EntityType>
+        <EntityType Name="tblNewQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="HasImage" Type="Int32" />
+          <Property Name="Answer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="NoOfOptions" Type="Int32" />
+          <Property Name="Trial" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tblNewQuestionList">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeElapsed" Type="Int32" />
+          <Property Name="LastQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="ExamTakenID" Type="Int64" Nullable="false" />
+          <Property Name="CorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ChoosenAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IncorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NoAttempted" Type="Int32" />
+          <Property Name="NoCorrect" Type="Int32" />
+          <Property Name="ExamID" Type="Int32" />
+          <NavigationProperty Name="tblNewExamTaken" Relationship="Self.FK_tblNewQuestionList_tblNewExamTaken" FromRole="tblNewQuestionList" ToRole="tblNewExamTaken" />
+          <NavigationProperty Name="tblNewSubjectGeneral" Relationship="Self.FK_tblNewQuestionList_tblNewSubjectGeneral" FromRole="tblNewQuestionList" ToRole="tblNewSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="tblNewScore">
+          <Key>
+            <PropertyRef Name="ScoreID" />
+          </Key>
+          <Property Name="ScoreID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamCode" Type="Int64" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" />
+          <NavigationProperty Name="tblNewStudentRecord" Relationship="Self.FK_tblNewScore_tblNewStudentRecord" FromRole="tblNewScore" ToRole="tblNewStudentRecord" />
+          <NavigationProperty Name="tblNewSubjectGeneral" Relationship="Self.FK_tblNewScore_tblNewSubjectGeneral" FromRole="tblNewScore" ToRole="tblNewSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="tblNewStudentRecord">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaymentRef" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="Int32" />
+          <NavigationProperty Name="tblNewExamTakens" Relationship="Self.FK_tblNewExamTaken_tblNewStudentRecord" FromRole="tblNewStudentRecord" ToRole="tblNewExamTaken" />
+          <NavigationProperty Name="tblNewScores" Relationship="Self.FK_tblNewScore_tblNewStudentRecord" FromRole="tblNewStudentRecord" ToRole="tblNewScore" />
+        </EntityType>
+        <EntityType Name="tblNewSubjectGeneral">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" />
+          <Property Name="NoOfQuestion" Type="Int32" />
+          <NavigationProperty Name="tblNewQuestionLists" Relationship="Self.FK_tblNewQuestionList_tblNewSubjectGeneral" FromRole="tblNewSubjectGeneral" ToRole="tblNewQuestionList" />
+          <NavigationProperty Name="tblNewScores" Relationship="Self.FK_tblNewScore_tblNewSubjectGeneral" FromRole="tblNewSubjectGeneral" ToRole="tblNewScore" />
+        </EntityType>
+        <EntityType Name="tblPinSubscription">
+          <Key>
+            <PropertyRef Name="PinId" />
+          </Key>
+          <Property Name="PinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PinNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateGenerated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PinStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="UsedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__tblExamType__ExamGroup">
+          <End Role="C_ExamGroup" Type="Self.C_ExamGroup" Multiplicity="0..1" />
+          <End Role="C_tblExamType" Type="Self.C_tblExamType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_ExamGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="C_tblExamType">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestion__ExamGroup">
+          <End Role="C_ExamGroup" Type="Self.C_ExamGroup" Multiplicity="0..1" />
+          <End Role="C_tblQuestion" Type="Self.C_tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_ExamGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="C_tblQuestion">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAEC__ExamGroup">
+          <End Role="C_ExamGroup" Type="Self.C_ExamGroup" Multiplicity="0..1" />
+          <End Role="C_tblQuestionWAEC" Type="Self.C_tblQuestionWAEC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_ExamGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="C_tblQuestionWAEC">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMarketer__tblbank">
+          <End Role="C_tblbank" Type="Self.C_tblbank" Multiplicity="0..1" />
+          <End Role="C_tblMarketer" Type="Self.C_tblMarketer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblbank">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="C_tblMarketer">
+              <PropertyRef Name="bankcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblclass__tblMerchant">
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="0..1" />
+          <End Role="C_tblclass" Type="Self.C_tblclass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="C_tblclass">
+              <PropertyRef Name="merchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentReg__tblclass">
+          <End Role="C_tblclass" Type="Self.C_tblclass" Multiplicity="0..1" />
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblclass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="C_tblStudentReg">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblExamTaken__tblStudentReg">
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="1" />
+          <End Role="C_tblExamTaken" Type="Self.C_tblExamTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="C_tblExamTaken">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionList__tblExamTaken">
+          <End Role="C_tblExamTaken" Type="Self.C_tblExamTaken" Multiplicity="0..1" />
+          <End Role="C_tblQuestionList" Type="Self.C_tblQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionList">
+              <PropertyRef Name="ExamTakenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionListTopic__tblExamTaken">
+          <End Role="C_tblExamTaken" Type="Self.C_tblExamTaken" Multiplicity="0..1" />
+          <End Role="C_tblQuestionListTopic" Type="Self.C_tblQuestionListTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionListTopic">
+              <PropertyRef Name="ExamTakenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblExamTaken">
+          <End Role="C_tblExamTaken" Type="Self.C_tblExamTaken" Multiplicity="1" />
+          <End Role="C_tblScore" Type="Self.C_tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="C_tblScore">
+              <PropertyRef Name="ExamCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionList__tblExamType">
+          <End Role="C_tblExamType" Type="Self.C_tblExamType" Multiplicity="1" />
+          <End Role="C_tblQuestionList" Type="Self.C_tblQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblExamType">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionList">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionListTopic__tblExamType">
+          <End Role="C_tblExamType" Type="Self.C_tblExamType" Multiplicity="1" />
+          <End Role="C_tblQuestionListTopic" Type="Self.C_tblQuestionListTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblExamType">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionListTopic">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblScore">
+          <End Role="C_tblExamType" Type="Self.C_tblExamType" Multiplicity="0..1" />
+          <End Role="C_tblScore" Type="Self.C_tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblExamType">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="C_tblScore">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMarketer__tblstate">
+          <End Role="C_tblstate" Type="Self.C_tblstate" Multiplicity="0..1" />
+          <End Role="C_tblMarketer" Type="Self.C_tblMarketer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblstate">
+              <PropertyRef Name="stateId" />
+            </Principal>
+            <Dependent Role="C_tblMarketer">
+              <PropertyRef Name="stateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPayout__tblMarketer">
+          <End Role="C_tblMarketer" Type="Self.C_tblMarketer" Multiplicity="0..1" />
+          <End Role="C_tblPayout" Type="Self.C_tblPayout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMarketer">
+              <PropertyRef Name="MarketerID" />
+            </Principal>
+            <Dependent Role="C_tblPayout">
+              <PropertyRef Name="marketerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MarketerPaylist_MarketerPaylist">
+          <End Role="C_tblMarketer" Type="Self.C_tblMarketer" Multiplicity="1" />
+          <End Role="MarketerPaylist" Type="Self.MarketerPaylist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMarketer">
+              <PropertyRef Name="MarketerID" />
+            </Principal>
+            <Dependent Role="MarketerPaylist">
+              <PropertyRef Name="marketerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchant__tblstate">
+          <End Role="C_tblstate" Type="Self.C_tblstate" Multiplicity="0..1" />
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblstate">
+              <PropertyRef Name="stateId" />
+            </Principal>
+            <Dependent Role="C_tblMerchant">
+              <PropertyRef Name="stateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchantUsage__tblMerchant">
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="1" />
+          <End Role="C_tblMerchantUsage" Type="Self.C_tblMerchantUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="C_tblMerchantUsage">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblmerchantUser__tblMerchant">
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="0..1" />
+          <End Role="C_tblmerchantUser" Type="Self.C_tblmerchantUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="C_tblmerchantUser">
+              <PropertyRef Name="merchantid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentReg__tblMerchant">
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="0..1" />
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="C_tblStudentReg">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentUsage__tblMerchant">
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="0..1" />
+          <End Role="C_tblStudentUsage" Type="Self.C_tblStudentUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="C_tblStudentUsage">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSubscription__tblMerchant">
+          <End Role="C_tblMerchant" Type="Self.C_tblMerchant" Multiplicity="0..1" />
+          <End Role="C_tblSubscription" Type="Self.C_tblSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblMerchant">
+              <PropertyRef Name="MerchantID" />
+            </Principal>
+            <Dependent Role="C_tblSubscription">
+              <PropertyRef Name="MerchantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchantUsage__tblmerchantUser">
+          <End Role="C_tblmerchantUser" Type="Self.C_tblmerchantUser" Multiplicity="0..1" />
+          <End Role="C_tblMerchantUsage" Type="Self.C_tblMerchantUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblmerchantUser">
+              <PropertyRef Name="Userid" />
+            </Principal>
+            <Dependent Role="C_tblMerchantUsage">
+              <PropertyRef Name="MerchantUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblMerchantUsage__tblStudentReg">
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="1" />
+          <End Role="C_tblMerchantUsage" Type="Self.C_tblMerchantUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="C_tblMerchantUsage">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestion__tblSubject">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="1" />
+          <End Role="C_tblQuestion" Type="Self.C_tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblQuestion">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestion__tblTopics">
+          <End Role="C_tblTopics" Type="Self.C_tblTopics" Multiplicity="0..1" />
+          <End Role="C_tblQuestion" Type="Self.C_tblQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblTopics">
+              <PropertyRef Name="TopicId" />
+            </Principal>
+            <Dependent Role="C_tblQuestion">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionList__tblSubject">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="1" />
+          <End Role="C_tblQuestionList" Type="Self.C_tblQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionList">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionListTopic__tblTopics">
+          <End Role="C_tblTopics" Type="Self.C_tblTopics" Multiplicity="1" />
+          <End Role="C_tblQuestionListTopic" Type="Self.C_tblQuestionListTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblTopics">
+              <PropertyRef Name="TopicId" />
+            </Principal>
+            <Dependent Role="C_tblQuestionListTopic">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionUTMETrial__tblSubject">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="1" />
+          <End Role="C_tblQuestionUTMETrial" Type="Self.C_tblQuestionUTMETrial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionUTMETrial">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAEC__tblSubject">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="1" />
+          <End Role="C_tblQuestionWAEC" Type="Self.C_tblQuestionWAEC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionWAEC">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAEC__tblTopics">
+          <End Role="C_tblTopics" Type="Self.C_tblTopics" Multiplicity="0..1" />
+          <End Role="C_tblQuestionWAEC" Type="Self.C_tblQuestionWAEC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblTopics">
+              <PropertyRef Name="TopicId" />
+            </Principal>
+            <Dependent Role="C_tblQuestionWAEC">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuestionWAECTrial__tblSubject">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="1" />
+          <End Role="C_tblQuestionWAECTrial" Type="Self.C_tblQuestionWAECTrial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblQuestionWAECTrial">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK___tblSubje__Schoo__1BC821DD">
+          <End Role="C_tblSchool" Type="Self.C_tblSchool" Multiplicity="1" />
+          <End Role="C_tblSubjectSchoolBased" Type="Self.C_tblSubjectSchoolBased" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="C_tblSubjectSchoolBased">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblStudentReg">
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="1" />
+          <End Role="C_tblScore" Type="Self.C_tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="C_tblScore">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblScore__tblSubject">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="0..1" />
+          <End Role="C_tblScore" Type="Self.C_tblScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblScore">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblStudentUsage__tblStudentReg">
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="1" />
+          <End Role="C_tblStudentUsage" Type="Self.C_tblStudentUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="C_tblStudentUsage">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSubscription__tblStudentReg">
+          <End Role="C_tblStudentReg" Type="Self.C_tblStudentReg" Multiplicity="0..1" />
+          <End Role="C_tblSubscription" Type="Self.C_tblSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblStudentReg">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="C_tblSubscription">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTopics__tblSubjectGeneral">
+          <End Role="C_tblSubjectGeneral" Type="Self.C_tblSubjectGeneral" Multiplicity="1" />
+          <End Role="C_tblTopics" Type="Self.C_tblTopics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="C_tblTopics">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK___tblSubsc__PlanI__6383C8BA">
+          <End Role="C_tblSubscriptionPlan" Type="Self.C_tblSubscriptionPlan" Multiplicity="0..1" />
+          <End Role="C_tblSubscription" Type="Self.C_tblSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblSubscriptionPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="C_tblSubscription">
+              <PropertyRef Name="PlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewExamTaken_tblNewStudentRecord">
+          <End Role="tblNewStudentRecord" Type="Self.tblNewStudentRecord" Multiplicity="1" />
+          <End Role="tblNewExamTaken" Type="Self.tblNewExamTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewExamTaken">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewExamTaken">
+          <End Role="tblNewExamTaken" Type="Self.tblNewExamTaken" Multiplicity="1" />
+          <End Role="tblNewQuestionList" Type="Self.tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="ExamTakenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewSubjectGeneral">
+          <End Role="tblNewSubjectGeneral" Type="Self.tblNewSubjectGeneral" Multiplicity="1" />
+          <End Role="tblNewQuestionList" Type="Self.tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewStudentRecord">
+          <End Role="tblNewStudentRecord" Type="Self.tblNewStudentRecord" Multiplicity="1" />
+          <End Role="tblNewScore" Type="Self.tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewSubjectGeneral">
+          <End Role="tblNewSubjectGeneral" Type="Self.tblNewSubjectGeneral" Multiplicity="0..1" />
+          <End Role="tblNewScore" Type="Self.tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EXAMSPURDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_ExamGroup" EntityType="Self.C_ExamGroup" />
+          <EntitySet Name="C_tblbank" EntityType="Self.C_tblbank" />
+          <EntitySet Name="C_tblclass" EntityType="Self.C_tblclass" />
+          <EntitySet Name="C_tblExamTaken" EntityType="Self.C_tblExamTaken" />
+          <EntitySet Name="C_tblExamType" EntityType="Self.C_tblExamType" />
+          <EntitySet Name="C_tblLogin" EntityType="Self.C_tblLogin" />
+          <EntitySet Name="C_tblMarketer" EntityType="Self.C_tblMarketer" />
+          <EntitySet Name="C_tblMerchant" EntityType="Self.C_tblMerchant" />
+          <EntitySet Name="C_tblMerchantUsage" EntityType="Self.C_tblMerchantUsage" />
+          <EntitySet Name="C_tblmerchantUser" EntityType="Self.C_tblmerchantUser" />
+          <EntitySet Name="C_tblPayout" EntityType="Self.C_tblPayout" />
+          <EntitySet Name="C_tblQuestion" EntityType="Self.C_tblQuestion" />
+          <EntitySet Name="C_tblQuestionList" EntityType="Self.C_tblQuestionList" />
+          <EntitySet Name="C_tblQuestionListTopic" EntityType="Self.C_tblQuestionListTopic" />
+          <EntitySet Name="C_tblQuestionUTMETrial" EntityType="Self.C_tblQuestionUTMETrial" />
+          <EntitySet Name="C_tblQuestionWAEC" EntityType="Self.C_tblQuestionWAEC" />
+          <EntitySet Name="C_tblQuestionWAECTrial" EntityType="Self.C_tblQuestionWAECTrial" />
+          <EntitySet Name="C_tblSchool" EntityType="Self.C_tblSchool" />
+          <EntitySet Name="C_tblScore" EntityType="Self.C_tblScore" />
+          <EntitySet Name="C_tblstate" EntityType="Self.C_tblstate" />
+          <EntitySet Name="C_tblStudentReg" EntityType="Self.C_tblStudentReg" />
+          <EntitySet Name="C_tblStudentUsage" EntityType="Self.C_tblStudentUsage" />
+          <EntitySet Name="C_tblSubjectGeneral" EntityType="Self.C_tblSubjectGeneral" />
+          <EntitySet Name="C_tblSubjectSchoolBased" EntityType="Self.C_tblSubjectSchoolBased" />
+          <EntitySet Name="C_tblSubscription" EntityType="Self.C_tblSubscription" />
+          <EntitySet Name="C_tblSubscriptionPlan" EntityType="Self.C_tblSubscriptionPlan" />
+          <EntitySet Name="C_tblTopics" EntityType="Self.C_tblTopics" />
+          <EntitySet Name="MarketerPaylists" EntityType="Self.MarketerPaylist" />
+          <EntitySet Name="PayoutPartners" EntityType="Self.PayoutPartner" />
+          <EntitySet Name="tableMailAlerts" EntityType="Self.tableMailAlert" />
+          <EntitySet Name="tblNewExamTakens" EntityType="Self.tblNewExamTaken" />
+          <EntitySet Name="tblNewQuestions" EntityType="Self.tblNewQuestion" />
+          <EntitySet Name="tblNewQuestionLists" EntityType="Self.tblNewQuestionList" />
+          <EntitySet Name="tblNewScores" EntityType="Self.tblNewScore" />
+          <EntitySet Name="tblNewStudentRecords" EntityType="Self.tblNewStudentRecord" />
+          <EntitySet Name="tblNewSubjectGenerals" EntityType="Self.tblNewSubjectGeneral" />
+          <EntitySet Name="tblPinSubscriptions" EntityType="Self.tblPinSubscription" />
+          <AssociationSet Name="FK__tblExamType__ExamGroup" Association="Self.FK__tblExamType__ExamGroup">
+            <End Role="C_ExamGroup" EntitySet="C_ExamGroup" />
+            <End Role="C_tblExamType" EntitySet="C_tblExamType" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestion__ExamGroup" Association="Self.FK__tblQuestion__ExamGroup">
+            <End Role="C_ExamGroup" EntitySet="C_ExamGroup" />
+            <End Role="C_tblQuestion" EntitySet="C_tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAEC__ExamGroup" Association="Self.FK__tblQuestionWAEC__ExamGroup">
+            <End Role="C_ExamGroup" EntitySet="C_ExamGroup" />
+            <End Role="C_tblQuestionWAEC" EntitySet="C_tblQuestionWAEC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMarketer__tblbank" Association="Self.FK__tblMarketer__tblbank">
+            <End Role="C_tblbank" EntitySet="C_tblbank" />
+            <End Role="C_tblMarketer" EntitySet="C_tblMarketer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblclass__tblMerchant" Association="Self.FK__tblclass__tblMerchant">
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+            <End Role="C_tblclass" EntitySet="C_tblclass" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentReg__tblclass" Association="Self.FK__tblStudentReg__tblclass">
+            <End Role="C_tblclass" EntitySet="C_tblclass" />
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblExamTaken__tblStudentReg" Association="Self.FK__tblExamTaken__tblStudentReg">
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+            <End Role="C_tblExamTaken" EntitySet="C_tblExamTaken" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionList__tblExamTaken" Association="Self.FK__tblQuestionList__tblExamTaken">
+            <End Role="C_tblExamTaken" EntitySet="C_tblExamTaken" />
+            <End Role="C_tblQuestionList" EntitySet="C_tblQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionListTopic__tblExamTaken" Association="Self.FK__tblQuestionListTopic__tblExamTaken">
+            <End Role="C_tblExamTaken" EntitySet="C_tblExamTaken" />
+            <End Role="C_tblQuestionListTopic" EntitySet="C_tblQuestionListTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblExamTaken" Association="Self.FK__tblScore__tblExamTaken">
+            <End Role="C_tblExamTaken" EntitySet="C_tblExamTaken" />
+            <End Role="C_tblScore" EntitySet="C_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionList__tblExamType" Association="Self.FK__tblQuestionList__tblExamType">
+            <End Role="C_tblExamType" EntitySet="C_tblExamType" />
+            <End Role="C_tblQuestionList" EntitySet="C_tblQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionListTopic__tblExamType" Association="Self.FK__tblQuestionListTopic__tblExamType">
+            <End Role="C_tblExamType" EntitySet="C_tblExamType" />
+            <End Role="C_tblQuestionListTopic" EntitySet="C_tblQuestionListTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblScore" Association="Self.FK__tblScore__tblScore">
+            <End Role="C_tblExamType" EntitySet="C_tblExamType" />
+            <End Role="C_tblScore" EntitySet="C_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMarketer__tblstate" Association="Self.FK__tblMarketer__tblstate">
+            <End Role="C_tblstate" EntitySet="C_tblstate" />
+            <End Role="C_tblMarketer" EntitySet="C_tblMarketer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPayout__tblMarketer" Association="Self.FK__tblPayout__tblMarketer">
+            <End Role="C_tblMarketer" EntitySet="C_tblMarketer" />
+            <End Role="C_tblPayout" EntitySet="C_tblPayout" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MarketerPaylist_MarketerPaylist" Association="Self.FK_MarketerPaylist_MarketerPaylist">
+            <End Role="C_tblMarketer" EntitySet="C_tblMarketer" />
+            <End Role="MarketerPaylist" EntitySet="MarketerPaylists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchant__tblstate" Association="Self.FK__tblMerchant__tblstate">
+            <End Role="C_tblstate" EntitySet="C_tblstate" />
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchantUsage__tblMerchant" Association="Self.FK__tblMerchantUsage__tblMerchant">
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+            <End Role="C_tblMerchantUsage" EntitySet="C_tblMerchantUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblmerchantUser__tblMerchant" Association="Self.FK__tblmerchantUser__tblMerchant">
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+            <End Role="C_tblmerchantUser" EntitySet="C_tblmerchantUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentReg__tblMerchant" Association="Self.FK__tblStudentReg__tblMerchant">
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentUsage__tblMerchant" Association="Self.FK__tblStudentUsage__tblMerchant">
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+            <End Role="C_tblStudentUsage" EntitySet="C_tblStudentUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSubscription__tblMerchant" Association="Self.FK__tblSubscription__tblMerchant">
+            <End Role="C_tblMerchant" EntitySet="C_tblMerchant" />
+            <End Role="C_tblSubscription" EntitySet="C_tblSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchantUsage__tblmerchantUser" Association="Self.FK__tblMerchantUsage__tblmerchantUser">
+            <End Role="C_tblmerchantUser" EntitySet="C_tblmerchantUser" />
+            <End Role="C_tblMerchantUsage" EntitySet="C_tblMerchantUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblMerchantUsage__tblStudentReg" Association="Self.FK__tblMerchantUsage__tblStudentReg">
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+            <End Role="C_tblMerchantUsage" EntitySet="C_tblMerchantUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestion__tblSubject" Association="Self.FK__tblQuestion__tblSubject">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblQuestion" EntitySet="C_tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestion__tblTopics" Association="Self.FK__tblQuestion__tblTopics">
+            <End Role="C_tblTopics" EntitySet="C_tblTopics" />
+            <End Role="C_tblQuestion" EntitySet="C_tblQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionList__tblSubject" Association="Self.FK__tblQuestionList__tblSubject">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblQuestionList" EntitySet="C_tblQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionListTopic__tblTopics" Association="Self.FK__tblQuestionListTopic__tblTopics">
+            <End Role="C_tblTopics" EntitySet="C_tblTopics" />
+            <End Role="C_tblQuestionListTopic" EntitySet="C_tblQuestionListTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionUTMETrial__tblSubject" Association="Self.FK__tblQuestionUTMETrial__tblSubject">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblQuestionUTMETrial" EntitySet="C_tblQuestionUTMETrial" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAEC__tblSubject" Association="Self.FK__tblQuestionWAEC__tblSubject">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblQuestionWAEC" EntitySet="C_tblQuestionWAEC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAEC__tblTopics" Association="Self.FK__tblQuestionWAEC__tblTopics">
+            <End Role="C_tblTopics" EntitySet="C_tblTopics" />
+            <End Role="C_tblQuestionWAEC" EntitySet="C_tblQuestionWAEC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuestionWAECTrial__tblSubject" Association="Self.FK__tblQuestionWAECTrial__tblSubject">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblQuestionWAECTrial" EntitySet="C_tblQuestionWAECTrial" />
+          </AssociationSet>
+          <AssociationSet Name="FK___tblSubje__Schoo__1BC821DD" Association="Self.FK___tblSubje__Schoo__1BC821DD">
+            <End Role="C_tblSchool" EntitySet="C_tblSchool" />
+            <End Role="C_tblSubjectSchoolBased" EntitySet="C_tblSubjectSchoolBased" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblStudentReg" Association="Self.FK__tblScore__tblStudentReg">
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+            <End Role="C_tblScore" EntitySet="C_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblScore__tblSubject" Association="Self.FK__tblScore__tblSubject">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblScore" EntitySet="C_tblScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblStudentUsage__tblStudentReg" Association="Self.FK__tblStudentUsage__tblStudentReg">
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+            <End Role="C_tblStudentUsage" EntitySet="C_tblStudentUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSubscription__tblStudentReg" Association="Self.FK__tblSubscription__tblStudentReg">
+            <End Role="C_tblStudentReg" EntitySet="C_tblStudentReg" />
+            <End Role="C_tblSubscription" EntitySet="C_tblSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTopics__tblSubjectGeneral" Association="Self.FK__tblTopics__tblSubjectGeneral">
+            <End Role="C_tblSubjectGeneral" EntitySet="C_tblSubjectGeneral" />
+            <End Role="C_tblTopics" EntitySet="C_tblTopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK___tblSubsc__PlanI__6383C8BA" Association="Self.FK___tblSubsc__PlanI__6383C8BA">
+            <End Role="C_tblSubscriptionPlan" EntitySet="C_tblSubscriptionPlan" />
+            <End Role="C_tblSubscription" EntitySet="C_tblSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewExamTaken_tblNewStudentRecord" Association="Self.FK_tblNewExamTaken_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecords" />
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTakens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewExamTaken" Association="Self.FK_tblNewQuestionList_tblNewExamTaken">
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTakens" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewSubjectGeneral" Association="Self.FK_tblNewQuestionList_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGenerals" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewStudentRecord" Association="Self.FK_tblNewScore_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecords" />
+            <End Role="tblNewScore" EntitySet="tblNewScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewSubjectGeneral" Association="Self.FK_tblNewScore_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGenerals" />
+            <End Role="tblNewScore" EntitySet="tblNewScores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExamspurDBModelStoreContainer" CdmEntityContainer="EXAMSPURDBEntities">
+          <EntitySetMapping Name="C_ExamGroup">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_ExamGroup">
+              <MappingFragment StoreEntitySet="_ExamGroup">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblbank">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblbank">
+              <MappingFragment StoreEntitySet="_tblbank">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblclass">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblclass">
+              <MappingFragment StoreEntitySet="_tblclass">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="merchantID" ColumnName="merchantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblExamTaken">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblExamTaken">
+              <MappingFragment StoreEntitySet="_tblExamTaken">
+                <ScalarProperty Name="ExamTakenID" ColumnName="ExamTakenID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StartTimestamp" ColumnName="StartTimestamp" />
+                <ScalarProperty Name="EndTimestamp" ColumnName="EndTimestamp" />
+                <ScalarProperty Name="TimeUsed" ColumnName="TimeUsed" />
+                <ScalarProperty Name="TotalTime" ColumnName="TotalTime" />
+                <ScalarProperty Name="ExamMode" ColumnName="ExamMode" />
+                <ScalarProperty Name="ActiveSubject" ColumnName="ActiveSubject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblExamType">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblExamType">
+              <MappingFragment StoreEntitySet="_tblExamType">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="ExamName" ColumnName="ExamName" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblLogin">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblLogin">
+              <MappingFragment StoreEntitySet="_tblLogin">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblMarketer">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblMarketer">
+              <MappingFragment StoreEntitySet="_tblMarketer">
+                <ScalarProperty Name="MarketerID" ColumnName="MarketerID" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="stateId" ColumnName="stateId" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="regdate" ColumnName="regdate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="referralcode" ColumnName="referralcode" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="accountno" ColumnName="accountno" />
+                <ScalarProperty Name="bankcode" ColumnName="bankcode" />
+                <ScalarProperty Name="BankAccountName" ColumnName="BankAccountName" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblMerchant">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblMerchant">
+              <MappingFragment StoreEntitySet="_tblMerchant">
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="stateId" ColumnName="stateId" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="UnitAvailable" ColumnName="UnitAvailable" />
+                <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+                <ScalarProperty Name="Expdate" ColumnName="Expdate" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblMerchantUsage">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblMerchantUsage">
+              <MappingFragment StoreEntitySet="_tblMerchantUsage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+                <ScalarProperty Name="MerchantUserID" ColumnName="MerchantUserID" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblmerchantUser">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblmerchantUser">
+              <MappingFragment StoreEntitySet="_tblmerchantUser">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="regdate" ColumnName="regdate" />
+                <ScalarProperty Name="merchantid" ColumnName="merchantid" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblPayout">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblPayout">
+              <MappingFragment StoreEntitySet="_tblPayout">
+                <ScalarProperty Name="PayoutID" ColumnName="PayoutID" />
+                <ScalarProperty Name="Paydate" ColumnName="Paydate" />
+                <ScalarProperty Name="marketerid" ColumnName="marketerid" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="Transport" ColumnName="Transport" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="PaymentRef" ColumnName="PaymentRef" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblQuestion">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblQuestion">
+              <MappingFragment StoreEntitySet="_tblQuestion">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="OptionE" ColumnName="OptionE" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="trial" ColumnName="trial" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblQuestionList">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblQuestionList">
+              <MappingFragment StoreEntitySet="_tblQuestionList">
+                <ScalarProperty Name="QuestionListID" ColumnName="QuestionListID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="QuestionList" ColumnName="QuestionList" />
+                <ScalarProperty Name="TimeElapsed" ColumnName="TimeElapsed" />
+                <ScalarProperty Name="LastQuestionID" ColumnName="LastQuestionID" />
+                <ScalarProperty Name="ExamTakenId" ColumnName="ExamTakenId" />
+                <ScalarProperty Name="CorrectAnswerList" ColumnName="CorrectAnswerList" />
+                <ScalarProperty Name="ChoosenAnswerList" ColumnName="ChoosenAnswerList" />
+                <ScalarProperty Name="IncorrectAnswerList" ColumnName="IncorrectAnswerList" />
+                <ScalarProperty Name="NoAttempted" ColumnName="NoAttempted" />
+                <ScalarProperty Name="NoCorrect" ColumnName="NoCorrect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblQuestionListTopic">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblQuestionListTopic">
+              <MappingFragment StoreEntitySet="_tblQuestionListTopic">
+                <ScalarProperty Name="QuestionListID" ColumnName="QuestionListID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="QuestionList" ColumnName="QuestionList" />
+                <ScalarProperty Name="TimeElapsed" ColumnName="TimeElapsed" />
+                <ScalarProperty Name="LastQuestionID" ColumnName="LastQuestionID" />
+                <ScalarProperty Name="ExamTakenId" ColumnName="ExamTakenId" />
+                <ScalarProperty Name="CorrectAnswerList" ColumnName="CorrectAnswerList" />
+                <ScalarProperty Name="ChoosenAnswerList" ColumnName="ChoosenAnswerList" />
+                <ScalarProperty Name="IncorrectAnswerList" ColumnName="IncorrectAnswerList" />
+                <ScalarProperty Name="NoAttempted" ColumnName="NoAttempted" />
+                <ScalarProperty Name="NoCorrect" ColumnName="NoCorrect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblQuestionUTMETrial">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblQuestionUTMETrial">
+              <MappingFragment StoreEntitySet="_tblQuestionUTMETrial">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="OptionE" ColumnName="OptionE" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="trial" ColumnName="trial" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblQuestionWAEC">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblQuestionWAEC">
+              <MappingFragment StoreEntitySet="_tblQuestionWAEC">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="OptionE" ColumnName="OptionE" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="trial" ColumnName="trial" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblQuestionWAECTrial">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblQuestionWAECTrial">
+              <MappingFragment StoreEntitySet="_tblQuestionWAECTrial">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="OptionE" ColumnName="OptionE" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="trial" ColumnName="trial" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSchool">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblSchool">
+              <MappingFragment StoreEntitySet="_tblSchool">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblScore">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblScore">
+              <MappingFragment StoreEntitySet="_tblScore">
+                <ScalarProperty Name="ScoreID" ColumnName="ScoreID" />
+                <ScalarProperty Name="ExamCode" ColumnName="ExamCode" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblstate">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblstate">
+              <MappingFragment StoreEntitySet="_tblstate">
+                <ScalarProperty Name="stateId" ColumnName="stateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblStudentReg">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblStudentReg">
+              <MappingFragment StoreEntitySet="_tblStudentReg">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="secretPin" ColumnName="secretPin" />
+                <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblStudentUsage">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblStudentUsage">
+              <MappingFragment StoreEntitySet="_tblStudentUsage">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="UsedDate" ColumnName="UsedDate" />
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSubjectGeneral">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblSubjectGeneral">
+              <MappingFragment StoreEntitySet="_tblSubjectGeneral">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="NoOfQuestions" ColumnName="NoOfQuestions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSubjectSchoolBased">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblSubjectSchoolBased">
+              <MappingFragment StoreEntitySet="_tblSubjectSchoolBased">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="NoOfQuestions" ColumnName="NoOfQuestions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSubscription">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblSubscription">
+              <MappingFragment StoreEntitySet="_tblSubscription">
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="MerchantID" ColumnName="MerchantID" />
+                <ScalarProperty Name="paymentRef" ColumnName="paymentRef" />
+                <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+                <ScalarProperty Name="paymentStatus" ColumnName="paymentStatus" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AgentStatus" ColumnName="AgentStatus" />
+                <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSubscriptionPlan">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblSubscriptionPlan">
+              <MappingFragment StoreEntitySet="_tblSubscriptionPlan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PlanType" ColumnName="PlanType" />
+                <ScalarProperty Name="PlanAmount" ColumnName="PlanAmount" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="PlanRange" ColumnName="PlanRange" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblTopics">
+            <EntityTypeMapping TypeName="ExamspurDBModel.C_tblTopics">
+              <MappingFragment StoreEntitySet="_tblTopics">
+                <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+                <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketerPaylists">
+            <EntityTypeMapping TypeName="ExamspurDBModel.MarketerPaylist">
+              <MappingFragment StoreEntitySet="MarketerPaylist">
+                <ScalarProperty Name="paylistid" ColumnName="paylistid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="usertype" ColumnName="usertype" />
+                <ScalarProperty Name="marketerid" ColumnName="marketerid" />
+                <ScalarProperty Name="subdate" ColumnName="subdate" />
+                <ScalarProperty Name="commission" ColumnName="commission" />
+                <ScalarProperty Name="transport" ColumnName="transport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayoutPartners">
+            <EntityTypeMapping TypeName="ExamspurDBModel.PayoutPartner">
+              <MappingFragment StoreEntitySet="PayoutPartners">
+                <ScalarProperty Name="PayoutPartnersID" ColumnName="PayoutPartnersID" />
+                <ScalarProperty Name="Paydate" ColumnName="Paydate" />
+                <ScalarProperty Name="PayeeID" ColumnName="PayeeID" />
+                <ScalarProperty Name="AmountPaidOut" ColumnName="AmountPaidOut" />
+                <ScalarProperty Name="PaymentRef" ColumnName="PaymentRef" />
+                <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tableMailAlerts">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tableMailAlert">
+              <MappingFragment StoreEntitySet="tableMailAlert">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="receiverEmail" ColumnName="receiverEmail" />
+                <ScalarProperty Name="dropTimestamp" ColumnName="dropTimestamp" />
+                <ScalarProperty Name="sentTimestamp" ColumnName="sentTimestamp" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="header1" ColumnName="header1" />
+                <ScalarProperty Name="header2" ColumnName="header2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewExamTakens">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblNewExamTaken">
+              <MappingFragment StoreEntitySet="tblNewExamTaken">
+                <ScalarProperty Name="ExamTakenID" ColumnName="ExamTakenID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StartTimeStamp" ColumnName="StartTimeStamp" />
+                <ScalarProperty Name="EndTimeStamp" ColumnName="EndTimeStamp" />
+                <ScalarProperty Name="TimeUsed" ColumnName="TimeUsed" />
+                <ScalarProperty Name="TotalTime" ColumnName="TotalTime" />
+                <ScalarProperty Name="ActiveSubject" ColumnName="ActiveSubject" />
+                <ScalarProperty Name="ExamMode" ColumnName="ExamMode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewQuestions">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblNewQuestion">
+              <MappingFragment StoreEntitySet="tblNewQuestion">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="OptionE" ColumnName="OptionE" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="Trial" ColumnName="Trial" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewQuestionLists">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblNewQuestionList">
+              <MappingFragment StoreEntitySet="tblNewQuestionList">
+                <ScalarProperty Name="QuestionListID" ColumnName="QuestionListID" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="QuestionList" ColumnName="QuestionList" />
+                <ScalarProperty Name="TimeElapsed" ColumnName="TimeElapsed" />
+                <ScalarProperty Name="LastQuestionID" ColumnName="LastQuestionID" />
+                <ScalarProperty Name="ExamTakenID" ColumnName="ExamTakenID" />
+                <ScalarProperty Name="CorrectAnswerList" ColumnName="CorrectAnswerList" />
+                <ScalarProperty Name="ChoosenAnswerList" ColumnName="ChoosenAnswerList" />
+                <ScalarProperty Name="IncorrectAnswerList" ColumnName="IncorrectAnswerList" />
+                <ScalarProperty Name="NoAttempted" ColumnName="NoAttempted" />
+                <ScalarProperty Name="NoCorrect" ColumnName="NoCorrect" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewScores">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblNewScore">
+              <MappingFragment StoreEntitySet="tblNewScore">
+                <ScalarProperty Name="ScoreID" ColumnName="ScoreID" />
+                <ScalarProperty Name="ExamCode" ColumnName="ExamCode" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewStudentRecords">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblNewStudentRecord">
+              <MappingFragment StoreEntitySet="tblNewStudentRecord">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PaymentRef" ColumnName="PaymentRef" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewSubjectGenerals">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblNewSubjectGeneral">
+              <MappingFragment StoreEntitySet="tblNewSubjectGeneral">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="NoOfQuestion" ColumnName="NoOfQuestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPinSubscriptions">
+            <EntityTypeMapping TypeName="ExamspurDBModel.tblPinSubscription">
+              <MappingFragment StoreEntitySet="tblPinSubscription">
+                <ScalarProperty Name="PinId" ColumnName="PinId" />
+                <ScalarProperty Name="PinNumber" ColumnName="PinNumber" />
+                <ScalarProperty Name="DateGenerated" ColumnName="DateGenerated" />
+                <ScalarProperty Name="PinStatus" ColumnName="PinStatus" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="UsedBy" ColumnName="UsedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

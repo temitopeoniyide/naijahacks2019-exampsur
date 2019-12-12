@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ab3505c7c254ce2b0434353cac89e98" Name="Diagram1">
+        <EntityTypeShape EntityType="ExamspurDBModel.C_ExamGroup" Width="1.5" PointX="1.5" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblbank" Width="1.5" PointX="1.5" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblclass" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblExamTaken" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblExamType" Width="1.5" PointX="0.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblLogin" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblMarketer" Width="1.5" PointX="3.75" PointY="51.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblMerchant" Width="1.5" PointX="1.5" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblMerchantUsage" Width="1.5" PointX="6" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblmerchantUser" Width="1.5" PointX="3.75" PointY="47" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblPayout" Width="1.5" PointX="6" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblQuestion" Width="1.5" PointX="5.25" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblQuestionList" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblQuestionListTopic" Width="1.5" PointX="5.25" PointY="42.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblQuestionUTMETrial" Width="1.5" PointX="3" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblQuestionWAEC" Width="1.5" PointX="8.25" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblQuestionWAECTrial" Width="1.5" PointX="3" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblSchool" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblScore" Width="1.5" PointX="6" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblstate" Width="1.5" PointX="1.5" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblStudentReg" Width="1.5" PointX="1.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblStudentUsage" Width="1.5" PointX="8.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblSubjectGeneral" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblSubjectSchoolBased" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblSubscription" Width="1.5" PointX="8.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblSubscriptionPlan" Width="1.5" PointX="6.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.C_tblTopics" Width="1.5" PointX="3" PointY="42.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.MarketerPaylist" Width="1.5" PointX="6" PointY="54" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.PayoutPartner" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tableMailAlert" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblNewExamTaken" Width="1.5" PointX="3.75" PointY="59" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblNewQuestion" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblNewQuestionList" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblNewScore" Width="1.5" PointX="9" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblNewStudentRecord" Width="1.5" PointX="1.5" PointY="59.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblNewSubjectGeneral" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExamspurDBModel.tblPinSubscription" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblExamType__ExamGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestion__ExamGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionWAEC__ExamGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblMarketer__tblbank" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblclass__tblMerchant" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblStudentReg__tblclass" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblExamTaken__tblStudentReg" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionList__tblExamTaken" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionListTopic__tblExamTaken" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblScore__tblExamTaken" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionList__tblExamType" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionListTopic__tblExamType" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblScore__tblScore" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblMarketer__tblstate" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblPayout__tblMarketer" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK_MarketerPaylist_MarketerPaylist" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblMerchant__tblstate" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblMerchantUsage__tblMerchant" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblmerchantUser__tblMerchant" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblStudentReg__tblMerchant" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblStudentUsage__tblMerchant" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblSubscription__tblMerchant" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblMerchantUsage__tblmerchantUser" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblMerchantUsage__tblStudentReg" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestion__tblSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestion__tblTopics" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionList__tblSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionListTopic__tblTopics" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionUTMETrial__tblSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionWAEC__tblSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionWAEC__tblTopics" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblQuestionWAECTrial__tblSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK___tblSubje__Schoo__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblScore__tblStudentReg" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblScore__tblSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblStudentUsage__tblStudentReg" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblSubscription__tblStudentReg" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK__tblTopics__tblSubjectGeneral" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK___tblSubsc__PlanI__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK_tblNewExamTaken_tblNewStudentRecord" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK_tblNewQuestionList_tblNewExamTaken" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK_tblNewQuestionList_tblNewSubjectGeneral" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK_tblNewScore_tblNewStudentRecord" ManuallyRouted="false" />
+        <AssociationConnector Association="ExamspurDBModel.FK_tblNewScore_tblNewSubjectGeneral" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

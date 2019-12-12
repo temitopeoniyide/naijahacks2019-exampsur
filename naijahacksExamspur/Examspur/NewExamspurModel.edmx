@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NewExamspurDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblNewExamTaken">
+          <Key>
+            <PropertyRef Name="ExamTakenID" />
+          </Key>
+          <Property Name="ExamTakenID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" />
+          <Property Name="StartTimeStamp" Type="datetime" />
+          <Property Name="EndTimeStamp" Type="datetime" />
+          <Property Name="TimeUsed" Type="int" />
+          <Property Name="TotalTime" Type="int" />
+          <Property Name="ActiveSubject" Type="int" />
+          <Property Name="ExamMode" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="OptionA" Type="nvarchar(max)" />
+          <Property Name="OptionB" Type="nvarchar(max)" />
+          <Property Name="OptionC" Type="nvarchar(max)" />
+          <Property Name="OptionD" Type="nvarchar(max)" />
+          <Property Name="OptionE" Type="nvarchar(max)" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="HasImage" Type="int" />
+          <Property Name="Answer" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="NoOfOptions" Type="int" />
+          <Property Name="Trial" Type="bit" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="QuestionNumber" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblNewQuestionList">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="QuestionList" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TimeElapsed" Type="int" />
+          <Property Name="LastQuestionID" Type="int" Nullable="false" />
+          <Property Name="ExamTakenID" Type="bigint" Nullable="false" />
+          <Property Name="CorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="ChoosenAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="IncorrectAnswerList" Type="varchar" MaxLength="1000" />
+          <Property Name="NoAttempted" Type="int" />
+          <Property Name="NoCorrect" Type="int" />
+          <Property Name="ExamID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewScore">
+          <Key>
+            <PropertyRef Name="ScoreID" />
+          </Key>
+          <Property Name="ScoreID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamCode" Type="bigint" Nullable="false" />
+          <Property Name="SubjectID" Type="int" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewStudentRecord">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PaymentRef" Type="varchar" MaxLength="100" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
+        <EntityType Name="tblNewSubjectGeneral">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="ExamID" Type="int" />
+          <Property Name="NoOfQuestion" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblNewExamTaken_tblNewStudentRecord">
+          <End Role="tblNewStudentRecord" Type="Self.tblNewStudentRecord" Multiplicity="1" />
+          <End Role="tblNewExamTaken" Type="Self.tblNewExamTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewExamTaken">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewExamTaken">
+          <End Role="tblNewExamTaken" Type="Self.tblNewExamTaken" Multiplicity="1" />
+          <End Role="tblNewQuestionList" Type="Self.tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="ExamTakenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewSubjectGeneral">
+          <End Role="tblNewSubjectGeneral" Type="Self.tblNewSubjectGeneral" Multiplicity="1" />
+          <End Role="tblNewQuestionList" Type="Self.tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewStudentRecord">
+          <End Role="tblNewStudentRecord" Type="Self.tblNewStudentRecord" Multiplicity="1" />
+          <End Role="tblNewScore" Type="Self.tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewSubjectGeneral">
+          <End Role="tblNewSubjectGeneral" Type="Self.tblNewSubjectGeneral" Multiplicity="0..1" />
+          <End Role="tblNewScore" Type="Self.tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewExamspurDBModelStoreContainer">
+          <EntitySet Name="tblNewExamTaken" EntityType="Self.tblNewExamTaken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewQuestion" EntityType="Self.tblNewQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewQuestionList" EntityType="Self.tblNewQuestionList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewScore" EntityType="Self.tblNewScore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewStudentRecord" EntityType="Self.tblNewStudentRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNewSubjectGeneral" EntityType="Self.tblNewSubjectGeneral" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblNewExamTaken_tblNewStudentRecord" Association="Self.FK_tblNewExamTaken_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecord" />
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTaken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewExamTaken" Association="Self.FK_tblNewQuestionList_tblNewExamTaken">
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTaken" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewSubjectGeneral" Association="Self.FK_tblNewQuestionList_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGeneral" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewStudentRecord" Association="Self.FK_tblNewScore_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecord" />
+            <End Role="tblNewScore" EntitySet="tblNewScore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewSubjectGeneral" Association="Self.FK_tblNewScore_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGeneral" />
+            <End Role="tblNewScore" EntitySet="tblNewScore" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NewExamspurDBModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="NewExamspurDBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblNewSubjectGenerals" EntityType="NewExamspurDBModel2.tblNewSubjectGeneral" />
+          <EntitySet Name="tblNewExamTakens" EntityType="NewExamspurDBModel2.tblNewExamTaken" />
+          <EntitySet Name="tblNewQuestionLists" EntityType="NewExamspurDBModel2.tblNewQuestionList" />
+          <EntitySet Name="tblNewScores" EntityType="NewExamspurDBModel2.tblNewScore" />
+          <EntitySet Name="tblNewStudentRecords" EntityType="NewExamspurDBModel2.tblNewStudentRecord" />
+          <AssociationSet Name="FK_tblNewExamTaken_tblNewStudentRecord" Association="NewExamspurDBModel2.FK_tblNewExamTaken_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecords" />
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTakens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewExamTaken" Association="NewExamspurDBModel2.FK_tblNewQuestionList_tblNewExamTaken">
+            <End Role="tblNewExamTaken" EntitySet="tblNewExamTakens" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewQuestionList_tblNewSubjectGeneral" Association="NewExamspurDBModel2.FK_tblNewQuestionList_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGenerals" />
+            <End Role="tblNewQuestionList" EntitySet="tblNewQuestionLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewStudentRecord" Association="NewExamspurDBModel2.FK_tblNewScore_tblNewStudentRecord">
+            <End Role="tblNewStudentRecord" EntitySet="tblNewStudentRecords" />
+            <End Role="tblNewScore" EntitySet="tblNewScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblNewScore_tblNewSubjectGeneral" Association="NewExamspurDBModel2.FK_tblNewScore_tblNewSubjectGeneral">
+            <End Role="tblNewSubjectGeneral" EntitySet="tblNewSubjectGenerals" />
+            <End Role="tblNewScore" EntitySet="tblNewScores" />
+          </AssociationSet>
+          <EntitySet Name="tblNewQuestions" EntityType="NewExamspurDBModel2.tblNewQuestion" />
+        </EntityContainer>
+        <EntityType Name="tblNewSubjectGeneral">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" />
+          <Property Name="NoOfQuestion" Type="Int32" />
+          <NavigationProperty Name="tblNewQuestionLists" Relationship="NewExamspurDBModel2.FK_tblNewQuestionList_tblNewSubjectGeneral" FromRole="tblNewSubjectGeneral" ToRole="tblNewQuestionList" />
+          <NavigationProperty Name="tblNewScores" Relationship="NewExamspurDBModel2.FK_tblNewScore_tblNewSubjectGeneral" FromRole="tblNewSubjectGeneral" ToRole="tblNewScore" />
+        </EntityType>
+        <EntityType Name="tblNewExamTaken">
+          <Key>
+            <PropertyRef Name="ExamTakenID" />
+          </Key>
+          <Property Name="ExamTakenID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="StartTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="EndTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="TimeUsed" Type="Int32" />
+          <Property Name="TotalTime" Type="Int32" />
+          <Property Name="ActiveSubject" Type="Int32" />
+          <Property Name="ExamMode" Type="Int32" />
+          <NavigationProperty Name="tblNewStudentRecord" Relationship="NewExamspurDBModel2.FK_tblNewExamTaken_tblNewStudentRecord" FromRole="tblNewExamTaken" ToRole="tblNewStudentRecord" />
+          <NavigationProperty Name="tblNewQuestionLists" Relationship="NewExamspurDBModel2.FK_tblNewQuestionList_tblNewExamTaken" FromRole="tblNewExamTaken" ToRole="tblNewQuestionList" />
+        </EntityType>
+        <EntityType Name="tblNewQuestionList">
+          <Key>
+            <PropertyRef Name="QuestionListID" />
+          </Key>
+          <Property Name="QuestionListID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionList" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TimeElapsed" Type="Int32" />
+          <Property Name="LastQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="ExamTakenID" Type="Int64" Nullable="false" />
+          <Property Name="CorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ChoosenAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IncorrectAnswerList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NoAttempted" Type="Int32" />
+          <Property Name="NoCorrect" Type="Int32" />
+          <Property Name="ExamID" Type="Int32" />
+          <NavigationProperty Name="tblNewExamTaken" Relationship="NewExamspurDBModel2.FK_tblNewQuestionList_tblNewExamTaken" FromRole="tblNewQuestionList" ToRole="tblNewExamTaken" />
+          <NavigationProperty Name="tblNewSubjectGeneral" Relationship="NewExamspurDBModel2.FK_tblNewQuestionList_tblNewSubjectGeneral" FromRole="tblNewQuestionList" ToRole="tblNewSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="tblNewScore">
+          <Key>
+            <PropertyRef Name="ScoreID" />
+          </Key>
+          <Property Name="ScoreID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamCode" Type="Int64" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="ExamID" Type="Int32" />
+          <NavigationProperty Name="tblNewStudentRecord" Relationship="NewExamspurDBModel2.FK_tblNewScore_tblNewStudentRecord" FromRole="tblNewScore" ToRole="tblNewStudentRecord" />
+          <NavigationProperty Name="tblNewSubjectGeneral" Relationship="NewExamspurDBModel2.FK_tblNewScore_tblNewSubjectGeneral" FromRole="tblNewScore" ToRole="tblNewSubjectGeneral" />
+        </EntityType>
+        <EntityType Name="tblNewStudentRecord">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentRef" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="Int32" />
+          <NavigationProperty Name="tblNewExamTakens" Relationship="NewExamspurDBModel2.FK_tblNewExamTaken_tblNewStudentRecord" FromRole="tblNewStudentRecord" ToRole="tblNewExamTaken" />
+          <NavigationProperty Name="tblNewScores" Relationship="NewExamspurDBModel2.FK_tblNewScore_tblNewStudentRecord" FromRole="tblNewStudentRecord" ToRole="tblNewScore" />
+          </EntityType>
+        <Association Name="FK_tblNewExamTaken_tblNewStudentRecord">
+          <End Type="NewExamspurDBModel2.tblNewStudentRecord" Role="tblNewStudentRecord" Multiplicity="1" />
+          <End Type="NewExamspurDBModel2.tblNewExamTaken" Role="tblNewExamTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewExamTaken">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewExamTaken">
+          <End Type="NewExamspurDBModel2.tblNewExamTaken" Role="tblNewExamTaken" Multiplicity="1" />
+          <End Type="NewExamspurDBModel2.tblNewQuestionList" Role="tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewExamTaken">
+              <PropertyRef Name="ExamTakenID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="ExamTakenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewQuestionList_tblNewSubjectGeneral">
+          <End Type="NewExamspurDBModel2.tblNewSubjectGeneral" Role="tblNewSubjectGeneral" Multiplicity="1" />
+          <End Type="NewExamspurDBModel2.tblNewQuestionList" Role="tblNewQuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewQuestionList">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewStudentRecord">
+          <End Type="NewExamspurDBModel2.tblNewStudentRecord" Role="tblNewStudentRecord" Multiplicity="1" />
+          <End Type="NewExamspurDBModel2.tblNewScore" Role="tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewStudentRecord">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblNewScore_tblNewSubjectGeneral">
+          <End Type="NewExamspurDBModel2.tblNewSubjectGeneral" Role="tblNewSubjectGeneral" Multiplicity="0..1" />
+          <End Type="NewExamspurDBModel2.tblNewScore" Role="tblNewScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNewSubjectGeneral">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="tblNewScore">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblNewQuestion">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OptionE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="HasImage" Type="Int32" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="NoOfOptions" Type="Int32" />
+          <Property Name="Trial" Type="Boolean" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="QuestionNumber" Type="Int64" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NewExamspurDBModelStoreContainer" CdmEntityContainer="NewExamspurDBEntities2">
+          <EntitySetMapping Name="tblNewSubjectGenerals">
+            <EntityTypeMapping TypeName="NewExamspurDBModel2.tblNewSubjectGeneral">
+              <MappingFragment StoreEntitySet="tblNewSubjectGeneral">
+                <ScalarProperty Name="NoOfQuestion" ColumnName="NoOfQuestion" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewExamTakens">
+            <EntityTypeMapping TypeName="NewExamspurDBModel2.tblNewExamTaken">
+              <MappingFragment StoreEntitySet="tblNewExamTaken">
+                <ScalarProperty Name="ExamMode" ColumnName="ExamMode" />
+                <ScalarProperty Name="ActiveSubject" ColumnName="ActiveSubject" />
+                <ScalarProperty Name="TotalTime" ColumnName="TotalTime" />
+                <ScalarProperty Name="TimeUsed" ColumnName="TimeUsed" />
+                <ScalarProperty Name="EndTimeStamp" ColumnName="EndTimeStamp" />
+                <ScalarProperty Name="StartTimeStamp" ColumnName="StartTimeStamp" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ExamTakenID" ColumnName="ExamTakenID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewQuestionLists">
+            <EntityTypeMapping TypeName="NewExamspurDBModel2.tblNewQuestionList">
+              <MappingFragment StoreEntitySet="tblNewQuestionList">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="NoCorrect" ColumnName="NoCorrect" />
+                <ScalarProperty Name="NoAttempted" ColumnName="NoAttempted" />
+                <ScalarProperty Name="IncorrectAnswerList" ColumnName="IncorrectAnswerList" />
+                <ScalarProperty Name="ChoosenAnswerList" ColumnName="ChoosenAnswerList" />
+                <ScalarProperty Name="CorrectAnswerList" ColumnName="CorrectAnswerList" />
+                <ScalarProperty Name="ExamTakenID" ColumnName="ExamTakenID" />
+                <ScalarProperty Name="LastQuestionID" ColumnName="LastQuestionID" />
+                <ScalarProperty Name="TimeElapsed" ColumnName="TimeElapsed" />
+                <ScalarProperty Name="QuestionList" ColumnName="QuestionList" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="QuestionListID" ColumnName="QuestionListID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewScores">
+            <EntityTypeMapping TypeName="NewExamspurDBModel2.tblNewScore">
+              <MappingFragment StoreEntitySet="tblNewScore">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="ExamCode" ColumnName="ExamCode" />
+                <ScalarProperty Name="ScoreID" ColumnName="ScoreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewStudentRecords">
+            <EntityTypeMapping TypeName="NewExamspurDBModel2.tblNewStudentRecord">
+              <MappingFragment StoreEntitySet="tblNewStudentRecord">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="PaymentRef" ColumnName="PaymentRef" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNewQuestions">
+            <EntityTypeMapping TypeName="NewExamspurDBModel2.tblNewQuestion">
+              <MappingFragment StoreEntitySet="tblNewQuestion">
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="Trial" ColumnName="Trial" />
+                <ScalarProperty Name="NoOfOptions" ColumnName="NoOfOptions" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="OptionE" ColumnName="OptionE" />
+                <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+                <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+                <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+                <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
